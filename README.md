@@ -1,5 +1,5 @@
 
-![Logo MediUpp](./resources/logo/MediUpp.webp)
+![Logo MediUpp](./resources/logo/Logo.png)
 
 
 # MediUpp: TFG DAW
