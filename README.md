@@ -9,7 +9,9 @@ Proyecto destinado a crear una aplicación web para la gestión de archivos mult
 ## Integrantes del grupo
 
 :round_pushpin: Marcos Almorox
+
 :round_pushpin: Sergio Cáceres 
+
 :round_pushpin: Samuel Macias
 
 ## Anteproyecto
