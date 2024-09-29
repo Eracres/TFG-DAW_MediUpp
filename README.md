@@ -25,7 +25,9 @@ Proyecto destinado a crear una aplicación web para la gestión de archivos mult
 
 En este paso seguiremos el proceso de contruccion de nuestro proyecto semana a semana:
 
-    ### :spiral_calendar: Semana 1: Diseño previo de la página y Estructura de BBDD
+  ### :spiral_calendar: Semana 1: Diseño previo de la página y Estructura de BBDD
+
+  `#0969DA`
 
     
 
