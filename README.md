@@ -19,7 +19,7 @@ Proyecto destinado a crear una aplicación web para la gestión de archivos mult
 
 ## :bookmark_tabs: Anteproyecto
 
-[Anteproyecto](./docs/anteproyecto/Anteproyecto_Marcos_Almorox_Sergio_Caceres_Samuel_Macias.pdf)
+[PDF Anteproyecto](./docs/anteproyecto/Anteproyecto_Marcos_Almorox_Sergio_Caceres_Samuel_Macias.pdf)
 
 ## :date: Seguimiento de tareas
 
@@ -27,10 +27,9 @@ En este paso seguiremos el proceso de contruccion de nuestro proyecto semana a s
 
   ### :spiral_calendar: Semana 1: Diseño previo de la página y Estructura de BBDD
 
-  ´#0969DA´
-  `#0969DA`
 
-    
+    `#0969DA`
+    ´#0969DA´
 
 Repositorio para Trabajo Fin de Grado
 
