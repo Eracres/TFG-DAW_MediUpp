@@ -17,7 +17,7 @@ Proyecto destinado a crear una aplicación web para la gestión de archivos mult
 
 :round_pushpin: Samuel Macias
 
-## Anteproyecto
+## :file_cabinet: Anteproyecto
 
 [Anteproyecto](./docs/anteproyecto/Anteproyecto_Marcos_Almorox_Sergio_Caceres_Samuel_Macias.pdf)
 
