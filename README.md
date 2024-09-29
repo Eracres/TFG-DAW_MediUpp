@@ -1,4 +1,6 @@
-![Logo MediUpp] (resources/logo/MediUpp.webp)
+
+![Logo MediUpp](./resources/logo/MediUpp.webp)
+
 
 # MediUpp
 
