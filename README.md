@@ -27,6 +27,12 @@ En este paso seguiremos el proceso de contruccion de nuestro proyecto semana a s
 
   ### :spiral_calendar: - Semana 1: Diseño previo de la página y Estructura de BBDD
 
+  * Diseño basico de la web (Samuel & Sergio)
+
+      - Realizado con [Figma](https://www.figma.com/es-es/)
+    
+  * Base de datos relacional (Marcos)
+
   ### :spiral_calendar: - Semana 2: 
 
 
