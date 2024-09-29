@@ -27,7 +27,7 @@ En este paso seguiremos el proceso de contruccion de nuestro proyecto semana a s
 
   ### :spiral_calendar: Semana 1: Diseño previo de la página y Estructura de BBDD
 
-  `#0969DA`
+ '#0969DA'
 
     
 
