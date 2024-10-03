@@ -31,6 +31,7 @@ En este paso seguiremos el proceso de contruccion de nuestro proyecto semana a s
 
       - Diseño base --> Realizado con [Figma](https://www.figma.com/es-es/)
       - Paleta de colores 1 --> Realizado con [Coolors](https://coolors.co/ff6f3c-ff8643-ff9c4a-ffc857-f4f4f9-393e46)
+      - [Ejemplo de colores](./public/MediUpp.rar)
     
   * Base de datos relacional (Marcos)
 
