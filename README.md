@@ -30,7 +30,7 @@ En este paso seguiremos el proceso de contruccion de nuestro proyecto semana a s
   * Diseño basico de la web (Samuel & Sergio)
 
       - Diseño base --> Realizado con [Figma](https://www.figma.com/es-es/)
-      - Paleta de colores 1 --> Realizado con [Coolors 1](https://coolors.co/20fe7c-e524fa-22dbfa-232323-5a5a5a-919191-ffffff) [Coolors 1](https://coolors.co/ff6f3c-ffc857-4ecdc4-f4f4f9-393e46-177e89)
+      - Paleta de colores 1 --> Realizado con [Coolors 1](https://coolors.co/20fe7c-e524fa-22dbfa-232323-5a5a5a-919191-ffffff) [Coolors 2](https://coolors.co/ff6f3c-ffc857-4ecdc4-f4f4f9-393e46-177e89)
     
   * Base de datos relacional (Marcos)
 
