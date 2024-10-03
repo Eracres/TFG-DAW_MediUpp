@@ -29,7 +29,8 @@ En este paso seguiremos el proceso de contruccion de nuestro proyecto semana a s
 
   * Diseño basico de la web (Samuel & Sergio)
 
-      - Realizado con [Figma](https://www.figma.com/es-es/)
+      - Diseño base --> Realizado con [Figma](https://www.figma.com/es-es/)
+      - Paleta de colores --> Realizado con [Coolor](https://coolors.co/20fe7c-e524fa-22dbfa-232323-5a5a5a-919191-ffffff)
     
   * Base de datos relacional (Marcos)
 
