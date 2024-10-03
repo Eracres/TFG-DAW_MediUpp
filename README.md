@@ -34,6 +34,8 @@ En este paso seguiremos el proceso de contruccion de nuestro proyecto semana a s
     
   * Base de datos relacional (Marcos)
 
+      - Realizado con DBDesigner
+
   ### :spiral_calendar: - Semana 2: 
 
 
