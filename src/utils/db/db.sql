@@ -21,6 +21,7 @@ CREATE TABLE events (
     id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     type ENUM('General', 'Boda', 'Vacaciones') DEFAULT 'General',
+    location VARCHAR(255),
     start_date DATETIME,
     end_date DATETIME,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
