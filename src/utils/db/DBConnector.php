@@ -1,26 +1,18 @@
 <?php
-
-    // Conexión a la BBDD
+    // Singleton con la conexión a la BBDD
     class DBConnector {
-        private static $instance = null;
+        // Propiedades
         private $conn;
+        private $statement;
+        
+        private static $instance = null;
 
-        private $servername = "localhost";
-        private $username = "root";
-        private $password = "";
-        private $dbname = "tfg_mediupp_local";
-        private $port = "3306";
-        private $charset = "utf8";
+        // Modos de fetch como constantes
+        const FETCH_ALL = null;
+        const FETCH_ROW = null;
+        const FETCH_COLUMN = null;
 
-        private function __construct() {
-            try {
-                $dsn = "mysql:host=$this->servername;dbname=$this->dbname;charset=$this->charset;port=$this->port";
-                $this->conn = new PDO($dsn, $this->username, $this->password);
-                $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            } catch (PDOException $e) {
-                die("Error en la conexión a la base de datos: " . $e->getMessage());
-            }
-        }
+        private function __construct() { }
 
         public static function getInstance() {
             if (self::$instance === null) {
@@ -29,11 +21,67 @@
             return self::$instance;
         }
 
-        public function getConnection() {
-            return $this->conn;
+        public function initialize(
+            $db_name, 
+            $db_user  = 'root', 
+            $db_pass  = '1234',
+            $db_host  = 'localhost',
+            $engine   = 'mysql',
+            $port     = '3306',
+            $charset  = 'utf8', 
+            $options  = null
+        ) {
+            $conn_str = "$engine:host=$db_host;dbname=$db_name;charset=$charset;port=$port";
+
+            if ($options == null) {
+                $options = [
+                    PDO::ATTR_EMULATE_PREPARES => false,
+                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+                ];
+            }
+
+            try {
+                $this->conn = new PDO($conn_str, $db_user, $db_pass, $options);
+            } catch (PDOException $e) {
+                error_log($e->getMessage());
+                exit('No ha sido posible establecer la conexión a la BBDD');
+            }
+        }
+
+        function execute(string $query, ...$params) {
+            $this->statement = $this->conn->prepare($query);
+
+            if($params == null){
+                $this->statement->execute();
+                return;
+            }
+
+            if($params != null && is_array($params[0])) {
+                $parametros = $params[0]; // Si nos pasan un array lo usamos como parámetro
+            }
+
+            $this->statement->execute($parametros);
+        }
+
+        public function getData($fetch_type) {
+            switch ($fetch_type) {
+                case self::FETCH_ALL:
+                    return $this->statement->fetchAll(PDO::FETCH_ASSOC);
+                case self::FETCH_ROW:
+                    return $this->statement->fetch(PDO::FETCH_ASSOC);
+                case self::FETCH_COLUMN:
+                    return $this->statement->fetchColumn();
+                default:
+                    throw new InvalidArgumentException("Modo de fetch no válido: $fetch_type");
+            }
         }
 
         public function closeConnection() {
             $this->conn = null;
+        }
+
+        function __destruct(){
+            $this->closeConnection();
         }
     }
