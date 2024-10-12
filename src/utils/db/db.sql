@@ -8,10 +8,13 @@ DROP TABLE IF EXISTS content;
 DROP TABLE IF EXISTS posts;
 DROP TABLE IF EXISTS events;
 DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS tokens;
 
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
+    first_name VARCHAR(20) NOT NULL,
+    last_name VARCHAR(40) NOT NULL,
+    username VARCHAR(20) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
     pfp_src TEXT,
@@ -58,5 +61,13 @@ CREATE TABLE event_admins (
     user_id INT,
     PRIMARY KEY (event_id, user_id),
     FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+CREATE TABLE tokens (
+    token VARCHAR(255) PRIMARY KEY,
+    user_id INT NOT NULL,
+    expiry_date DATETIME NOT NULL,
+    consumed BOOLEAN NOT NULL DEFAULT FALSE,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );

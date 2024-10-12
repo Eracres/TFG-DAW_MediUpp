@@ -17,3 +17,19 @@
 
         return false;
     }
+
+    function logout() {
+        session_destroy();
+        unset($_SESSION['logged_user']);
+        //session_unset();
+    
+        if (isset($_COOKIE)) {
+            $cookie_value = $_COOKIE[COOKIE_REMEMBER_ME_NAME];
+            
+            consumeToken($cookie_value);
+            destroyCookie(COOKIE_REMEMBER_ME_NAME);
+        }
+
+        header("location: login.php");
+        exit;
+    }

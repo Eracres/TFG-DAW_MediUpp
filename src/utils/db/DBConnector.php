@@ -4,6 +4,7 @@
         // Propiedades
         private $conn;
         private $statement;
+        private $executed = false;
         
         private static $instance = null;
 
@@ -53,7 +54,7 @@
             $this->statement = $this->conn->prepare($query);
 
             if($params == null){
-                $this->statement->execute();
+                $this->executed = $this->statement->execute();
                 return;
             }
 
@@ -61,7 +62,7 @@
                 $parametros = $params[0]; // Si nos pasan un array lo usamos como parámetro
             }
 
-            $this->statement->execute($parametros);
+            $this->executed = $this->statement->execute($parametros);
         }
 
         public function getData($fetch_type) {
@@ -75,6 +76,10 @@
                 default:
                     throw new InvalidArgumentException("Modo de fetch no válido: $fetch_type");
             }
+        }
+
+        function getExecuted(){
+            return $this->executed;
         }
 
         public function closeConnection() {
