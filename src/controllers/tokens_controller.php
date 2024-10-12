@@ -1,6 +1,6 @@
 <?php
 
-require_once '../utils/init.php';
+    require_once '../utils/init.php';
 
     function generateToken() {
         return bin2hex(openssl_random_pseudo_bytes(DEFAULT_TOKEN_CHARACTER_COUNT));
