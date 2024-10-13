@@ -10,7 +10,7 @@
 
     // Función para verificar si hay una sesión iniciada y si no, verificar la cookie 'recuerdame' para setear la sesión
     function checkRememberMeCookie() {
-        if (!isset($_SESSION['user'])) {
+        if (!isset($_SESSION['logged_user'])) {
             // Si no hay sesión iniciada verificamos la cookie 'recuerdame'
             if (isset($_COOKIE[COOKIE_REMEMBER_ME_NAME])) {
                 $cookie_value = $_COOKIE[COOKIE_REMEMBER_ME_NAME];
@@ -18,7 +18,7 @@
                 $user_id = getUserIdByToken($cookie_value);
                 
                 if ($user_id !== null) {
-                    $_SESSION['user'] = getUserById($user_id);
+                    $_SESSION['logged_user'] = getUserById($user_id);
                 }
             }
         }

@@ -2,6 +2,19 @@
 
     require_once '../utils/init.php';
 
+    function getUserEvents($user_id) {
+        global $db;
+    
+        $query = "SELECT * 
+                FROM events e
+                INNER JOIN user_events ue ON e.id = ue.event_id
+                WHERE ue.user_id = ?";
+        $db->execute($query, [$user_id]);
+        $user_events = $db->getData(DBConnector::FETCH_ALL);
+
+        return $user_events;
+    }
+
     function addNewEvent($event_data) {
         global $db;
 
