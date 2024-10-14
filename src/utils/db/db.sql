@@ -17,7 +17,7 @@ CREATE TABLE users (
     username VARCHAR(20) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
-    pfp_src TEXT,
+    pfp_src TEXT
 );
 
 CREATE TABLE events (

@@ -1,7 +1,6 @@
 <!-- user_event_list.php -->
 <?php
-    $title = "Lista de Eventos";
-
+    $title = "Lista de eventos";
     ob_start();
 ?>
 
