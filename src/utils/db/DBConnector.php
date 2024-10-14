@@ -78,6 +78,10 @@
             }
         }
 
+        function getLastId(){
+            return $this->conn->lastInsertId();
+        }
+
         function getExecuted(){
             return $this->executed;
         }

@@ -2,11 +2,11 @@
 
     require_once '../../utils/init.php';
 
-    function login($username, $password) {
+    function login($username_or_email, $password) {
         global $db;
 
-        $query = "SELECT * FROM users WHERE username = ?";
-        $db->execute($query, [$username]);
+        $query = "SELECT * FROM users WHERE username = :identifier OR email = :identifier";
+        $db->execute($query, [":identifier" => $username_or_email]);
         $user = $db->getData(DBConnector::FETCH_ROW);
 
         if ($user && password_verify($password, $user['password'])) {
