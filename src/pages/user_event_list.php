@@ -1,15 +1,23 @@
 <!-- user_event_list.php -->
 <?php
+
+    require_once '../utils/init.php';
+
+    checkSession();
+
+    $logged_user_id = $_SESSION['logged_user']['id'];
+
+    $user_events = getUserEvents($logged_user_id);
+
     $title = "Lista de eventos";
     ob_start();
 ?>
 
 <div class="">
-
+    <?php include 'components/add-event_modal.php'; ?>
 
 </div>
 
 <?php
-    include 'components/add-event_modal.php';
     $content = ob_get_clean();
     include 'layout.php';

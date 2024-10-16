@@ -11,3 +11,7 @@
             exit();
         }
     }
+
+    function getLoggedUser() {
+        return $_SESSION['logged_user'];
+    }
