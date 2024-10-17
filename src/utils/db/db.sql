@@ -24,11 +24,17 @@ CREATE TABLE events (
     id INT AUTO_INCREMENT PRIMARY KEY,
     created_at DATE DEFAULT CURRENT_TIMESTAMP NOT NULL,
     title VARCHAR(255) NOT NULL,
-    type ENUM('General', 'Boda', 'Vacaciones') DEFAULT 'General',
+    event_type_id INT,
     location VARCHAR(255),
     start_date DATETIME NOT NULL,
     end_date DATETIME NOT NULL,
+    FOREIGN KEY (event_type_id) REFERENCES event_types(id) ON DELETE CASCADE,
     CONSTRAINT check_event_dates CHECK (start_date <= end_date)
+);
+
+CREATE TABLE event_types (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    type_name VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE posts (
@@ -71,3 +77,9 @@ CREATE TABLE tokens (
     consumed BOOLEAN NOT NULL DEFAULT FALSE,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
+
+INSERT INTO event_types (type_name) VALUES ('Boda');
+INSERT INTO event_types (type_name) VALUES ('Vacaciones');
+INSERT INTO event_types (type_name) VALUES ('Conferencia');
+INSERT INTO event_types (type_name) VALUES ('Cumpleaños');
+INSERT INTO event_types (type_name) VALUES ('Reunión');
