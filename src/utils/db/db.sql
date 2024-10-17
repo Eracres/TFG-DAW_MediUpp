@@ -20,6 +20,11 @@ CREATE TABLE users (
     pfp_src TEXT
 );
 
+INSERT INTO users (nombre, contrasena, email) VALUES 
+    ('Sergio', '$2y$10$VJ9.Et/J5hxZqJH0YrMOq.cHtDObk9vT/OP5bM7Fz3Gywwcd1H1QK', 'sergio.caceres@example.com'),
+    ('Marcos', '$2y$10$VJ9.Et/J5hxZqJH0YrMOq.cHtDObk9vT/OP5bM7Fz3Gywwcd1H1QK', 'marcos.almorox@example.com'),
+    ('Samuel', '$2y$10$VJ9.Et/J5hxZqJH0YrMOq.cHtDObk9vT/OP5bM7Fz3Gywwcd1H1QK', 'samuel.macias@example.com');
+
 CREATE TABLE events (
     id INT AUTO_INCREMENT PRIMARY KEY,
     created_at DATE DEFAULT CURRENT_TIMESTAMP NOT NULL,
