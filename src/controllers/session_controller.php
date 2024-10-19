@@ -12,6 +12,7 @@
         }
     }
 
+    // Obtenemos el usuario que ha iniciado sesión como un array asociativo
     function getLoggedUser() {
         return $_SESSION['logged_user'];
     }

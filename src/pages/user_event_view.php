@@ -8,19 +8,25 @@
     $current_event_id = $_GET['event_id'];
     $logged_user_id = $_SESSION['logged_user']['id'];
     
+    if (!canUserAccessEvent($logged_user_id, $current_event_id)) {
+        header('Location: ');
+        exit;
+    }
+
     $event_data = getEventData($current_event_id);
+    $participants = getEventParticipants($current_event_id);
+    $admins = getEventAdmins($current_event_id);
+
     $isAdmin = checkIfAdmin($current_event_id, $logged_user_id);
 
-    $title = "";
+    $title = $event_data['title'];
     ob_start();
 ?>
 
 <div class="">
     <section class="event-info">
         <div class="event-details">
-            <div class="event-title-func">
-                <h2 class="event-title"> <?= htmlspecialchars($event_data['title']); ?> </h2>
-            </div>
+            
 
         </div>
         <div class="event-participants"> 
@@ -50,7 +56,16 @@
             </div>
         </div>
         <div class="event-user-controls">
-
+            <div class="event-user-controls-container">
+                <div>
+                    <button class="event-left-button"> Salir del evento </button>
+                </div>
+                <?php if ($isAdmin): ?>
+                    <div>
+                        <button class="event-delete-button"> Eliminar evento </button>
+                    </div>
+                <?php endif; ?>
+            </div>
         </div>
     </section>
     <section class="event-content">

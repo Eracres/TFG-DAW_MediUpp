@@ -2,6 +2,7 @@
 
     require_once '../utils/init.php';
 
+    // Obtenemos todos los eventos que participa el usuario
     function getUserEvents($user_id) {
         global $db;
     
@@ -15,6 +16,7 @@
         return $user_events;
     }
 
+    // Crea un nuevo evento y asigna al usuario como administrador y participante al mismo tiempo
     function addNewEvent($event_data, $user_id) {
         global $db;
 

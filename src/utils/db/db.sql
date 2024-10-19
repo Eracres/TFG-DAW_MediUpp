@@ -20,21 +20,20 @@ CREATE TABLE users (
     pfp_src TEXT
 );
 
+INSERT INTO users (first_name, last_name, username, password, email, pfp_src) 
+VALUES ('Marcos', 'Almorox', 'malmorox', '$2y$10$t1A.8rwWep3rPp5zvCQ1DOyyw7ZALnglQYSl6/qHvU8Blt.hXflSy', 'malmorox@mediupp.es', '');
+
 CREATE TABLE events (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    created_at DATE DEFAULT CURRENT_TIMESTAMP NOT NULL,
     title VARCHAR(255) NOT NULL,
-    event_type_id INT,
+    created_at DATE DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    type ENUM('Default', 'Boda', 'Vacaciones') DEFAULT 'Default',
     location VARCHAR(255),
     start_date DATETIME NOT NULL,
     end_date DATETIME NOT NULL,
+    is_public BOOLEAN DEFAULT FALSE NOT NULL,
     FOREIGN KEY (event_type_id) REFERENCES event_types(id) ON DELETE CASCADE,
     CONSTRAINT check_event_dates CHECK (start_date <= end_date)
-);
-
-CREATE TABLE event_types (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    type_name VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE posts (
@@ -77,9 +76,3 @@ CREATE TABLE tokens (
     consumed BOOLEAN NOT NULL DEFAULT FALSE,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
-
-INSERT INTO event_types (type_name) VALUES ('Boda');
-INSERT INTO event_types (type_name) VALUES ('Vacaciones');
-INSERT INTO event_types (type_name) VALUES ('Conferencia');
-INSERT INTO event_types (type_name) VALUES ('Cumpleaños');
-INSERT INTO event_types (type_name) VALUES ('Reunión');

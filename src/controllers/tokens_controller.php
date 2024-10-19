@@ -6,6 +6,7 @@
         return bin2hex(openssl_random_pseudo_bytes(DEFAULT_TOKEN_CHARACTER_COUNT));
     }
 
+    // Obtener el ID de usuario a partir de un token
     function getUserIdByToken($token) {
         global $db;
     
