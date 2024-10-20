@@ -46,4 +46,10 @@ En este paso seguiremos el proceso de contruccion de nuestro proyecto semana a s
 
   ### :spiral_calendar: - Semana 2: 
 
+  * Desarrollo de página de Login (Sergio)
+
+  * Desarrollo de página de Registro de usuario (Samuel)
+
+  * Desarrollo de Singleton, base de datos y estructura de la base de datos (Marcos)
+
 
