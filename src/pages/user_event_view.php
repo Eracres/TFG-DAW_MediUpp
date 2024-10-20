@@ -26,7 +26,6 @@
 <div class="">
     <section class="event-info">
         <div class="event-details">
-            
 
         </div>
         <div class="event-participants"> 
@@ -44,7 +43,13 @@
                                     </div>
                                 </div>
                                 <div class="participant-col2">
-                                    <span class="participant-name"> <?= htmlspecialchars(trim($participant['first_name']) . ' ' . trim($participant['last_name'])); ?> </span>
+                                    <span class="participant-name"> 
+                                        <?php if ($participant['id'] == $logged_user_id): ?>
+                                            Tú
+                                        <?php else: ?>
+                                            <?= htmlspecialchars(trim($participant['username'])); ?>
+                                        <?php endif; ?> 
+                                    </span>
                                     <?php if (in_array($participant['id'], $admins)): ?>
                                         <span class="participant-admin"> <em> Administrador </em> </span>
                                     <?php endif; ?>

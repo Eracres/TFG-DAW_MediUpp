@@ -27,12 +27,11 @@ CREATE TABLE events (
     id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     created_at DATE DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    type ENUM('Default', 'Boda', 'Vacaciones') DEFAULT 'Default',
+    type ENUM('Default', 'Boda', 'Vacaciones') DEFAULT 'Default' NOT NULL,
     location VARCHAR(255),
     start_date DATETIME NOT NULL,
     end_date DATETIME NOT NULL,
     is_public BOOLEAN DEFAULT FALSE NOT NULL,
-    FOREIGN KEY (event_type_id) REFERENCES event_types(id) ON DELETE CASCADE,
     CONSTRAINT check_event_dates CHECK (start_date <= end_date)
 );
 
