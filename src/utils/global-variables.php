@@ -9,6 +9,9 @@
     // Define el tiempo de expiración predeterminado para tokens de recuperación de contraseña
     define('DEFAULT_RECOVERY_EMAIL_TOKEN_EXPIRATION_TIME', 15 * 60);
 
+    define('FALSE_VALUE', 0);
+    define('TRUE_VALUE', 1);
+
     define('TOKEN_NOT_CONSUMED_VALUE', 0);
     define('TOKEN_CONSUMED_VALUE', 1);
 
