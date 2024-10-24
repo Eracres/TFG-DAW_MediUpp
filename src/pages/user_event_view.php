@@ -47,7 +47,7 @@
                                         <?php if ($participant['id'] == $logged_user_id): ?>
                                             Tú
                                         <?php else: ?>
-                                            <?= htmlspecialchars(trim($participant['username'])); ?>
+                                            <?= htmlspecialchars(trim($participant['usern'])); ?>
                                         <?php endif; ?> 
                                     </span>
                                     <?php if (in_array($participant['id'], $admins)): ?>

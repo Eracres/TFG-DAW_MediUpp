@@ -17,7 +17,7 @@
     }
 
     // Crea un nuevo evento y asigna al usuario como administrador y participante al mismo tiempo
-    function addNewEvent($event_data, $user_id) {
+    function createNewEvent($event_data, $user_id) {
         global $db;
 
         $query = "INSERT INTO events (title, type, location, start_date, end_date) VALUES (?, ?, ?, ?, ?)";
@@ -28,16 +28,11 @@
             $event_data['start_date'],
             $event_data['end_date']
         ]);
-
         // Obtener el ID del evento recien creado
         $new_event_id = $db->getLastInsertId();
-
         // Añadir al usuario como administrador y participante del evento
-        $query = "INSERT INTO user_events (user_id, event_id) VALUES (?, ?)";
-        $db->execute($query, [$user_id, $new_event_id]);
-
-        $query = "INSERT INTO event_admins (event_id, user_id) VALUES (?, ?)";
-        $db->execute($query, [$new_event_id, $user_id]);
+        $query = "INSERT INTO user_events (user_id, event_id, is_admin) VALUES (?, ?, ?)";
+        $db->execute($query, [$user_id, $new_event_id, TRUE_VALUE]);
 
         return $db->getExecuted();
     }

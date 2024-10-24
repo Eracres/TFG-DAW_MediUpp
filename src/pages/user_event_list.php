@@ -8,6 +8,7 @@
     $logged_user_id = $_SESSION['logged_user']['id'];
 
     $user_events = getUserEvents($logged_user_id);
+    $public_events = getPublicEvents();
 
     $title = "Lista de eventos";
     ob_start();

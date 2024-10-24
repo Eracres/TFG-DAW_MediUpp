@@ -5,11 +5,11 @@
     function login($username_or_email, $password) {
         global $db;
 
-        $query = "SELECT * FROM users WHERE username = :identifier OR email = :identifier";
+        $query = "SELECT * FROM users WHERE usern = :identifier OR email = :identifier";
         $db->execute($query, [":identifier" => $username_or_email]);
         $user = $db->getData(DBConnector::FETCH_ROW);
 
-        if ($user && password_verify($password, $user['password'])) {
+        if ($user && password_verify($password, $user['passw'])) {
             $_SESSION['logged_user'] = $user;
 
             return true;

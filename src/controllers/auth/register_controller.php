@@ -7,15 +7,14 @@
 
         $hashed_password = password_hash($user_data['password'], PASSWORD_DEFAULT);
 
-        $query = "INSERT INTO users (first_name, last_name, username, password, email) VALUES (?, ?, ?, ?, ?)";
+        $query = "INSERT INTO users (first_name, last_name, usern, passw, email) VALUES (?, ?, ?, ?, ?)";
         $db->execute($query, [
-            $user_data['first_name'],
-            $user_data['last_name'],
-            $user_data['username'],
+            trim($user_data['first_name']),
+            trim($user_data['last_name']),
+            trim($user_data['username']),
             $hashed_password,
-            $user_data['email']
+            trim($user_data['email'])
         ]);
-
         // Retorna true si hace el insert y false si no lo hace
         return $db->getExecuted();
     }
