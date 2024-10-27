@@ -1,7 +1,7 @@
 
 
 <p align="center">
-  <img src="./resources/logo/Logo.png" alt="Logo MediUpp" width="300">
+  <img src="./resources/logo/MediUpp (final).png" alt="Logo MediUpp" width="300">
 </p>
 
 
