@@ -66,7 +66,29 @@
     // Remueve un usuario del evento
     function leftEvent($event_id, $user_id) {
         global $db;
-        
+
         $query = "DELETE FROM user_events WHERE event_id = ? AND user_id = ?";
         $db->execute($query, [$event_id, $user_id]);
+
+        $query = "SELECT COUNT(*) FROM user_events WHERE event_id = ?";
+        $db->execute($queryMembers, [$event_id]);
+        $remaining_members = $db->getData(DBConnector::FETCH_COLUMN);
+
+        if (remaining_members == 0) {
+            // Elimina el evento si no quedan miembros
+            deleteEvent($event_id);
+        } else {
+            // Verifica si quedan administradores en el evento
+            $query = "SELECT COUNT(*) FROM user_events WHERE event_id = ? AND is_admin = ?";
+            $db->execute($queryAdmins, [$event_id, TRUE_VALUE]);
+            $remaining_admins = $db->getData(DBConnector::FETCH_COLUMN);
+
+            if ($remaining_admins == 0) {
+                // Asigna como administrador al usuario que lleva más tiempo en el evento
+                $newAdminId = getUserWithLongestJoinDate($event_id);
+                if ($newAdminId) {
+                    assignAdminUser($event_id, $newAdminId);
+                }
+            }
+        }
     }

@@ -28,9 +28,27 @@
         return $db->getData(DBConnector::FETCH_COLUMN) > 0;
     }
 
-    function deleteEvent($event_id) {
+    function getUserWithLongestJoinDate($event_id) {
         global $db;
     
+        $query = "SELECT user_id 
+            FROM user_events 
+            WHERE event_id = ? 
+            ORDER BY join_date ASC 
+            LIMIT 1";
+        $db->execute($query, [$event_id]);
+        // Devuelve el id del usuario que lleva más tiempo en el evento
+        return $db->getData(DBConnector::FETCH_COLUMN);
+    }
+
+    function deleteEvent($event_id) {
+        global $db;
+        // Eliminar todas las filas en user_events relacionadas con el evento
+        $query = "DELETE FROM user_events WHERE event_id = ?";
+        $db->execute($query, [$event_id]);
+        // Eliminar el evento
         $query = "DELETE FROM events WHERE id = ?";
         $db->execute($query, [$event_id]);
+
+        return $db->getExecuted();
     }

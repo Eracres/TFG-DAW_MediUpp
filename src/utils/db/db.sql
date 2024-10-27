@@ -59,6 +59,7 @@ CREATE TABLE user_events (
     user_id INT NOT NULL,
     event_id INT NOT NULL,
     is_admin TINYINT(1) DEFAULT 0 NOT NULL CHECK (is_admin IN (0, 1)),
+    join_date DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
     PRIMARY KEY (user_id, event_id),
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE CASCADE
