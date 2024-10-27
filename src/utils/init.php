@@ -15,11 +15,12 @@
     });
     
     // Obtener una instancia única de la base de datos e inicializar la conexión
+    //! CAMBIAR CREDENCIALES
     $db = DBConnector::getInstance();
     $db->initialize(
         'tfg_mediupp_local',
-        'malmorox',
-        '1234'
+        'samuel',
+        'fritur4'
     );
 
     session_start();
