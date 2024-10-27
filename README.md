@@ -52,4 +52,12 @@ En este paso seguiremos el proceso de contruccion de nuestro proyecto semana a s
 
   * Desarrollo de Singleton, base de datos y estructura de la base de datos (Marcos)
 
+   ### :spiral_calendar: - Semana 3 y 4: 
+
+  * Desarrollo de página de Usuario (Sergio)
+
+  * Desarrollo de diagrama de la base de datos de la aplicación (Samuel)
+
+  * Desarrollo de base de datos, conexionado con la misma y funcionalidades de la app (Marcos)
+
 
