@@ -23,7 +23,7 @@ Proyecto destinado a crear una aplicación web para la gestión de archivos mult
 
 ## :chart_with_downwards_trend: Memoria
 
-[PDF Memoria](./docs/memoria/MediUpp.doc)
+[PDF Memoria](./docs/memoria/MediUpp.pdf)
 
 ## :date: Seguimiento de tareas
 
