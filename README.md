@@ -54,7 +54,7 @@ En este paso seguiremos el proceso de contruccion de nuestro proyecto semana a s
 
    ### :spiral_calendar: - Semana 3 y 4: 
 
-  * Desarrollo de página de Usuario (Sergio)
+  * Desarrollo de página de Usuario (Sergio), inicialización de la memoria del proyecto
 
   * Desarrollo de diagrama de la base de datos de la aplicación (Samuel)
 
