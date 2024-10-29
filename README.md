@@ -21,6 +21,10 @@ Proyecto destinado a crear una aplicación web para la gestión de archivos mult
 
 [PDF Anteproyecto](./docs/anteproyecto/Anteproyecto_Marcos_Almorox_Sergio_Caceres_Samuel_Macias.pdf)
 
+## :chart_with_downwards_trend: Memoria
+
+[PDF Memoria](./docs/memoria/MediUpp.doc)
+
 ## :date: Seguimiento de tareas
 
 En este paso seguiremos el proceso de contruccion de nuestro proyecto semana a semana:
