@@ -1,10 +1,88 @@
 <?php
 //require_once '../utils/db/DBConnector.php';
-require_once 'init.php'; // Asegúrate de incluir tu init.php
-
-
 // $CTR = "../../controllers/auth/register_controller.php";
+require_once '../../utils/init.php';
 
+
+
+try {
+    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    // Establecer el modo de errores de PDO en excepción
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    // Verificar si los datos se han enviado correctamente
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $first_name = trim($_POST['first_name']);
+        $last_name = trim($_POST['last_name']);
+        $usern = trim($_POST['usern']);
+        $passw = trim($_POST['passw']);
+        $email = trim($_POST['email']);
+
+        $repe_email = trim($_POST['repetir-email']);
+        $repe_clave = trim($_POST['repetir-clave']);
+
+
+
+        // Verificar si los campos están vacíos
+        if (empty($first_name) || empty($last_name) || empty($usern) || empty($passw) || empty($email)) {
+            die("Todos los campos son obligatorios."); //! Debe ser un p txt-error
+        }
+
+
+         // Verificar que email y repetir-email coincidan
+         if ($email !== $repe_email) {
+            die("Los emails no coinciden."); //! Debe ser un p txt-error
+        }
+
+        // Verificar que la contraseña y repetir-contraseña coincidan
+        if ($passw !== $repe_clave) {
+            die("Las contraseñas no coinciden."); //! Debe ser un p txt-error
+        }
+
+
+
+        // Verificar si el email tiene un formato válido
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            die("Formato de email no válido."); //! Debe ser un p txt-error
+        }
+
+        // Verificar si el usuario o el email ya existen en la base de datos
+        $sqlCheck = "SELECT COUNT(*) FROM users WHERE usern = :usern OR email = :email";
+        $stmtCheck = $conn->prepare($sqlCheck);
+        $stmtCheck->bindParam(':usern', $usern);
+        $stmtCheck->bindParam(':email', $email);
+        $stmtCheck->execute();
+        $existingUser = $stmtCheck->fetchColumn();
+
+        if ($existingUser > 0) {
+            die("El nombre de usuario o email ya están registrados."); //! Debe ser un p txt-error
+        }
+
+        // Hashear la contraseña
+        $hashedPassword = password_hash($passw, PASSWORD_DEFAULT);
+
+        // Insertar los datos del registro en la BD 
+        $sqlInsert = "INSERT INTO users (first_name, last_name, usern, passw, email) 
+                      VALUES (:first_name, :last_name, :usern, :passw, :email)";
+        $stmtInsert = $conn->prepare($sqlInsert);
+        $stmtInsert->bindParam(':first_name', $first_name);
+        $stmtInsert->bindParam(':last_name', $last_name);
+        $stmtInsert->bindParam(':usern', $usern);
+        $stmtInsert->bindParam(':passw', $hashedPassword);
+        $stmtInsert->bindParam(':email', $email);
+
+        if ($stmtInsert->execute()) {
+            echo "Registro exitoso."; //* Debe ser un p txt-success
+        } else {
+            echo "Error al registrar."; //! Debe ser un p txt-error
+        }
+    } else {
+        die("Método de solicitud no válido."); //DEBE ser un die
+    }
+
+} catch (PDOException $e) {
+    echo "Error de conexión: " . $e->getMessage();
+}
 
 
 ?>
@@ -101,7 +179,7 @@ require_once 'init.php'; // Asegúrate de incluir tu init.php
     <div class="formulario" id="register-form">
         <img src="" alt="LOGO">
 
-        <form action="register-controller.php" method="POST">
+        <form action="" method="POST">
             <div>
                 <label for="usuario">Nombre de usuario</label>
                 <input type="text" id="usuario" name="usuario">
