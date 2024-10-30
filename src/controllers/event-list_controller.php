@@ -1,6 +1,6 @@
 <?php
 
-    require_once '../utils/init.php';
+    require_once '../../utils/init.php';
 
     function getUserEvents($user_id) {
         global $db;

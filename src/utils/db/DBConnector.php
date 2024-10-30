@@ -15,6 +15,11 @@
 
         private function __construct() { }
 
+        public function getConnection() {
+            return $this->conn;
+        }
+        
+
         public static function getInstance() {
             if (self::$instance === null) {
                 self::$instance = new self();

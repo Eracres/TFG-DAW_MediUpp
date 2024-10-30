@@ -1,6 +1,6 @@
 <?php
 
-    require_once '../utils/init.php';
+    require_once '../../utils/init.php';
 
     function getUserById($user_id) {
         global $db;

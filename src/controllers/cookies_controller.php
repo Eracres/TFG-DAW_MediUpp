@@ -1,6 +1,6 @@
 <?php
 
-    require_once '../utils/init.php';
+    require_once '../../utils/init.php';
 
     // Función para destruir una cookie
     function destroyCookie($cookie_name) {

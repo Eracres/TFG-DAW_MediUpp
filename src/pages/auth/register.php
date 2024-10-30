@@ -1,49 +1,68 @@
 <?php
-//require_once '../utils/db/DBConnector.php';
-// $CTR = "../../controllers/auth/register_controller.php";
 require_once '../../utils/init.php';
 
+//*Display para errores en pantalla
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
+// var_dump($db); // Debe mostrar el objeto de la conexión, si no, error de conex.
 
+function printError($mensaje){
+    echo '<p class="text-red-600" style="color:red">'.$mensaje.'</p>';
+}
+
+//*Mensajes de error
+$error_vacio = $error_nombre = $error_usuario = $error_clave = $error_repetir_clave = $error_email = $error_repetir_email = "";
+$hay_errores = False;
 
 try {
-    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-    // Establecer el modo de errores de PDO en excepción
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $database1 = "tfg_mediupp_local";
+    $user1 = "samuel";
+    $pass1 = "fritur4";
+    $host1 = "localhost";
+    $port1 = "3306";
+    //TODO ^^^^^^ esto debería ser innecesario porque ya está hecho en el init ¿?------------------------------------------
+    // $db = DBConnector::getInstance();
+    $conn = $db->getConnection();
 
-    // Verificar si los datos se han enviado correctamente
+    // Inicializa la conexión
+    $db->initialize($database1, $user1, $pass1, $host1, "mysql", $port1, "utf8");
+
+    //Variable booleana para errores, si es True, no inserta
+
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $first_name = trim($_POST['first_name']);
-        $last_name = trim($_POST['last_name']);
-        $usern = trim($_POST['usern']);
-        $passw = trim($_POST['passw']);
-        $email = trim($_POST['email']);
+        // Procesar los datos del formulario
+        $first_name = trim($_POST['nombre']);
+        $last_name = trim($_POST['apellido']);
+        $usern = trim($_POST['usuario']);
+        $passw = trim($_POST['clave']);
+        $email = trim($_POST['correo']);
 
-        $repe_email = trim($_POST['repetir-email']);
+        $repe_email = trim($_POST['repetir-correo']);
         $repe_clave = trim($_POST['repetir-clave']);
 
-
-
-        // Verificar si los campos están vacíos
-        if (empty($first_name) || empty($last_name) || empty($usern) || empty($passw) || empty($email)) {
-            die("Todos los campos son obligatorios."); //! Debe ser un p txt-error
+        // Verificar si algún campo está vacío
+        if (empty($first_name) || empty($usern) || empty($passw) || empty($email)) {
+            $error_vacio = "Rellena los campos obligatorios.";
+            $hay_errores = True;
         }
 
-
-         // Verificar que email y repetir-email coincidan
-         if ($email !== $repe_email) {
-            die("Los emails no coinciden."); //! Debe ser un p txt-error
+        // Verificar que email y repe-email coincidan
+        if ($email !== $repe_email) {
+            $error_repetir_email = "Los emails no coinciden."; //! Debe ser un p txt-error
+            $hay_errores = True;
         }
 
-        // Verificar que la contraseña y repetir-contraseña coincidan
+        // Verificar que contraseña y repe-contraseña coincidan
         if ($passw !== $repe_clave) {
-            die("Las contraseñas no coinciden."); //! Debe ser un p txt-error
+            $error_repetir_clave = "Las contraseñas no coinciden."; //! Debe ser un p txt-error
+            $hay_errores = True;
         }
 
-
-
-        // Verificar si el email tiene un formato válido
+        // Verificar formato del email
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            die("Formato de email no válido."); //! Debe ser un p txt-error
+            $error_email = "Formato de email no válido."; //! Debe ser un p txt-error
+            $hay_errores = True;
         }
 
         // Verificar si el usuario o el email ya existen en la base de datos
@@ -55,29 +74,32 @@ try {
         $existingUser = $stmtCheck->fetchColumn();
 
         if ($existingUser > 0) {
-            die("El nombre de usuario o email ya están registrados."); //! Debe ser un p txt-error
+            $error_usuario = "El nombre de usuario o email ya están registrados."; //! Debe ser un p txt-error
+            $hay_errores = True;
         }
 
-        // Hashear la contraseña
-        $hashedPassword = password_hash($passw, PASSWORD_DEFAULT);
+        //Frenar la inserción si hay errores
+        if(!$hay_errores){
+                // Hashear la contraseña
+            $hashedPassword = password_hash($passw, PASSWORD_DEFAULT);
 
-        // Insertar los datos del registro en la BD 
-        $sqlInsert = "INSERT INTO users (first_name, last_name, usern, passw, email) 
-                      VALUES (:first_name, :last_name, :usern, :passw, :email)";
-        $stmtInsert = $conn->prepare($sqlInsert);
-        $stmtInsert->bindParam(':first_name', $first_name);
-        $stmtInsert->bindParam(':last_name', $last_name);
-        $stmtInsert->bindParam(':usern', $usern);
-        $stmtInsert->bindParam(':passw', $hashedPassword);
-        $stmtInsert->bindParam(':email', $email);
+            // Insertar los datos del registro en la BD 
+            $sqlInsert = "INSERT INTO users (first_name, last_name, usern, passw, email) 
+                        VALUES (:first_name, :last_name, :usern, :passw, :email)";
+            $stmtInsert = $conn->prepare($sqlInsert);
+            $stmtInsert->bindParam(':first_name', $first_name);
+            $stmtInsert->bindParam(':last_name', $last_name);
+            $stmtInsert->bindParam(':usern', $usern);
+            $stmtInsert->bindParam(':passw', $hashedPassword);
+            $stmtInsert->bindParam(':email', $email);
 
-        if ($stmtInsert->execute()) {
-            echo "Registro exitoso."; //* Debe ser un p txt-success
-        } else {
-            echo "Error al registrar."; //! Debe ser un p txt-error
+            if ($stmtInsert->execute()) {
+                echo "Registro exitoso."; //* Debe ser un p txt-success
+            } else {
+                die("Error al registrar"); //! Debe ser un p txt-error
+            }
         }
-    } else {
-        die("Método de solicitud no válido."); //DEBE ser un die
+        
     }
 
 } catch (PDOException $e) {
@@ -181,30 +203,46 @@ try {
 
         <form action="" method="POST">
             <div>
+                <label for="nombre">Nombre</label>
+                <input type="text" id="nombre" name="nombre" required value="<?php echo htmlspecialchars($_POST['nombre']); ?>">
+                <?php printError($error_vacio);?>
+            </div>
+            <div>
+                <label for="apellido">Apellido(s)</label>
+                <input type="text" id="apellido" name="apellido" value="<?php echo htmlspecialchars($_POST['apellido']); ?>">
+            </div>
+            <div>
                 <label for="usuario">Nombre de usuario</label>
-                <input type="text" id="usuario" name="usuario">
+                <input type="text" id="usuario" name="usuario" required value="<?php echo htmlspecialchars($_POST['usuario']); ?>">
+                <?php printError($error_usuario);?>
             </div>
             <div>
                 <label for="clave">Contraseña</label>
-                <input type="password" id="clave" name="clave">            
+                <input type="password" id="clave" name="clave" required value="<?php echo htmlspecialchars($_POST['clave']); ?>">
+                <?php printError($error_clave);?>
+
 
             </div>
             <div>
                 <label for="repetir-clave">Confirmar contraseña</label>
-                <input type="password" id="repetir-clave" name="repetir-clave">            
+                <input type="password" id="repetir-clave" name="repetir-clave" required>    
+                <?php printError($error_repetir_clave);?>
 
             </div>
             <div>
-                <label for="email">Dirección de e-mail</label>
-                <input type="email" id="" name="email">            
+                <label for="correo">Dirección de e-mail</label>
+                <input type="email" id="correo" name="correo" required <?php echo htmlspecialchars($_POST['correo']); ?>>
+                <?php printError($error_email);?>
+
             </div>
             <div>
                 <label for="repetir-email">Confirmar E-mail</label>
-                <input type="email" id="" name="repetir-email">            
+                <input type="email" id="repetir-correo" name="repetir-correo" required>            
+                <?php printError($error_repetir_email);?>
 
             </div>
             <button type="submit" id="btn-enviar" name="enviar">Crear cuenta</button>            
-
+            <?php printError($error_vacio)?>
 
         </form>
 

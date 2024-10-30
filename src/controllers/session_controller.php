@@ -1,6 +1,6 @@
 <?php
 
-    require_once '../utils/init.php';
+    require_once '../../utils/init.php';
 
     function checkSession() {
         // Verificamos si hay cookie de recordar sesión presente y iniciariamos la sesión en caso de que exista
