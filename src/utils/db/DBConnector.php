@@ -9,9 +9,9 @@
         private static $instance = null;
 
         // Modos de fetch como constantes
-        const FETCH_ALL = null;
-        const FETCH_ROW = null;
-        const FETCH_COLUMN = null;
+        const FETCH_ALL = 'FETCH_ALL';
+        const FETCH_ROW = 'FETCH_ROW';
+        const FETCH_COLUMN = 'FETCH_COLUMN';
 
         private function __construct() { }
 

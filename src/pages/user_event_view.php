@@ -1,7 +1,7 @@
 <!-- user_event_view.php -->
 <?php
 
-    require_once '../utils/init.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/TFG-DAW_MediUpp/src/utils/init.php';
 
     checkSession();
 
@@ -9,7 +9,7 @@
     $logged_user_id = $_SESSION['logged_user']['id'];
     
     if (!canUserAccessEvent($logged_user_id, $current_event_id)) {
-        header('Location: ');
+        header('Location: user_event_list.php');
         exit;
     }
 

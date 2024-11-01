@@ -1,12 +1,12 @@
 <?php
 
-    require_once '../../utils/init.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/TFG-DAW_MediUpp/src/utils/init.php';
 
     function login($username_or_email, $password) {
         global $db;
 
-        $query = "SELECT * FROM users WHERE usern = :identifier OR email = :identifier";
-        $db->execute($query, [":identifier" => $username_or_email]);
+        $query = "SELECT * FROM users WHERE usern = ? OR email = ?";
+        $db->execute($query, array_pad([], 2, $username_or_email));
         $user = $db->getData(DBConnector::FETCH_ROW);
 
         if ($user && password_verify($password, $user['passw'])) {
@@ -30,6 +30,6 @@
             destroyCookie(COOKIE_REMEMBER_ME_NAME);
         }
 
-        header("location: login.php");
+        header("location: " . PAGES_DIR . "login.php");
         exit;
     }

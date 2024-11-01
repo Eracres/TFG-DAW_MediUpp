@@ -1,80 +1,66 @@
 <!-- login.php -->
 <?php
 
-require_once('init.php');
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/TFG-DAW_MediUpp/src/utils/init.php';
 
-if (isset($_SESSION['user'])) {
-    header("Location: index.php");
-    die();
-}
+    checkRememberMeCookie();
 
-// En futuros capítulos, intentaremos autentificar con cookie-token
-
-$errores = [];
-$usuario = "";
-$contrasena = "";
-
-// Si se está enviando
-if (isset($_POST['enviar'])) {
-    // Cargo datos
-    $usuario = isset($_POST['nombre']) ? $_POST['nombre'] : null;
-    $contrasena = isset($_POST['contrasena']) ? $_POST['contrasena'] : null;
-
-    // Verifico errores
-    if (empty($usuario) || empty($contrasena)) {
-        $errores = "Campos obligatorios";
+    if (isset($_SESSION['logged_user'])) {
+        header("Location: " . PAGES_DIR . "user_event_list.php");
+        exit();
     }
 
-    // Si no hay errores
-    if (empty($errores)) {
-        // Accion
-        $db->execute("SELECT * FROM users WHERE username = :username", [':username' => $usuario]);
+    $errores = [];
+    $usuario = "";
+    $contrasena = "";
 
-        $aAVerificar = $db->getData(DBConnector::FETCH_ROW);
+    // Si se está enviando
+    if (isset($_POST['enviar'])) {
+        // Cargo datos
+        $usuario = isset($_POST['nombre']) ? $_POST['nombre'] : null;
+        $contrasena = isset($_POST['contrasena']) ? $_POST['contrasena'] : null;
 
-        if ($aAVerificar && password_verify($contrasena, $aAVerificar['userpass'])) {
-            $_SESSION['user'] = $aAVerificar['username'];
+        // Verifico errores
+        if (empty($usuario) || empty($contrasena)) {
+            $errores = "Campos obligatorios";
+        }
 
-            // Si se marca la opción "recuérdame"
-            if (isset($_POST['recuerdame'])) {
-                // Generar token
-                $token = bin2hex(random_bytes(DEFAULT_TOKEN_CHARACTER_COUNT));
-                $date = new DateTime();
-                $date->add(new DateInterval('P7D')); // Expiración en 7 días
+        // Si no hay errores
+        if (empty($errores)) {
+            if (login($usuario, $contrasena)) {
+                if (isset($_POST['recuerdame'])) {
+                    // Generar token
+                    $token = generateToken();
+                    $user_id = $_SESSION['logged_user']['id'];
+    
+                    saveToken($token, $user_id, TOKEN_TYPE_REMEMBER_ME);
 
-                // Guardar en BB.DD
-                $db->execute(
-                    "INSERT INTO tokens (token, user_id, expiry_date, consumed) VALUES (:token, :user_id, :expiry_date, :consumed)",
-                    [
-                        ':token' => $token,
-                        ':user_id' => $aAVerificar['id'],
-                        ':expiry_date' => $date->format("Y-m-d H:i:s"),
-                        ':consumed' => TOKEN_NOT_CONSUMED_VALUE
-                    ]
-                );
-
-                // Poner cookie en el cliente
-                setcookie(COOKIE_REMEMBER_ME_NAME, $token, time() + DEFAULT_REMEMBER_ME_TOKEN_EXPIRATION_TIME);
+                    setcookie(COOKIE_REMEMBER_ME_NAME, $token, time() + DEFAULT_REMEMBER_ME_TOKEN_EXPIRATION_TIME);
+                }
+                
+                header("Location: ../user_event_list.php");
+                exit();
+            } else {
+                $errores = "Credenciales incorrectas";
             }
-
-            // Redirigir al área privada
-            header("Location: privada.php");
-            die();
-        } else {
-            $errores = "Credenciales incorrectas";
         }
     }
-}
 
-// Pintar formulario con datos
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title> Iniciar sesión | MediUpp </title>
+    <meta name="description" content="MediUpp es una aplicación web para la organización de todo tipo de eventos">
+    <meta name="author" content="Samuel Macias">
+    <meta name="author" content="Sergio Cáceres">
+    <meta name="author" content="Marcos Almorox">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="style.css"> 
+    <script defer src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
         .error {
             color: red;
@@ -83,8 +69,8 @@ if (isset($_POST['enviar'])) {
     </style>
 </head>
 <body>
-    <div>
-        <div>
+    <div class="">
+        <div class="">
             <h1> Inicio de sesión </h1>
             <form action="" method="post">
                 <input type="text" class="<?php echo (!empty($errores)) ? 'error' : ''; ?>" name="nombre" placeholder="Usuario" value="<?= htmlspecialchars($usuario) ?>"><br><br>
@@ -96,7 +82,6 @@ if (isset($_POST['enviar'])) {
                 <input type="submit" name="enviar" value="Login">
             </form>
         </div>
-        
     </div>
 </body>
 </html>

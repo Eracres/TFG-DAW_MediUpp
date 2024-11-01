@@ -1,6 +1,6 @@
 <?php
 
-    require_once '../utils/init.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/TFG-DAW_MediUpp/src/utils/init.php';
 
     // Obtiene los datos del evento
     function getEventData($event_id) {

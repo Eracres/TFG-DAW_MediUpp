@@ -12,7 +12,7 @@ DROP TABLE IF EXISTS tokens;
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     first_name VARCHAR(20) NOT NULL,
-    last_name VARCHAR(40) NOT NULL,
+    last_name VARCHAR(40),
     usern VARCHAR(20) NOT NULL UNIQUE,
     passw VARCHAR(255) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
@@ -21,6 +21,10 @@ CREATE TABLE users (
 
 INSERT INTO users (first_name, last_name, usern, passw, email, pfp_src) 
 VALUES ('Marcos', 'Almorox', 'malmorox', '$2y$10$t1A.8rwWep3rPp5zvCQ1DOyyw7ZALnglQYSl6/qHvU8Blt.hXflSy', 'malmorox@mediupp.es', '');
+INSERT INTO users (first_name, last_name, usern, passw, email, pfp_src) 
+VALUES ('Samuel', 'Macias', 'smacias', '$2y$10$yUBkHQfKhJlMDek0wxOm.uII0CIGr1Uzf/WO6ymtqBew8liGhJCn6', 'smacias@mediupp.es', '');
+INSERT INTO users (first_name, last_name, usern, passw, email, pfp_src)
+VALUES ('Sergio', 'Cáceres', 'scaceres', '$2y$10$O3L7jmSn6INjJYiW0rhK4e73rZFM2MheMt7mu39tEXMvO9TdJXsQa', 'scaceres@mediupp.es', '');
 
 CREATE TABLE events (
     id INT AUTO_INCREMENT PRIMARY KEY,

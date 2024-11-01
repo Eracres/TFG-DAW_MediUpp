@@ -16,4 +16,4 @@
     define('TOKEN_CONSUMED_VALUE', 1);
 
     define('COOKIE_REMEMBER_ME_NAME', 'remember_me');
-    define('COOKIE_EXPIRATION_TIME', -(3600));
+    define('COOKIE_EXPIRATION_TIME', -3600);
