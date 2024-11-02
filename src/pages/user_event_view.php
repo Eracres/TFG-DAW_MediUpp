@@ -5,10 +5,10 @@
 
     checkSession();
 
-    $current_event_id = $_GET['event_id'];
+    $current_event_id = urldecode((int)$_GET['event_id']);
     $logged_user_id = $_SESSION['logged_user']['id'];
     
-    if (!canUserAccessEvent($logged_user_id, $current_event_id)) {
+    if (!canUserAccessEvent($current_event_id, $logged_user_id)) {
         header('Location: user_event_list.php');
         exit;
     }
@@ -17,7 +17,11 @@
     $participants = getEventParticipants($current_event_id);
     $admins = getEventAdmins($current_event_id);
 
-    $isAdmin = checkIfAdmin($current_event_id, $logged_user_id);
+    $isAdmin = checkIfAdmin($logged_user_id, $current_event_id);
+    if ($isAdmin) {
+        $event_creator_id = $admins[0];
+        $isCreator = ($logged_user_id == $event_creator_id);
+    }
 
     $title = trim($event_data['title']);
     ob_start();
@@ -51,16 +55,13 @@
                         <span id="event-type"><?= htmlspecialchars($event_data['type']); ?></span>
                     </div>
                     <div class="event-field event-location">
-                        <p id="event-location"><?= htmlspecialchars($event_data['location']); ?></p>
+                        <span id="event-location"><?= htmlspecialchars($event_data['location']); ?></span>
                         <?php if ($isAdmin): ?>
                             <button class="edit-btn" data-field="location">E</button>
                         <?php endif; ?>
                     </div>
                     <div class="event-date event-field">
-                        <p id="event-date"><?= htmlspecialchars($event_data['date']); ?></p>
-                        <?php if ($isAdmin): ?>
-                            <button class="edit-btn" data-field="date">E</button>
-                        <?php endif; ?>
+                        <span id="event-date"><?= htmlspecialchars($event_data['created_at']); ?></span>
                     </div>
                 </div>
             </div>
@@ -101,7 +102,7 @@
                     <div>
                         <button class="event-left-button"> Salir del evento </button>
                     </div>
-                    <?php if ($isAdmin): ?>
+                    <?php if (isset($isCreator) && $isCreator): ?>
                         <div>
                             <button class="event-delete-button"> Eliminar evento </button>
                         </div>
@@ -117,4 +118,4 @@
 
 <?php
     $content = ob_get_clean();
-    include 'layout.php';
+    include PARTIALS_DIR . 'layout.php';

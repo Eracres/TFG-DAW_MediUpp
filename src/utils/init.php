@@ -18,7 +18,7 @@
     }
 
     define('DB_CLASS_PATH', dirname(__FILE__) . '/db/');
-    // Autoload para cargar automáticamente las clases desde el directorio de base de datos
+    // Autoload para cargar automáticamente la clase de base de datos
     spl_autoload_register(function ($class) {
         require DB_CLASS_PATH . $class . '.php';
     });

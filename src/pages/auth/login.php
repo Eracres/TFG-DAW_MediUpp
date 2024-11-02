@@ -6,30 +6,31 @@
     checkRememberMeCookie();
 
     if (isset($_SESSION['logged_user'])) {
-        header("Location: " . PAGES_DIR . "user_event_list.php");
+        header("Location: ../user_event_list.php");
         exit();
     }
 
-    $errores = [];
-    $usuario = "";
-    $contrasena = "";
+    $log_errors = [];
 
-    // Si se está enviando
-    if (isset($_POST['enviar'])) {
-        // Cargo datos
-        $usuario = isset($_POST['nombre']) ? $_POST['nombre'] : null;
-        $contrasena = isset($_POST['contrasena']) ? $_POST['contrasena'] : null;
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['send'])) {
+        // Obtengo los datos del formulario
+        $usern_or_email = isset($_POST['usern_or_email']) ? trim($_POST['usern_or_email']) : null;
+        $password = isset($_POST['password']) ? trim($_POST['password']) : null;
+        $remember_me = isset($_POST['remember_me']) ? true : false;
 
-        // Verifico errores
-        if (empty($usuario) || empty($contrasena)) {
-            $errores = "Campos obligatorios";
+        // Compruebo que los campos no estén vacíos
+        if (empty($usern_or_email) && empty($password)) {
+            $log_errors['empty-fields'] = "Campos obligatorios";
+        } else if (empty($usern_or_email)) {
+            $log_errors['empty-username'] = "Usuario vacío";
+        } else if (empty($password)) {
+            $log_errors['empty-password'] = "Contraseña vacía";
         }
 
         // Si no hay errores
-        if (empty($errores)) {
-            if (login($usuario, $contrasena)) {
-                if (isset($_POST['recuerdame'])) {
-                    // Generar token
+        if (empty($log_errors)) {
+            if (login($usern_or_email, $password)) {
+                if ($remember_me) {
                     $token = generateToken();
                     $user_id = $_SESSION['logged_user']['id'];
     
@@ -41,7 +42,7 @@
                 header("Location: ../user_event_list.php");
                 exit();
             } else {
-                $errores = "Credenciales incorrectas";
+                $log_errors['wrong-credentials'] = "Credenciales incorrectas";
             }
         }
     }
@@ -73,13 +74,13 @@
         <div class="">
             <h1> Inicio de sesión </h1>
             <form action="" method="post">
-                <input type="text" class="<?php echo (!empty($errores)) ? 'error' : ''; ?>" name="nombre" placeholder="Usuario" value="<?= htmlspecialchars($usuario) ?>"><br><br>
-                <input type="password" class="<?php echo (!empty($errores)) ? 'error' : ''; ?>" name="contrasena" placeholder="Contraseña"><br><br>
+                <input type="text" class="<?php echo (!empty($errores)) ? 'error' : ''; ?>" name="usern_or_email" placeholder="Usuario" value="<?= isset($usern_or_email) ? htmlspecialchars($usern_or_email) : "" ?>"><br><br>
+                <input type="password" class="<?php echo (!empty($errores)) ? 'error' : ''; ?>" name="password" placeholder="Contraseña"><br><br>
                 <?php if (!empty($errores)) { ?>
                     <span class="error"><?php echo $errores ?></span><br><br>
                 <?php } ?>
-                <input type="checkbox" name="recuerdame"> Recordar<br><br>
-                <input type="submit" name="enviar" value="Login">
+                <input type="checkbox" name="remember_me"> Recordar<br><br>
+                <input type="submit" name="send" value="Entrar">
             </form>
         </div>
     </div>

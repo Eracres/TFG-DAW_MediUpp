@@ -30,4 +30,4 @@
 
 <?php
     $content = ob_get_clean();
-    include $_SERVER['DOCUMENT_ROOT'] . '/TFG-DAW_MediUpp/src/partials/layout.php';
+    include PARTIALS_DIR . 'layout.php';
