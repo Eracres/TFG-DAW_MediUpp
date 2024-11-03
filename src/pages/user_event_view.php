@@ -51,9 +51,11 @@
                             <button class="edit-btn" data-field="title">E</button>
                         <?php endif; ?>
                     </div>
-                    <div class="event-field event-type">
-                        <span id="event-type"><?= htmlspecialchars($event_data['type']); ?></span>
-                    </div>
+                    <?php if (!empty($event_data['type'])): ?>
+                        <div class="event-field event-type">
+                            <span id="event-type"><?= EVENT_TYPE[$event_data['type']]; ?></span>
+                        </div>
+                    <?php endif; ?>
                     <div class="event-field event-location">
                         <span id="event-location"><?= htmlspecialchars($event_data['location']); ?></span>
                         <?php if ($isAdmin): ?>
@@ -99,11 +101,11 @@
             </div>
             <div class="event-user-controls">
                 <div class="event-user-controls-container">
-                    <div>
+                    <div class="">
                         <button class="event-left-button"> Salir del evento </button>
                     </div>
                     <?php if (isset($isCreator) && $isCreator): ?>
-                        <div>
+                        <div class="">
                             <button class="event-delete-button"> Eliminar evento </button>
                         </div>
                     <?php endif; ?>

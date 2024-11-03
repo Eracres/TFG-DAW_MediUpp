@@ -27,7 +27,7 @@
             $log_errors['empty-password'] = "Contraseña vacía";
         }
 
-        // Si no hay errores
+        // Si no hay errores en los campos, intento iniciar sesión
         if (empty($log_errors)) {
             if (login($usern_or_email, $password)) {
                 if ($remember_me) {

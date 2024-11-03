@@ -17,3 +17,11 @@
 
     define('COOKIE_REMEMBER_ME_NAME', 'remember_me');
     define('COOKIE_EXPIRATION_TIME', -3600);
+
+    define('EVENT_TYPE', [
+        'Wedding' => 'Boda',
+        'Vacation' => 'Vacaciones',
+        'Birthday' => 'Cumpleaños',
+        'Meeting' => 'Reunión',
+        'Graduation' => 'Graduación',
+    ]);

@@ -16,6 +16,25 @@
         return $user_events;
     }
 
+    function getPublicEvents() {
+        global $db;
+        // Obtemos el ID del usuario que está logueado
+        $user_id = $_SESSION['logged_user']['id'];
+    
+        $query = "SELECT * FROM events e
+                WHERE e.is_public = ?
+                AND e.id NOT IN (
+                    SELECT event_id
+                    FROM user_events
+                    WHERE user_id = ?
+                )";
+    
+        $db->execute($query, [TRUE_VALUE, $user_id]);
+        $public_events = $db->getData(DBConnector::FETCH_ALL);
+    
+        return $public_events;
+    }
+
     // Crea un nuevo evento y asigna al usuario como administrador y participante al mismo tiempo
     function createNewEvent($event_data, $user_id) {
         global $db;

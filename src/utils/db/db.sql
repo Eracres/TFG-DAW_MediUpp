@@ -30,7 +30,7 @@ CREATE TABLE events (
     id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    type ENUM('Default', 'Boda', 'Vacaciones') DEFAULT 'Default' NOT NULL,
+    type ENUM('Wedding', 'Vacation', 'Birthday', 'Meeting', 'Graduation'),
     location TEXT,
     start_date DATETIME NOT NULL,
     end_date DATETIME NOT NULL,
