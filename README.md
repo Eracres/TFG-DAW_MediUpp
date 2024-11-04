@@ -62,6 +62,6 @@ En este paso seguiremos el proceso de contruccion de nuestro proyecto semana a s
 
   * Desarrollo de diagrama de la base de datos de la aplicación (Samuel)
 
-  * Desarrollo de base de datos, conexionado con la misma y funcionalidades de la app (Marcos)
+  * Desarrollo de base de datos, conexión con la misma y funcionalidades de la app (Marcos)
 
 
