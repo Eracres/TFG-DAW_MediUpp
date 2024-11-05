@@ -12,6 +12,14 @@
         }
     }
 
+    // Redirige fuera de una página si ya hay sesión iniciada
+    function redirectIfLoggedIn() {
+        if (isset($_SESSION['logged_user'])) {
+            header("Location: " . PAGES_DIR . "home.php");
+            exit();
+        }
+    }
+
     // Obtenemos el usuario que ha iniciado sesión como un array asociativo
     function getLoggedUser() {
         return $_SESSION['logged_user'];
