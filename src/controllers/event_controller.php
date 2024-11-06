@@ -28,6 +28,32 @@
         return $db->getData(DBConnector::FETCH_COLUMN) > 0;
     }
 
+    function checkEventRemainingUsersAndAdmins($event_id) {
+        global $db;
+        
+        $query = "SELECT COUNT(*) FROM user_events WHERE event_id = ?";
+        $db->execute($query, [$event_id]);
+        $remaining_members = $db->getData(DBConnector::FETCH_COLUMN);
+
+        if ($remaining_members == 0) {
+            // Elimina el evento si no quedan miembros
+            deleteEvent($event_id);
+        } else {
+            // Verifica si quedan administradores en el evento
+            $query = "SELECT COUNT(*) FROM user_events WHERE event_id = ? AND is_admin = ?";
+            $db->execute($query, [$event_id, TRUE_VALUE]);
+            $remaining_admins = $db->getData(DBConnector::FETCH_COLUMN);
+
+            if ($remaining_admins == 0) {
+                // Asigna como administrador al usuario que lleva más tiempo en el evento
+                $newAdminId = getUserWithLongestJoinDate($event_id);
+                if ($newAdminId) {
+                    assignAdminUser($event_id, $newAdminId);
+                }
+            }
+        }
+    }
+
     function getUserWithLongestJoinDate($event_id) {
         global $db;
     

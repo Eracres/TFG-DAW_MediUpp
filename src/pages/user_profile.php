@@ -13,10 +13,10 @@
 
 <div class="">
     <div class="">
-        
+        <button id="logout-btn">Cerrar sesión</button>
     </div>
 </div>
 
 <?php
-$content = ob_get_clean();
-include PARTIALS_DIR . 'layout.php';
+    $content = ob_get_clean();
+    include PARTIALS_DIR . 'layout.php';
