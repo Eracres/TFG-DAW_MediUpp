@@ -119,5 +119,6 @@
 </div>
 
 <?php
+    $additional_scripts = ['js/event-view_script.js'];
     $content = ob_get_clean();
     include PARTIALS_DIR . 'layout.php';

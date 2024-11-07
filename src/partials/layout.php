@@ -24,5 +24,10 @@
 
         <?php include 'footer.php'; ?>
     </div>
+    <?php if (isset($additional_scripts) && is_array($additional_scripts)): ?>
+        <?php foreach ($additional_scripts as $script_src): ?>
+            <script src="<?= htmlspecialchars($script_src); ?>"></script>
+        <?php endforeach; ?>
+    <?php endif; ?>
 </body>
 </html>
