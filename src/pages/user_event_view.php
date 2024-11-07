@@ -31,7 +31,7 @@
     <div class="">
         <div class="">
             <button class="">
-                <i> </i>
+                <i class="fa-solid fa-house"></i>
             </button>
         </div>
         <div class="">

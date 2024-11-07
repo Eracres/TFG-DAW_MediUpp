@@ -62,12 +62,6 @@
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="style.css"> 
     <script defer src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <style>
-        .error {
-            color: red;
-            border-color: red;
-        }
-    </style>
 </head>
 <body>
     <div class="">

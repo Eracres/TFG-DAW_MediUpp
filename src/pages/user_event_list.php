@@ -16,15 +16,19 @@
 
 <div class="">
     <?php include COMPONENTS_DIR . 'add-event_modal.php'; ?>
+    <div class="">
+        <div class="">
 
-    <div>
-        <section>
+        </div>
+    </div>
+    <div class="">
+        <section class="">
             <?php if (empty($user_events)): ?>
-                <div>
-                    <span> No perteneces a ningún evento </span>
+                <div class="">
+                    <span class=""> No perteneces a ningún evento </span>
                 </div>
             <?php else: ?>
-                <div>
+                <div class="">
                     <?php
                         foreach ($user_events as $event) {
                             include COMPONENTS_DIR . 'user-event_card.php';
@@ -33,13 +37,13 @@
                 </div>
             <?php endif; ?>
         </section>
-        <section>
+        <section class="">
             <?php if (empty($public_events)): ?>
-                <div>
-                    <span> No hay eventos disponibles </span>
+                <div class="">
+                    <span class=""> No hay eventos disponibles </span>
                 </div>
             <?php else: ?>
-                <div>
+                <div class="">
                     <?php
                         foreach ($public_events as $event) {
                             include COMPONENTS_DIR . 'public-event_card.php';

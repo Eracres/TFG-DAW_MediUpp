@@ -10,7 +10,8 @@
     <meta name="author" content="Sergio Cáceres">
     <meta name="author" content="Marcos Almorox">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="style.css"> 
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script defer src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
