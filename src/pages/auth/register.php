@@ -1,5 +1,7 @@
 <?php
-require_once '../../utils/init.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/TFG-DAW_MediUpp/src/utils/init.php';
+
+redirectIfLoggedIn();
 
 //*Display para errores en pantalla
 // ini_set('display_errors', 1);
@@ -247,8 +249,6 @@ try {
         </form>
 
     </div>
-    
-    
 
 </body>
 </html>

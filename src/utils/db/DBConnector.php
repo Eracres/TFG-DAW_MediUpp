@@ -78,7 +78,7 @@
             }
         }
 
-        function getLastId(){
+        function getLastInsertId(){
             return $this->conn->lastInsertId();
         }
 

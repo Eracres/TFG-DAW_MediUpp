@@ -9,8 +9,19 @@
     // Define el tiempo de expiración predeterminado para tokens de recuperación de contraseña
     define('DEFAULT_RECOVERY_EMAIL_TOKEN_EXPIRATION_TIME', 15 * 60);
 
+    define('FALSE_VALUE', 0);
+    define('TRUE_VALUE', 1);
+
     define('TOKEN_NOT_CONSUMED_VALUE', 0);
     define('TOKEN_CONSUMED_VALUE', 1);
 
     define('COOKIE_REMEMBER_ME_NAME', 'remember_me');
-    define('COOKIE_EXPIRATION_TIME', -(3600));
+    define('COOKIE_EXPIRATION_TIME', -3600);
+
+    define('EVENT_TYPE', [
+        'Wedding' => 'Boda',
+        'Vacation' => 'Vacaciones',
+        'Birthday' => 'Cumpleaños',
+        'Meeting' => 'Reunión',
+        'Graduation' => 'Graduación',
+    ]);

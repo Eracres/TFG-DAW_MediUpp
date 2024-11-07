@@ -1,7 +1,8 @@
 <?php
 
-    require_once '../../utils/init.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/TFG-DAW_MediUpp/src/utils/init.php';
 
+    // Obtenemos todos los eventos que participa el usuario
     function getUserEvents($user_id) {
         global $db;
     
@@ -15,7 +16,27 @@
         return $user_events;
     }
 
-    function addNewEvent($event_data, $user_id) {
+    function getPublicEvents() {
+        global $db;
+        // Obtemos el ID del usuario que está logueado
+        $user_id = $_SESSION['logged_user']['id'];
+    
+        $query = "SELECT * FROM events e
+                WHERE e.is_public = ?
+                AND e.id NOT IN (
+                    SELECT event_id
+                    FROM user_events
+                    WHERE user_id = ?
+                )";
+    
+        $db->execute($query, [TRUE_VALUE, $user_id]);
+        $public_events = $db->getData(DBConnector::FETCH_ALL);
+    
+        return $public_events;
+    }
+
+    // Crea un nuevo evento y asigna al usuario como administrador y participante al mismo tiempo
+    function createNewEvent($event_data, $user_id) {
         global $db;
 
         $query = "INSERT INTO events (title, type, location, start_date, end_date) VALUES (?, ?, ?, ?, ?)";
@@ -26,16 +47,11 @@
             $event_data['start_date'],
             $event_data['end_date']
         ]);
-
         // Obtener el ID del evento recien creado
         $new_event_id = $db->getLastInsertId();
-
         // Añadir al usuario como administrador y participante del evento
-        $query = "INSERT INTO user_events (user_id, event_id) VALUES (?, ?)";
-        $db->execute($query, [$user_id, $new_event_id]);
-
-        $query = "INSERT INTO event_admins (event_id, user_id) VALUES (?, ?)";
-        $db->execute($query, [$new_event_id, $user_id]);
+        $query = "INSERT INTO user_events (user_id, event_id, is_admin) VALUES (?, ?, ?)";
+        $db->execute($query, [$user_id, $new_event_id, TRUE_VALUE]);
 
         return $db->getExecuted();
     }

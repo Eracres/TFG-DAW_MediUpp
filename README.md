@@ -1,5 +1,3 @@
-
-
 <p text-align="center">
   <img src="./resources/logo/Logo.png" alt="Logo MediUpp" width="300">
 </p>
@@ -20,6 +18,10 @@ Proyecto destinado a crear una aplicación web para la gestión de archivos mult
 ## :bookmark_tabs: Anteproyecto
 
 [PDF Anteproyecto](./docs/anteproyecto/Anteproyecto_Marcos_Almorox_Sergio_Caceres_Samuel_Macias.pdf)
+
+## :chart_with_downwards_trend: Memoria
+
+[PDF Memoria](./docs/memoria/MediUpp.pdf)
 
 ## :date: Seguimiento de tareas
 
@@ -51,5 +53,13 @@ En este paso seguiremos el proceso de contruccion de nuestro proyecto semana a s
   * Desarrollo de página de Registro de usuario (Samuel)
 
   * Desarrollo de Singleton, base de datos y estructura de la base de datos (Marcos)
+
+   ### :spiral_calendar: - Semana 3 y 4: 
+
+  * Desarrollo de página de Usuario, inicialización de la memoria del proyecto (Sergio)
+
+  * Desarrollo de diagrama de la base de datos de la aplicación (Samuel)
+
+  * Desarrollo de base de datos, conexión con la misma y funcionalidades de la app (Marcos)
 
 
