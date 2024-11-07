@@ -11,3 +11,16 @@
         
         return $user;
     }
+
+
+
+    function getEventsCreatedByUser(){
+        //funcion para mostrar los eventos en 'Eventos Creados' de la user_profile en los que el usuario es ADMIN (aunque no lo haya creado) 
+
+        global $db;
+        $query = "
+            SELECT * FROM 
+        ";
+
+
+    }
