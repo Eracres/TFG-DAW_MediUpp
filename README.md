@@ -1,7 +1,7 @@
 
 
 <p align="center">
-  <img src="./resources/logo/Logo.png" alt="Logo MediUpp" width="300">
+  <img src="./resources/logo/MediUpp (final).png" alt="Logo MediUpp" width="300">
 </p>
 
 
@@ -21,6 +21,10 @@ Proyecto destinado a crear una aplicación web para la gestión de archivos mult
 
 [PDF Anteproyecto](./docs/anteproyecto/Anteproyecto_Marcos_Almorox_Sergio_Caceres_Samuel_Macias.pdf)
 
+## :chart_with_downwards_trend: Memoria
+
+[PDF Memoria](./docs/memoria/MediUpp.pdf)
+
 ## :date: Seguimiento de tareas
 
 En este paso seguiremos el proceso de contruccion de nuestro proyecto semana a semana:
@@ -29,7 +33,7 @@ En este paso seguiremos el proceso de contruccion de nuestro proyecto semana a s
 
   * Diseño basico de la web (Samuel & Sergio)
 
-      - Diseño base --> Realizado con [Figma](https://www.figma.com/es-es/)
+      - Diseño base --> Realizado con [Figma](https://www.figma.com/design/qjY7Pn3NeF9KZHnm65uaQM/Untitled?node-id=0-1&node-type=canvas&t=N1LS2RYG27k9sXQg-0)
       - Paleta de colores --> Realizado con [Coolors](https://coolors.co/ff6f3c-ff8643-ff9c4a-ffc857-f4f4f9-393e46-2e2e2e)
       - Paletas de colores tematicas
           * [Boda](https://coolors.co/faf9f6-f4c2c2-eeddc2-d4af37-a3b899-e6e6e6)
@@ -45,5 +49,19 @@ En este paso seguiremos el proceso de contruccion de nuestro proyecto semana a s
       - Realizado con DBDesigner
 
   ### :spiral_calendar: - Semana 2: 
+
+  * Desarrollo de página de Login (Sergio)
+
+  * Desarrollo de página de Registro de usuario (Samuel)
+
+  * Desarrollo de Singleton, base de datos y estructura de la base de datos (Marcos)
+
+   ### :spiral_calendar: - Semana 3 y 4: 
+
+  * Desarrollo de página de Usuario, inicialización de la memoria del proyecto (Sergio)
+
+  * Desarrollo de diagrama de la base de datos de la aplicación (Samuel)
+
+  * Desarrollo de base de datos, conexión con la misma y funcionalidades de la app (Marcos)
 
 

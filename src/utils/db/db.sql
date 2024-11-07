@@ -1,7 +1,3 @@
-DROP DATABASE IF EXISTS tfg_mediupp_local;
-CREATE DATABASE IF NOT EXISTS tfg_mediupp_local;
-USE tfg_mediupp_local;
-
 DROP TABLE IF EXISTS user_events;
 DROP TABLE IF EXISTS chats;
 DROP TABLE IF EXISTS posts;
