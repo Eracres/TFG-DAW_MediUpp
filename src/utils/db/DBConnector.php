@@ -1,4 +1,14 @@
+<?php
+    // Singleton con la conexión a la BBDD
+    class DBConnector {
+        // Propiedades
+        private $conn;
+        private $statement;
+        private $executed = false;
+        
+        private static $instance = null;
 
+        // Modos de fetch como constantes
         const FETCH_ALL = 'FETCH_ALL';
         const FETCH_ROW = 'FETCH_ROW';
         const FETCH_COLUMN = 'FETCH_COLUMN';
