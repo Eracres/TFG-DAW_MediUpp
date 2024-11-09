@@ -1,1 +1,1 @@
-const addEventButton = document.querySelector(".add-event-button")
+const addEventBtn = document.querySelector(".add-event-button")

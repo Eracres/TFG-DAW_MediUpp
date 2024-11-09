@@ -15,19 +15,26 @@
 ?>
 
 <div class="">
-    <?php include COMPONENTS_DIR . 'add-event_modal.php'; ?>
     <div class="">
+        <button id="add-event-btn" data-action="add-event"> 
+            <i class="fa-solid fa-plus"></i> 
+            <span> Añadir evento </span>
+        </button>
+        <?php include COMPONENTS_DIR . 'add-event_modal.php'; ?>
         <div class="">
-
+            <button id="profile-btn" data-action="view-profile">
+                <i class="fa-solid fa-user"></i>
+                <span> Perfil </span>
+            </button>
+            <button id="logout-btn" data-action="logout">
+                <i class="fa-solid fa-door-open"></i>
+                <span> Cerrar sesión </span>
+            </button>
         </div>
     </div>
     <div class="">
         <section class="">
-            <?php if (empty($user_events)): ?>
-                <div class="">
-                    <span class=""> No perteneces a ningún evento </span>
-                </div>
-            <?php else: ?>
+            <?php if (!empty($user_events)): ?>
                 <div class="">
                     <?php
                         foreach ($user_events as $event) {
@@ -35,14 +42,14 @@
                         }
                     ?>
                 </div>
+            <?php else: ?>
+                <div class="">
+                    <span class=""> No perteneces a ningún evento </span>
+                </div>
             <?php endif; ?>
         </section>
         <section class="">
-            <?php if (empty($public_events)): ?>
-                <div class="">
-                    <span class=""> No hay eventos disponibles </span>
-                </div>
-            <?php else: ?>
+            <?php if (!empty($public_events)): ?>
                 <div class="">
                     <?php
                         foreach ($public_events as $event) {
@@ -50,12 +57,16 @@
                         }
                     ?>
                 </div>
+            <?php else: ?>
+                <div class="">
+                    <span class=""> No hay eventos disponibles </span>
+                </div>
             <?php endif; ?>
         </section>
     </div>
 </div>
 
 <?php
-    $additional_scripts = ['js/event-list_script.js'];
+    $additional_scripts = ['../js/auth/script.js'];
     $content = ob_get_clean();
     include PARTIALS_DIR . 'layout.php';

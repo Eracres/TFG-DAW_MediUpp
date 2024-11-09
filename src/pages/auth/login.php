@@ -74,7 +74,7 @@
                     <span class="error"><?php echo $errores ?></span><br><br>
                 <?php } ?>
                 <input type="checkbox" name="remember_me"> Recordar<br><br>
-                <input type="submit" name="send" value="Entrar">
+                <button type="submit" name="send" id=""> Entrar </button>
             </form>
         </div>
     </div>

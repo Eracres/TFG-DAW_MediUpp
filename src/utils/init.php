@@ -27,8 +27,8 @@
     $db = DBConnector::getInstance();
     $db->initialize(
         'tfg_mediupp_local',
-        'samuel',
-        'fritur4'
+        'malmorox',
+        '1234'
     );
 
     session_start();

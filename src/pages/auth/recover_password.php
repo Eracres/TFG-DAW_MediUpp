@@ -4,18 +4,18 @@
 
     redirectIfLoggedIn();
 
-    $errors = [];
+    $error = "";
 
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['send'])) {
         $recovery_email = isset($_POST['recovery_email']) ? trim($_POST['recovery_email']) : null;
 
-        if (empty($correo_recuperacion)) {
-            $errors['recovery_email'] = "Debes introducir tu correo de recuperación";
+        if (empty($recovery_email)) {
+            $error = "Debes introducir tu correo de recuperación";
         } elseif (!validateEmail($recovery_email)) {
-            $errors['recovery_email'] = "Debes introducir un correo válido";
+            $error = "Debes introducir un correo válido";
         }
 
-        if (empty($errors)) {
+        if (empty($error)) {
             
         }
     }
@@ -39,12 +39,12 @@
     <?php endif; ?>
     <form action="" method="post">
         <label for="correo_recuperacion"> Correo electrónico asociado a la cuenta: </label> <br>
-        <input type="email" name="correo_recuperacion"> <br>
+        <input type="email" name="recovery_email"> <br>
         <?php if (isset($mensaje_error)) : ?>
             <span class="error"> <?= $mensaje_error; ?> </span>
         <?php endif; ?> <br>
 
-        <input type="submit" name="enviar" value="ENVIAR CORREO">
+        <button type="submit" name="send" id=""> Enviar </button>
     </form>
 </body>
 </html>

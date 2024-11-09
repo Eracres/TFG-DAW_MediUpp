@@ -30,7 +30,7 @@
 <div class="">
     <div class="">
         <div class="">
-            <button class="">
+            <button id="">
                 <i class="fa-solid fa-house"></i>
             </button>
         </div>
@@ -102,11 +102,16 @@
             <div class="event-user-controls">
                 <div class="event-user-controls-container">
                     <div class="">
-                        <button class="event-left-button"> Salir del evento </button>
+                        <button class="event-left-button"> 
+                            <span> Salir del evento </span> 
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                        </button>
                     </div>
                     <?php if (isset($isCreator) && $isCreator): ?>
                         <div class="">
-                            <button class="event-delete-button"> Eliminar evento </button>
+                            <button class="event-delete-button"> 
+                                Eliminar evento 
+                            </button>
                         </div>
                     <?php endif; ?>
                 </div>
