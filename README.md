@@ -32,7 +32,7 @@ En este paso seguiremos el proceso de contruccion de nuestro proyecto semana a s
   * Diseño basico de la web (Samuel & Sergio)
 
       - Diseño base --> Realizado con [Figma](https://www.figma.com/design/qjY7Pn3NeF9KZHnm65uaQM/Untitled?node-id=0-1&node-type=canvas&t=N1LS2RYG27k9sXQg-0)
-      - Paleta de colores --> Realizado con [Coolors](https://coolors.co/ff6f3c-ff8643-ff9c4a-ffc857-f4f4f9-393e46-2e2e2e)
+      - Paleta de colores --> Realizado con [Coolors](https://coolors.co/f97316-ff6f3c-ff8643-ff9c4a-facc15-ffc857-f4f4f9-393e46-2e2e2e)
       - Paletas de colores tematicas
           * [Boda](https://coolors.co/faf9f6-f4c2c2-eeddc2-d4af37-a3b899-e6e6e6)
           * [Comunión](https://coolors.co/ffffff-b0e0e6-e6e6fa-daa520-c4d4a3-d3d3d3)
