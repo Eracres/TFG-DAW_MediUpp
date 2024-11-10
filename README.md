@@ -39,7 +39,7 @@ En este paso seguiremos el proceso de contruccion de nuestro proyecto semana a s
           * [Cumpleaños](https://coolors.co/ffd700-87cefa-ff69b4-ffa500-32cd32-ffffff)
           * [Ciencia Ficción](https://coolors.co/1c1c1c-00bfff-39ff14-8a2be2-ff4500-a9a9a9)
           * [Anime](https://coolors.co/ffb7c5-007fff-ffd700-c8a2c8-e32636-ffffff)
-          * [Fiesta](https://coolors.co/ffb7c5-007fff-ffd700-c8a2c8-e32636-ffffff)
+          * [Fiesta](https://coolors.co/0f52ba-ff1493-800080-00ffff-1a1a1d-ffd700)
       - [Ejemplo de colores](./public/MediUpp.rar)
     
   * Base de datos relacional (Marcos)
