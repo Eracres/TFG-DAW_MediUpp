@@ -6,7 +6,8 @@
     checkSession();
 
     $current_event_id = urldecode((int)$_GET['event_id']);
-    $logged_user_id = $_SESSION['logged_user']['id'];
+    $logged_user = $_SESSION['logged_user'];
+    $logged_user_id = $logged_user['id'];
     
     if (!canUserAccessEvent($current_event_id, $logged_user_id)) {
         header('Location: user_event_list.php');
@@ -126,4 +127,5 @@
 <?php
     $additional_scripts = ['js/event-view_script.js'];
     $content = ob_get_clean();
+
     include PARTIALS_DIR . 'layout.php';

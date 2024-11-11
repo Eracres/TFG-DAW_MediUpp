@@ -10,7 +10,7 @@
     function getUserIdByToken($token) {
         global $db;
     
-        $query = "SELECT user_id FROM tokens WHERE token = ? AND validity_date > NOW()";
+        $query = "SELECT user_id FROM tokens WHERE token = ? AND expiry_date > NOW()";
         $db->execute($query, [$token]);
         $user_id = $db->getData(DBConnector::FETCH_COLUMN);
         
@@ -34,7 +34,7 @@
 
         $expiration_date = date('Y-m-d H:i:s', time() + $expiration_time);
     
-        $query = "INSERT INTO tokens (token, user_id, validity_date, consumed) VALUES (?, ?, ?, ?)";
+        $query = "INSERT INTO tokens (token, user_id, expiry_date, consumed) VALUES (?, ?, ?, ?)";
         $db->execute($query, [$token, $user_id, $expiration_date, TOKEN_NOT_CONSUMED_VALUE]);
     }
 

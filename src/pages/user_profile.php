@@ -6,6 +6,7 @@
     checkSession();
 
     $logged_user = $_SESSION['logged_user'];
+    $logged_user_id = $logged_user['id'];
 
     $title = "Perfil de @" . trim($logged_user['usern']);
     ob_start();

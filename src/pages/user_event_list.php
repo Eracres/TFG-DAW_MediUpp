@@ -5,7 +5,8 @@
 
     checkSession();
 
-    $logged_user_id = $_SESSION['logged_user']['id'];
+    $logged_user = $_SESSION['logged_user'];
+    $logged_user_id = $logged_user['id'];
 
     $user_events = getUserEvents($logged_user_id);
     $public_events = getPublicEvents();
@@ -16,21 +17,36 @@
 
 <div class="">
     <div class="">
-        <button id="add-event-btn" data-action="add-event"> 
-            <i class="fa-solid fa-plus"></i> 
-            <span> Añadir evento </span>
-        </button>
-        <?php include COMPONENTS_DIR . 'add-event_modal.php'; ?>
         <div class="">
-            <button id="profile-btn" data-action="view-profile">
-                <i class="fa-solid fa-user"></i>
-                <span> Perfil </span>
-            </button>
-            <button id="logout-btn" data-action="logout">
-                <i class="fa-solid fa-door-open"></i>
-                <span> Cerrar sesión </span>
-            </button>
+            <div class="">
+                <img src="<?= $logged_user['pfp_src']; ?>" alt="Foto de perfil de @<?= $logged_user['usern']; ?>">
+            </div>
+            <div>
+                <span> @<?= $logged_user['usern']; ?> </span>
+                <span> </span>
+            </div>
         </div>
+        <div class="">
+            <div>
+                <button id="add-event-btn" data-action="add-event"> 
+                    <i class="fa-solid fa-plus"></i> 
+                    <span> Añadir evento </span>
+                </button>
+                <?php include COMPONENTS_DIR . 'add-event_modal.php'; ?>
+            </div>
+            <div class="">
+                <a href="user_profile.php">
+                    <button id="profile-btn" data-action="view-profile">
+                        <i class="fa-solid fa-user"></i>
+                        <span> Perfil </span>
+                    </button>
+                </a>
+                <button id="logout-btn" data-action="logout">
+                    <i class="fa-solid fa-door-open"></i>
+                    <span> Cerrar sesión </span>
+                </button>
+            </div>
+        </div>   
     </div>
     <div class="">
         <section class="">
@@ -69,4 +85,5 @@
 <?php
     $additional_scripts = ['../js/auth/script.js'];
     $content = ob_get_clean();
+
     include PARTIALS_DIR . 'layout.php';
