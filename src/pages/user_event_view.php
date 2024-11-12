@@ -20,8 +20,7 @@
 
     $isAdmin = checkIfAdmin($logged_user_id, $current_event_id);
     if ($isAdmin) {
-        $event_creator_id = $admins[0];
-        $isCreator = ($logged_user_id == $event_creator_id);
+        $isCreatorOrSuperAdmin = checkIfCreatorOrSuperAdmin($logged_user_id, $current_event_id);
     }
 
     $title = trim($event_data['title']);
@@ -91,7 +90,9 @@
                                             <?php endif; ?> 
                                         </span>
                                         <?php if (in_array($participant['id'], $admins)): ?>
-                                            <span class="participant-admin"> <em> Administrador </em> </span>
+                                            <div>
+                                                <span class="participant-admin"> <em> Administrador </em> </span>
+                                            </div>
                                         <?php endif; ?>
                                     </div>
                                 </div>
@@ -108,7 +109,7 @@
                             <i class="fa-solid fa-right-from-bracket"></i>
                         </button>
                     </div>
-                    <?php if (isset($isCreator) && $isCreator): ?>
+                    <?php if (isset($isCreatorOrSuperAdmin) && $isCreatorOrSuperAdmin): ?>
                         <div class="">
                             <button class="event-delete-button"> 
                                 Eliminar evento 

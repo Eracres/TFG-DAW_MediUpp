@@ -22,8 +22,8 @@
                 <img src="<?= $logged_user['pfp_src']; ?>" alt="Foto de perfil de @<?= $logged_user['usern']; ?>">
             </div>
             <div>
+                <span> <?= $logged_user['alias']; ?> </span>
                 <span> @<?= $logged_user['usern']; ?> </span>
-                <span> </span>
             </div>
         </div>
         <div class="">

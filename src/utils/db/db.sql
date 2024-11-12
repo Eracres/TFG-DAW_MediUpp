@@ -11,11 +11,12 @@ DROP TABLE IF EXISTS tokens;
 
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    first_name VARCHAR(20) NOT NULL,
-    last_name VARCHAR(40),
     usern VARCHAR(20) NOT NULL UNIQUE,
+    alias VARCHAR(30) NOT NULL,
+    bio TEXT,
     passw VARCHAR(255) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
+    oauth_provider VARCHAR(20),
     pfp_src TEXT
 );
 
@@ -29,13 +30,15 @@ VALUES ('Sergio', 'Cáceres', 'scaceres', '$2y$10$O3L7jmSn6INjJYiW0rhK4e73rZFM2M
 CREATE TABLE events (
     id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
+    description TEXT,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
     type ENUM('Wedding', 'Vacation', 'Birthday', 'Meeting', 'Graduation'),
     location TEXT,
     start_date DATETIME NOT NULL,
     end_date DATETIME NOT NULL,
+    created_by INT NOT NULL,
     is_public TINYINT(1) DEFAULT 0 NOT NULL CHECK (is_public IN (0, 1)),
-    rating TINYINT NOT NULL CHECK (rating BETWEEN 1 AND 10),
+    rating TINYINT(2) CHECK (rating BETWEEN 1 AND 10),
     CONSTRAINT check_event_dates CHECK (start_date <= end_date)
 );
 

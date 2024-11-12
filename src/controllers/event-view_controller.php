@@ -25,6 +25,23 @@
         return $db->getData(DBConnector::FETCH_COLUMN) == TRUE_VALUE;
     }
 
+    // Verifica si el usuario es creador o super administrador del evento
+    function checkIfCreatorOrSuperAdmin($user_id, $event_id) {
+        global $db;
+    
+        $query = "SELECT created_by FROM events WHERE id = ?";
+        $db->execute($query, [$event_id]);
+        $creator_id = $db->getData(DBConnector::FETCH_COLUMN);
+
+        if ($creator_id == $user_id) {
+            return true;
+        }
+
+        $admins = getEventAdmins($event_id);
+        
+        return !empty($admins) && $admins[0] == $user_id;
+    }
+
     // Obtiene los participantes del evento
     function getEventParticipants($event_id) {
         global $db;
