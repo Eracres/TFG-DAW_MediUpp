@@ -112,7 +112,8 @@
                     <?php if (isset($isCreatorOrSuperAdmin) && $isCreatorOrSuperAdmin): ?>
                         <div class="">
                             <button class="event-delete-button"> 
-                                Eliminar evento 
+                                <span> Eliminar evento </span>
+                                <i class="fa-solid fa-trash"></i>
                             </button>
                         </div>
                     <?php endif; ?>

@@ -5,7 +5,7 @@
     redirectIfLoggedIn();
 
     if (!isset($_GET['token']) || !validateToken($_GET['token'])) {
-        header("Location: login.php");
+        header("Location: " . PAGES_DIR ."login.php");
         exit();
     } else {
         $token = htmlspecialchars($_GET['token']);

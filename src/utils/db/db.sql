@@ -20,12 +20,12 @@ CREATE TABLE users (
     pfp_src TEXT
 );
 
-INSERT INTO users (first_name, last_name, usern, passw, email, pfp_src) 
-VALUES ('Marcos', 'Almorox', 'malmorox', '$2y$10$t1A.8rwWep3rPp5zvCQ1DOyyw7ZALnglQYSl6/qHvU8Blt.hXflSy', 'malmorox@mediupp.es', '');
-INSERT INTO users (first_name, last_name, usern, passw, email, pfp_src) 
-VALUES ('Samuel', 'Macias', 'smacias', '$2y$10$yUBkHQfKhJlMDek0wxOm.uII0CIGr1Uzf/WO6ymtqBew8liGhJCn6', 'smacias@mediupp.es', '');
-INSERT INTO users (first_name, last_name, usern, passw, email, pfp_src)
-VALUES ('Sergio', 'Cáceres', 'scaceres', '$2y$10$O3L7jmSn6INjJYiW0rhK4e73rZFM2MheMt7mu39tEXMvO9TdJXsQa', 'scaceres@mediupp.es', '');
+INSERT INTO users (usern, alias, bio, passw, email, pfp_src) 
+VALUES ('malmorox', 'MarcosAlmorox', 'Ejemplo de biografia 1', '$2y$10$t1A.8rwWep3rPp5zvCQ1DOyyw7ZALnglQYSl6/qHvU8Blt.hXflSy', 'malmorox@mediupp.es', '');
+INSERT INTO users (usern, alias, bio, passw, email, pfp_src) 
+VALUES ('smacias', 'SamuelMacias', 'Ejemplo de biografia 2', '$2y$10$yUBkHQfKhJlMDek0wxOm.uII0CIGr1Uzf/WO6ymtqBew8liGhJCn6', 'smacias@mediupp.es', '');
+INSERT INTO users (usern, alias, bio, passw, email, pfp_src) 
+VALUES ('scaceres', 'SergioCaceres', 'Ejemplo de biografia 3', '$2y$10$O3L7jmSn6INjJYiW0rhK4e73rZFM2MheMt7mu39tEXMvO9TdJXsQa', 'scaceres@mediupp.es', '');
 
 CREATE TABLE events (
     id INT AUTO_INCREMENT PRIMARY KEY,

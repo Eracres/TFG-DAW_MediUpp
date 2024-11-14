@@ -1,2 +1,6 @@
 .env
 node_modules/
+src/utils/vendor/
+src/utils/vendor/*
+src/utils/package.json
+src/utils/package.lock

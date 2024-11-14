@@ -4,8 +4,6 @@
 
     redirectIfLoggedIn();
 
-    $error = "";
-
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['send'])) {
         $recovery_email = isset($_POST['recovery_email']) ? trim($_POST['recovery_email']) : null;
 
