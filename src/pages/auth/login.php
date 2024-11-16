@@ -4,11 +4,7 @@
     require_once $_SERVER['DOCUMENT_ROOT'] . '/TFG-DAW_MediUpp/src/utils/init.php';
 
     checkRememberMeCookie();
-
-    if (isset($_SESSION['logged_user'])) {
-        header("Location: ../user_event_list.php");
-        exit();
-    }
+    redirectIfLoggedIn();
 
     $log_errors = [];
 

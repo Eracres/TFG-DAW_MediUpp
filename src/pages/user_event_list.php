@@ -11,6 +11,8 @@
     $user_events = getUserEvents($logged_user_id);
     $public_events = getPublicEvents();
 
+    $user_event_ids = array_column($user_events, 'id');
+
     $title = "Lista de eventos";
     ob_start();
 ?>
@@ -68,7 +70,24 @@
             <?php if (!empty($public_events)): ?>
                 <div class="">
                     <?php
+                        $public_events_not_joined = [];
+                        $public_events_joined = [];
+
                         foreach ($public_events as $event) {
+                            if (in_array($event['id'], $user_event_ids)) {
+                                $public_events_joined[] = $event;
+                            } else {
+                                $public_events_not_joined[] = $event;
+                            }
+                        }
+
+                        foreach ($public_events_not_joined as $event) {
+                            $event['is_disabled'] = false;
+                            include COMPONENTS_DIR . 'public-event_card.php';
+                        }
+
+                        foreach ($public_events_joined as $event) {
+                            $event['is_disabled'] = true;
                             include COMPONENTS_DIR . 'public-event_card.php';
                         }
                     ?>

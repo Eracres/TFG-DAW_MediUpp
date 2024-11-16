@@ -29,7 +29,14 @@
         }
 
         if (empty($errors)) {
-            
+            $success = resetPasswordWithToken($token, $new_password);
+
+            if ($success) {
+                header("Location: " . PAGES_DIR . "auth/login.php");
+                exit();
+            } else {
+                $errors['reset_failed'] = "Error al restablecer la contraseña. Inténtalo de nuevo.";
+            }
         }
     }
 

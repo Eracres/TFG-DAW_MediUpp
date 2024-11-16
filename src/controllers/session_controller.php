@@ -15,7 +15,7 @@
     // Redirige fuera de una página si ya hay sesión iniciada
     function redirectIfLoggedIn() {
         if (isset($_SESSION['logged_user'])) {
-            header("Location: ");
+            header("Location: " . PAGES_DIR . "user_event_list.php");
             exit();
         }
     }
