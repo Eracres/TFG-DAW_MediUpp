@@ -23,6 +23,9 @@
         $isCreatorOrSuperAdmin = checkIfCreatorOrSuperAdmin($logged_user_id, $current_event_id);
     }
 
+    $media_posts = getEventPosts($current_event_id);
+    $chat_messages = getEventChatMessages($current_event_id);
+
     $title = trim($event_data['title']);
     ob_start();
 ?>

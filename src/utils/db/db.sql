@@ -32,7 +32,7 @@ CREATE TABLE events (
     title VARCHAR(255) NOT NULL,
     description TEXT,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    type ENUM('Wedding', 'Vacation', 'Birthday', 'Meeting', 'Graduation'),
+    type ENUM('wedding', 'vacation', 'birthday', 'meeting', 'graduation'),
     location TEXT,
     start_date DATETIME NOT NULL,
     end_date DATETIME NOT NULL,
@@ -45,21 +45,21 @@ CREATE TABLE events (
 CREATE TABLE posts (
     id INT AUTO_INCREMENT PRIMARY KEY,
     event_id INT NOT NULL,
-    user_id INT NOT NULL,
+    sender_id INT NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
     file_src TEXT NOT NULL,
     FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE CASCADE,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+    FOREIGN KEY (sender_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 CREATE TABLE chats (
     id INT AUTO_INCREMENT PRIMARY KEY,
     event_id INT NOT NULL,
-    user_id INT NOT NULL,
+    sender_id INT NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
     message TEXT NOT NULL,
     FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE CASCADE,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+    FOREIGN KEY (sender_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 CREATE TABLE user_events (

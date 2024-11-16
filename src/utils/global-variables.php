@@ -19,9 +19,9 @@
     define('COOKIE_EXPIRATION_TIME', -3600);
 
     define('EVENT_TYPE', [
-        'Wedding' => 'Boda',
-        'Vacation' => 'Vacaciones',
-        'Birthday' => 'Cumpleaños',
-        'Meeting' => 'Reunión',
-        'Graduation' => 'Graduación',
+        'wedding' => 'Boda',
+        'vacation' => 'Vacaciones',
+        'birthday' => 'Cumpleaños',
+        'meeting' => 'Reunión',
+        'graduation' => 'Graduación',
     ]);
