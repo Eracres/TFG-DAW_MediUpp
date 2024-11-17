@@ -1,7 +1,7 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/TFG-DAW_MediUpp/src/utils/init.php';
 
-redirectIfLoggedIn();
+// &redirectIfLoggedIn();
 
 //*Display para errores en pantalla
 // ini_set('display_errors', 1);
@@ -9,9 +9,9 @@ redirectIfLoggedIn();
 // error_reporting(E_ALL);
 // var_dump($db); // Debe mostrar el objeto de la conexión, si no, error de conex.
 
-function printError($mensaje){
-    echo '<p class="text-red-600" style="color:red">'.$mensaje.'</p>';
-}
+    //& function printError($mensaje){
+    //     echo '<p class="text-red-600" style="color:red">'.$mensaje.'</p>';
+    // }
 
 //*Mensajes de error
 $error_vacio = $error_nombre = $error_usuario = $error_clave = $error_repetir_clave = $error_email = $error_repetir_email = "";
@@ -23,9 +23,8 @@ try {
     $pass1 = "fritur4";
     $host1 = "localhost";
     $port1 = "3306";
-    //TODO ^^^^^^ esto debería ser innecesario porque ya está hecho en el init ¿?------------------------------------------
-    // $db = DBConnector::getInstance();
-    $conn = $db->getConnection();
+    //^ Samu: ^^^^^^ esto es sólo para MI CASO DE USO, en caso real: llamar a la función $db->initialize() vacía  ?------------------------------------------
+    $conn = $db->getInstance();
 
     // Inicializa la conexión
     $db->initialize($database1, $user1, $pass1, $host1, "mysql", $port1, "utf8");
@@ -51,32 +50,34 @@ try {
 
         // Verificar que email y repe-email coincidan
         if ($email !== $repe_email) {
-            $error_repetir_email = "Los emails no coinciden."; //! Debe ser un p txt-error
+            $error_repetir_email = "Los emails no coinciden."; 
             $hay_errores = True;
         }
 
         // Verificar que contraseña y repe-contraseña coincidan
         if ($passw !== $repe_clave) {
-            $error_repetir_clave = "Las contraseñas no coinciden."; //! Debe ser un p txt-error
+            $error_repetir_clave = "Las contraseñas no coinciden."; 
             $hay_errores = True;
         }
 
         // Verificar formato del email
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $error_email = "Formato de email no válido."; //! Debe ser un p txt-error
+            $error_email = "Formato de email no válido."; 
             $hay_errores = True;
         }
 
         // Verificar si el usuario o el email ya existen en la base de datos
-        $sqlCheck = "SELECT COUNT(*) FROM users WHERE usern = :usern OR email = :email";
-        $stmtCheck = $conn->prepare($sqlCheck);
-        $stmtCheck->bindParam(':usern', $usern);
-        $stmtCheck->bindParam(':email', $email);
-        $stmtCheck->execute();
-        $existingUser = $stmtCheck->fetchColumn();
+        //^PROCESO ESTÁNDAR PARA QUERIES USANDO DBConnector (71-77)
+        $queryCheck = "SELECT COUNT(*) FROM users WHERE usern = :usern OR email = :email";
+        $queryCheckParams = [
+            ':usern' => $usern,
+            ':email' => $email,
+        ];
+        $db->execute($queryCheck, $queryCheckParams);
+        $existingUser = $db->getData(DBConnector::FETCH_COLUMN);
 
         if ($existingUser > 0) {
-            $error_usuario = "El nombre de usuario o email ya están registrados."; //! Debe ser un p txt-error
+            $error_usuario = "El nombre de usuario o email ya están registrados."; 
             $hay_errores = True;
         }
 
@@ -86,19 +87,37 @@ try {
             $hashedPassword = password_hash($passw, PASSWORD_DEFAULT);
 
             // Insertar los datos del registro en la BD 
-            $sqlInsert = "INSERT INTO users (first_name, last_name, usern, passw, email) 
+            $queryInsert = "INSERT INTO users (first_name, last_name, usern, passw, email) 
                         VALUES (:first_name, :last_name, :usern, :passw, :email)";
-            $stmtInsert = $conn->prepare($sqlInsert);
-            $stmtInsert->bindParam(':first_name', $first_name);
-            $stmtInsert->bindParam(':last_name', $last_name);
-            $stmtInsert->bindParam(':usern', $usern);
-            $stmtInsert->bindParam(':passw', $hashedPassword);
-            $stmtInsert->bindParam(':email', $email);
+            
+            $queryInsertParams = [
+                ':first_name' => $first_name,
+                ':last_name' => $last_name,
+                ':passw' => $hashedPassword,
+                ':usern' => $usern,
+                ':email' => $email,
+                
+            ];
+            $usuario_registrado = $db->execute($queryInsert, $queryInsertParams);
+            $nuevo_usuario = $db->getData(DBConnector::FETCH_ALL);
+            
+            // & $stmtInsert->bindParam(':first_name', $first_name);
 
-            if ($stmtInsert->execute()) {
+            $db->execute($queryInsert, $queryInsertParams);
+            $usuario_registrado = $db->getExecuted();
+
+
+            if ($usuario_registrado) {
                 echo "Registro exitoso."; //* Debe ser un p txt-success
+                echo ''.$usuario_registrado.'';
             } else {
-                die("Error al registrar"); //! Debe ser un p txt-error
+                die("Error al registrar ---->".$usuario_registrado); //DIE con redirect de 1s
+                echo "<script>
+                    setTimeout(function() {
+                        window.location.href = 'PAGES_DIR'.'login.php';
+                    }, 1000);
+                    </script>
+                    ";
             }
         }
         
