@@ -14,7 +14,25 @@
         }
 
         if (empty($error)) {
+            $token = generarToken();
+
+            $valid_user_id = getUserIdByEmail($recovery_email);
             
+            if ($valid_user_id) {
+                saveToken($token, $valid_user_id, TOKEN_TYPE_RECOVERY_PASSWORD);
+            } 
+
+            $recovery_link = "http://localhost/TFG-DAW_MediUpp/src/auth/reset_password.php?token=$token";
+            $recovery_email_subject = "Recupera tu contraseña con MediUpp";
+            $recovery_email_body = COMPONENTS_DIR . "/email_templates/recovery_password_email.php";
+
+            $sending_success = sendEmail($recovery_email, $recovery_email_subject, $recovery_email_body);
+
+            if ($sending_success) {
+
+            } else {
+                
+            }
         }
     }
 

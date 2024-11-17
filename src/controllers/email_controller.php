@@ -11,7 +11,7 @@
         return filter_var($email, FILTER_VALIDATE_EMAIL) !== false;
     }
 
-    function sendEmail($email, $body) {
+    function sendEmail($email, $subject, $body) {
         $mail = new PHPMailer(true);
 
         try {
@@ -27,8 +27,8 @@
             $mail->CharSet = 'UTF-8';
             $mail->setFrom('', '');
             $mail->addAddress($email, '');
-            $mail->Subject = 'Recupera tu contraseña con MediUpp';
-            $mail->Body = '';
+            $mail->Subject = $subject;
+            $mail->Body = $body;
 
             $mail->send();
             return true;

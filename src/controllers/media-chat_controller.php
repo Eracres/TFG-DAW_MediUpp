@@ -12,12 +12,14 @@
         return $posts;
     }
 
-
     // Enviar mensaje
     function sendMessage($sender_id, $event_id, $message) {
         global $db;
 
-        
+        $query = "INSERT INTO chats (sender_id, event_id, message) VALUES (?, ?, ?)";
+        $db->execute($query, [$sender_id, $event_id, $message]);
+        // Cuando se inserta se actualiza al instante los mensajes del chat por AJAX
+        return $db->getExecuted();
     }
 
     // Obtener mensajes del chat de un evento

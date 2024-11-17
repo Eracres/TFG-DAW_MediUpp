@@ -124,7 +124,19 @@
             </div>
         </section>
         <section class="event-content">
-
+            <div class="event-content-header">
+                <button class="toggle-section-btn" data-target="media-section">
+                    <i class="fa-solid fa-photo-film"></i> 
+                    <span> Media </span>
+                </button>
+                <button class="toggle-section-btn" data-target="chat-section">
+                    <i class="fa-solid fa-comments"></i>
+                    <span> Chat </span>
+                </button>
+            </div>
+            <div class="event-dynamic-content" id="dynamic-content">
+                <!-- El contenido se cargará aquí -->
+            </div>
         </section>
     </div>
 </div>

@@ -12,6 +12,16 @@
         return $user;
     }
 
+    function getUserIdByEmail($email) {
+        global $db;
+        
+        $query = "SELECT id FROM users WHERE email = ?";
+        $db->execute($query, [$email]);
+        $user_id = $db->getData(DBConnector::FETCH_COLUMN);
+        
+        return $user_id;
+    }
+
     function changePassword($user_id, $new_password) {
         global $db;
 
