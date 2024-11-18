@@ -39,13 +39,16 @@
     function createNewEvent($event_data, $user_id) {
         global $db;
 
-        $query = "INSERT INTO events (title, type, location, start_date, end_date) VALUES (?, ?, ?, ?, ?)";
+        $query = "INSERT INTO events (title, description, type, location, start_date, end_date, created_by, is_public) VALUES (?, ?, ?, ?, ?)";
         $db->execute($query, [
             $event_data['title'],
+            $event_data['description'],
             $event_data['type'],
             $event_data['location'],
             $event_data['start_date'],
-            $event_data['end_date']
+            $event_data['end_date'],
+            $user_id,
+            $event_data['is_public']
         ]);
         // Obtener el ID del evento recien creado
         $new_event_id = $db->getLastInsertId();

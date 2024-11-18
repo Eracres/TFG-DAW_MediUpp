@@ -30,6 +30,6 @@
             destroyCookie(COOKIE_REMEMBER_ME_NAME);
         }
 
-        header("location: " . PAGES_DIR . "login.php");
+        header("Location: " . PAGES_DIR . "login.php");
         exit;
     }
