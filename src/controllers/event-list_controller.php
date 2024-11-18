@@ -19,7 +19,7 @@
     function getPublicEvents() {
         global $db;
         // Obtemos el ID del usuario que está logueado
-        $user_id = $_SESSION['logged_user']['id'];
+        $user_id = getLoggedUser()['id'];
     
         $query = "SELECT * FROM events e
                 WHERE e.is_public = ?

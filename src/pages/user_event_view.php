@@ -6,7 +6,7 @@
     checkSession();
 
     $current_event_id = urldecode((int)$_GET['event_id']);
-    $logged_user = $_SESSION['logged_user'];
+    $logged_user = getLoggedUser();
     $logged_user_id = $logged_user['id'];
     
     if (!canUserAccessEvent($current_event_id, $logged_user_id)) {

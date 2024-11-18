@@ -14,7 +14,7 @@
         }
 
         if (empty($error)) {
-            $token = generarToken();
+            $token = generateToken();
 
             $valid_user_id = getUserIdByEmail($recovery_email);
             

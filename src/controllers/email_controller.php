@@ -3,6 +3,7 @@
     require_once $_SERVER['DOCUMENT_ROOT'] . '/TFG-DAW_MediUpp/src/utils/init.php';
 
     use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\SMTP;
     use PHPMailer\PHPMailer\Exception;
 
     require UTILS_DIR . 'vendor/autoload.php';
@@ -28,6 +29,7 @@
             $mail->setFrom('', '');
             $mail->addAddress($email, '');
             $mail->Subject = $subject;
+            $mail->isHTML(true);
             $mail->Body = $body;
 
             $mail->send();

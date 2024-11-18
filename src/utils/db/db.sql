@@ -48,6 +48,7 @@ CREATE TABLE posts (
     sender_id INT NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
     file_src TEXT NOT NULL,
+    reactions JSON,
     FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE CASCADE,
     FOREIGN KEY (sender_id) REFERENCES users(id) ON DELETE CASCADE
 );

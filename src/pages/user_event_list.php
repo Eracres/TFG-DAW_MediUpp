@@ -5,7 +5,7 @@
 
     checkSession();
 
-    $logged_user = $_SESSION['logged_user'];
+    $logged_user = getLoggedUser();
     $logged_user_id = $logged_user['id'];
 
     $user_events = getUserEvents($logged_user_id);
