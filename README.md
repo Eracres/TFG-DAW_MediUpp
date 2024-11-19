@@ -35,7 +35,7 @@ En este paso seguiremos el proceso de contruccion de nuestro proyecto semana a s
       - Paleta de colores --> Realizado con [Coolors](https://coolors.co/f97316-ff6f3c-ff8643-ff9c4a-facc15-ffc857-f4f4f9-393e46-2e2e2e)
       - Paletas de colores tematicas
           * [Boda](https://coolors.co/faf9f6-e6e6e6-f4c2c2-b0c4de-eeddc2-d4af35-a3b899-5a5a5a-2e2e2e)
-          * [Comunión](https://coolors.co/ffffff-b0e0e6-e6e6fa-daa520-c4d4a3-d3d3d3)
+          * [Comunión](https://coolors.co/ffffff-b0e0e6-e6e6fa-e4ba4e-c4d4a3-d3d3d3-2e2e2e)
           * [Cumpleaños](https://coolors.co/ffd700-87cefa-ff69b4-ffa500-32cd32-ffffff)
           * [Ciencia Ficción](https://coolors.co/1c1c1c-00bfff-39ff14-8a2be2-ff4500-a9a9a9)
           * [Anime](https://coolors.co/ffb7c5-007fff-ffd700-c8a2c8-e32636-ffffff)
