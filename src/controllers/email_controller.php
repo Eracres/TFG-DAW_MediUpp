@@ -22,7 +22,7 @@
             $mail->SMTPAuth = false;
             $mail->Username = '';
             $mail->Password = '';
-            $mail->SMTPSecure = 'tls';
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
             $mail->Port = 587;
 
             $mail->CharSet = 'UTF-8';

@@ -80,3 +80,15 @@ CREATE TABLE tokens (
     consumed TINYINT(1) NOT NULL DEFAULT 0 CHECK (consumed IN (0, 1)),
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
+
+CREATE TABLE invitations (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    event_id INT NOT NULL,
+    invited_user_id INT NOT NULL,
+    sender_user_id INT NOT NULL,
+    status ENUM('pending', 'accepted', 'declined') DEFAULT 'pending',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    FOREIGN KEY (event_id) REFERENCES events(id),
+    FOREIGN KEY (invited_user_id) REFERENCES users(id),
+    FOREIGN KEY (sender_user_id) REFERENCES users(id)
+);

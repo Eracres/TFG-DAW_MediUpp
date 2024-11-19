@@ -75,6 +75,12 @@
                     <h3 class=""> Participantes </h3>
                 </div>
                 <div class="event-participants-container">
+                    <div>
+                        <button class="add-participant-btn"> 
+                            <i class="fa-solid fa-user-plus"></i> 
+                            <span> Añadir participante </span>
+                        </button>
+                    </div>
                     <ul class="event-participants-list">
                         <?php foreach ($participants as $participant): ?>
                             <li class="event-participant">
@@ -135,7 +141,9 @@
                 </button>
             </div>
             <div class="event-dynamic-content" id="dynamic-content">
-                <!-- El contenido se cargará aquí -->
+                <div class="">
+                    <!-- El contenido se cargará aquí -->
+                </div>
             </div>
         </section>
     </div>

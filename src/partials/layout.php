@@ -18,7 +18,7 @@
     <div class="">
         <?php include 'header.php'; ?>
 
-        <main class="">
+        <main class="app-main">
             <?= $content; ?>
         </main>
 
