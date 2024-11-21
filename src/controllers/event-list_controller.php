@@ -21,15 +21,15 @@
         // Obtemos el ID del usuario que está logueado
         $user_id = getLoggedUser()['id'];
     
-        $query = "SELECT * FROM events e
+        $query = "SELECT e.*, 
+                    IF(ue.event_id IS NULL, 0, 1) AS is_joined
+                FROM events e
+                LEFT JOIN user_events ue ON e.id = ue.event_id AND ue.user_id = ?
                 WHERE e.is_public = ?
-                AND e.id NOT IN (
-                    SELECT event_id
-                    FROM user_events
-                    WHERE user_id = ?
-                )";
+                ORDER BY is_joined ASC, e.created_at DESC
+                ";
     
-        $db->execute($query, [TRUE_VALUE, $user_id]);
+        $db->execute($query, [$user_id, TRUE_VALUE]);
         $public_events = $db->getData(DBConnector::FETCH_ALL);
     
         return $public_events;

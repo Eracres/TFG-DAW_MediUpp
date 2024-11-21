@@ -33,12 +33,34 @@
 <div class="">
     <div class="">
         <div class="">
-            <button id="">
-                <i class="fa-solid fa-house"></i>
-            </button>
+            <div class="">
+                <button id="">
+                    <i class="fa-solid fa-house"></i>
+                </button>
+            </div>
+            <div class="">
+                <h1 class=""> <?= htmlspecialchars($title); ?> </h1>
+            </div>
         </div>
         <div class="">
-            <h1 class=""> <?= htmlspecialchars($title); ?> </h1>
+            <button>
+                <div>
+                    <img src="<?= $logged_user['pfp_src'] ?>" alt="Foto de perfil de @<?= $logged_user['usern']; ?>">
+                </div>
+                <div>
+                    <span> @<?= $logged_user['usern'] ?> </span>
+                </div>
+            </button>
+            <div>
+                <ul>
+                    <li>
+
+                    </li>
+                    <li>
+
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
     <div class="">
@@ -75,12 +97,15 @@
                     <h3 class=""> Participantes </h3>
                 </div>
                 <div class="event-participants-container">
-                    <div>
-                        <button class="add-participant-btn"> 
-                            <i class="fa-solid fa-user-plus"></i> 
-                            <span> Añadir participante </span>
-                        </button>
-                    </div>
+                    <? if ($isAdmin): ?>
+                        <div>
+                            <button class="open-participant-modal-btn"> 
+                                <i class="fa-solid fa-user-plus"></i> 
+                                <span> Añadir participante </span>
+                            </button>
+                            <? include COMPONENTS_DIR . 'add-participant_modal.php'; ?>
+                        </div>
+                    <? endif; ?>
                     <ul class="event-participants-list">
                         <?php foreach ($participants as $participant): ?>
                             <li class="event-participant">
@@ -140,7 +165,7 @@
                     <span> Chat </span>
                 </button>
             </div>
-            <div class="event-dynamic-content" id="dynamic-content">
+            <div class="event-content-dynamic" id="dynamic-content">
                 <div class="">
                     <!-- El contenido se cargará aquí -->
                 </div>

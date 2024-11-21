@@ -9,6 +9,11 @@
             <img src="../../resources/logo/Titulo(final).png" alt="Título" class="app-header-title-img">
         </div>
         <!-- Botón de modo oscuro/claro -->
-        <?php include COMPONENTS_DIR . 'theme_switcher.php'; ?>
+        <div class="app-header-controls">
+            <button class="notification-button app-header-modo" aria-label="Notifications">
+                <i class="fa-solid fa-inbox"></i>
+            </button>
+            <?php include COMPONENTS_DIR . 'theme_switcher.php'; ?>
+        </div>
     </div>
 </header>

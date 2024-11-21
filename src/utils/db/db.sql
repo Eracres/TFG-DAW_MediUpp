@@ -2,12 +2,13 @@ DROP DATABASE IF EXISTS tfg_mediupp_local;
 CREATE DATABASE IF NOT EXISTS tfg_mediupp_local;
 USE tfg_mediupp_local;
 
+DROP TABLE IF EXISTS invitations;
+DROP TABLE IF EXISTS tokens;
 DROP TABLE IF EXISTS user_events;
 DROP TABLE IF EXISTS chats;
 DROP TABLE IF EXISTS posts;
 DROP TABLE IF EXISTS events;
 DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS tokens;
 
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -86,8 +87,9 @@ CREATE TABLE invitations (
     event_id INT NOT NULL,
     invited_user_id INT NOT NULL,
     sender_user_id INT NOT NULL,
-    status ENUM('pending', 'accepted', 'declined') DEFAULT 'pending',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    status ENUM('pending', 'accepted', 'declined') DEFAULT 'pending' NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,
     FOREIGN KEY (event_id) REFERENCES events(id),
     FOREIGN KEY (invited_user_id) REFERENCES users(id),
     FOREIGN KEY (sender_user_id) REFERENCES users(id)

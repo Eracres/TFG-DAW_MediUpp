@@ -5,7 +5,7 @@
     function getEventPosts($event_id) {
         global $db;
 
-        $query = "SELECT * FROM posts WHERE event_id = ?";
+        $query = "SELECT * FROM posts WHERE event_id = ? ORDER BY created_at DESC";
         $db->execute($query, [$event_id]);
         $posts = $db->getData(DBConnector::FETCH_ROW);
 
@@ -80,7 +80,7 @@
     function getEventChatMessages($event_id) {
         global $db;
 
-        $query = "SELECT * FROM chats WHERE event_id = ?";
+        $query = "SELECT * FROM chats WHERE event_id = ? ORDER BY created_at DESC";
         $db->execute($query, [$event_id]);
         $messages = $db->getData(DBConnector::FETCH_ALL);
 

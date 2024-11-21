@@ -1,4 +1,16 @@
 <!-- footer.php -->
+<?php
+
+    $social_links = [
+        'instagram' => '#',
+        'youtube' => '#',
+        'linkedin' => '#',
+        'twitter' => '#',
+        'github' => '#'
+    ];
+
+?>
+
 <footer class="app-footer">
     <div class="app-footer-container">
         <!-- Contenedor principal del footer con flex y responsive -->
@@ -8,7 +20,7 @@
                 <p class="text-sm mt-2">MediUpp es una plataforma dedicada a mejorar la gestión de eventos y comunidades médicas.</p>
             </div>
             <div class="flex gap-3">
-                <?php foreach ($socialLinks as $platform => $link): ?>
+                <?php foreach ($social_links as $platform => $link): ?>
                     <a href="<?= $link ?>" class="app-footer-icons" target="_blank" aria-label="<?= ucfirst($platform) ?>">
                         <i class="fab fa-<?= $platform ?>"></i>
                     </a>
@@ -24,12 +36,12 @@
         </div>
         <!-- Sección inferior con enlaces legales y derechos de autor -->
         <div class="mt-6 text-center text-sm border-t border-gray-700 pt-4">
-            <p>© <?= date("Y"); ?> MediUpp. Todos los derechos reservados.</p>
-            <p>
+            <span>© <?= date("Y"); ?> MediUpp. Todos los derechos reservados.</span>
+            <span>
                 <a href="#" class="hover:underline">Política de Privacidad</a> |
                 <a href="#" class="hover:underline">Términos de Uso</a> |
                 <a href="#" class="hover:underline">Contacto</a>
-            </p>
+            </span>
         </div>
     </div>
 </footer>

@@ -1,9 +1,19 @@
 <!-- add-event_modal.php -->
+<?php
+
+    $errors = [];
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['create'])) {
+        
+    }
+
+?>
+
 <div class="modal" id="add-event-modal">
     <div class="modal-content">
         <div class="modal-header">
             <h3 class> Crea un nuevo evento </h3>
-            <span class="modal-close-btn">&times;</span>
+            <span class="close-modal-btn">&times;</span>
         </div>
         <form action="" method="post">
             <div class="modal-body">
@@ -46,8 +56,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="modal-close-btn"> Cancelar </button>
-                <button type="submit" name="create" class=""> Crear evento </button>
+                <button class="close-modal-btn"> Cancelar </button>
+                <button type="submit" name="create" id="add-event-btn"> Crear evento </button>
             </div>
         </form>
     </div>

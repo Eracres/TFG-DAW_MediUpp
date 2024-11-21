@@ -25,3 +25,9 @@
         'meeting' => 'Reunión',
         'graduation' => 'Graduación',
     ]);
+
+    define('INVITATION_STATUS', [
+        'pending' => 'pending',
+        'accepted' => 'pending',
+        'declined' => 'pending',
+    ]);
