@@ -11,6 +11,6 @@ function printError($mensaje){
 
 function printSuccess($mensaje){
     echo '
-    <p style="font-size:2rem" class="text-green-500">'.$mensaje.'</p>
+    <p style="font-size:0.8rem" style="color:green">'.$mensaje.'</p>
 ';
 }

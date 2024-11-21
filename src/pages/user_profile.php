@@ -1,74 +1,82 @@
 <?php
 
-    require_once $_SERVER['DOCUMENT_ROOT'] . '/TFG-DAW_MediUpp/src/utils/init.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/TFG-DAW_MediUpp/src/utils/init.php';
 
-    checkSession();
+checkSession();
+//^-----------------------------------------------------------------------
 
-    $logged_user = $_SESSION['logged_user'];
+$logged_user = $_SESSION['logged_user'];
+$id_usuario = $_GET['id_usuario'];
+$owner = checkUserOwnProfile($logged_user['id'], $id_usuario); //* FUNCIONA!! 
 
-    $title = "Perfil de @" . trim($logged_user['usern']);
-    ob_start();
+// echo 'EL USUARIO LOGUEADO ES '.$logged_user['usern'].' y su ID es: '.$logged_user['id'].' que NO COINCIDE CON '.$id_usuario;
 
-    //!Las siguientes líneas deben ser eliminadas en el push (o al menos en el MERGE)
-    //!Son solo para comprobar el funcionamiento del fichero sin probar el flujo global (sin login). 
-    $id_usuario = $_GET['id_usuario']; 
+ob_start();
 
 
-    //gettear id de usuario
-    if(!isset($_GET['id_usuario']) || empty($_GET['id_usuario'])){
-        die("Este perfil de usuario no existe.
+//Declaración de variables vacías para errores y aciertos
+$update_exitoso = $error_update = $error_alias_edit = $error_bio_edit = $error_pfp_edit = "";
+
+
+
+
+//gettear id de usuario
+if (!isset($_GET['id_usuario']) || empty($_GET['id_usuario'])) {
+    die("Este perfil de usuario no existe.
             <script>
                         setTimeout(function() {
                             window.location.href = 'login.php';
                         }, 2500);
                         </script>
         "); //^CAMBIAR
-    }
+}
 
 
-    //Select para mostrar antes de editar
-    
+//Select para mostrar antes de editar
+
+// Crear y ejecutar la consulta para obtener los datos del usuario
+$queryDatos = "SELECT * FROM users WHERE id = :id";
+$queryDatosParams = [
+    ':id' => $id_usuario // Usamos el prefijo ':' en la clave para coincidir con los parámetros del query
+];
+
+// Ejecutar la consulta usando el DBConnector
+$db = DBConnector::getInstance();
+$db->execute($queryDatos, $queryDatosParams);
+
+// Obtener los datos del usuario como una FILA asociativa
+$datos_usuario = $db->getData(DBConnector::FETCH_ROW);
+
+
+//Insertar datos editados
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $edited_alias = $_POST['alias-edit'];
+    $edited_bio = $_POST['bio-edit'];
+
     // Crear y ejecutar la consulta para obtener los datos del usuario
-    $queryDatos = "SELECT * FROM users WHERE id = :id";
-    $queryDatosParams = [
-        ':id' => $id_usuario // Usamos el prefijo ':' en la clave para coincidir con los parámetros del query
+    $queryActualizar = "UPDATE users SET alias = :alias, bio = :bio WHERE id = :id";
+    $queryActualizarParams = [
+        ':alias' => $edited_alias,
+        ':bio' => $edited_bio,
+        ':id' => $id_usuario
     ];
 
-    // Ejecutar la consulta usando el DBConnector
-    $db = DBConnector::getInstance(); // Obtener instancia del Singleton
-    $db->execute($queryDatos, $queryDatosParams);
+    $db = DBConnector::getInstance();
+    $db->execute($queryActualizar, $queryActualizarParams);
+    $datos_actualizados = $db->getExecuted();
 
-    // Obtener los datos del usuario como una fila asociativa
-    $datos_usuario = $db->getData(DBConnector::FETCH_ROW);
-
-
-    //Insertar datos
-    
-
-
-
-
-
-
-    $formEditable = False; //POR DEFECTO
-
-
-    //^Función para cambiar el estado de los datos a editable.
-    function hacerEditable(){
-        global $formEditable;
-        if($formEditable === False){
-            $formEditable = True;
-        }elseif($formEditable === True){
-            $formEditable = False;
-        }
-        
-        return $formEditable;
+    if ($datos_actualizados) {
+        $update_exitoso = "Cambios guardados correctamente.";
+        $datos_usuario = $db->getData(DBConnector::FETCH_ROW); // Volver a cargar los datos del usuario
+    } else {
+        die('Algo ha salido mal.');
     }
+}
 
-    if (isset($_POST['editar'])) {
-        hacerEditable();
-        echo "click";
-    }
+
+$title = "Perfil de @" . trim($datos_usuario['usern']);
+
 
 ?>
 <!-- //TODO Samu: No tengo figma para fijarme, así que voy a implementar funcionalidades de editar perfil con el esquema visual inspirado en twitter -->
@@ -81,44 +89,54 @@
 
 <!-- //* 1: Perfil -->
 <div class="">
+    <div class="datos-perfil">
+        <img src="<?= $datos_usuario['pfp'] ?>" alt="pfp">
+        <h3><?= $datos_usuario['alias'] ?></h3>
+        <p><?= $datos_usuario['bio'] ?></p>
+    </div>
+
     <?php
-    //^Lógica para mostrar inputs para editar if $formEditable = True;
-    if($formEditable === False):
+    if ($owner === True):
 
+    //^BUTTON para transformar en editables los campos del perfil
     ?>
-        <img src="<?=$datos_usuario['pfp']?>" alt="pfp">
-        <h3><?=$datos_usuario['alias']?></h3>
-        <p><?=$datos_usuario['bio']?></p>
-        <!-- //^FORM para transformar en editables los campos del perfil -->
-        <?
-        
-        ?>
-        <form action="" method="POST">
-            <input class="btn-editar" type="submit" value="Editar perfil" name="editar">
-        </form>
-    
-    <?php
-    elseif($formEditable === True):
-    
-    ?>
-        <h3>Form EDITABLE -><?=$datos_usuario['alias']?></h3>    <!--//! CAMBIAR POR ALIAS tanto aquí como en la BD -->
+        <button id="btn-editar" type="button">Editar perfil</button>
+        <?php printSuccess($update_exitoso) ?>
 
-        <form action="" id="form-editar-perfil" method="POST">
-            <!-- <input type="text" name="nombre-editado" value="<?=htmlspecialchars($datos_usuario['nombre'])?>"> -->
-            <input type="text" name="nombre-editado" value="<?=htmlspecialchars($datos_usuario['nombre'])?>"> //*alias
-            <?php printError($error_nombre_editado);?>
-            
-            <input type="text" name="apellido-editado" value="<?=htmlspecialchars($datos_usuario['apellido'])?>"> //*biografia
-            <?php printError($error_apellido_editado);?>
-            
-            
-            <input type="file" name="pfp-editado" value=""> //*alias
-            <?php printError($error_pfp_editado);?>
-        
+        <div id="contenedor-editar-perfil" style="display: none;"> <!-- Ocultarlo inicialmente -->
+            <h3>Actualiza tus datos</h3>
+            <form action="" id="form-editar-perfil" method="POST">
+                <label for="alias-edit">Alias:</label>
+                <input type="text" name="alias-edit" value="<?= htmlspecialchars($datos_usuario['alias']) ?>">
+                <?php printError($error_alias_edit); ?>
 
-        </form>
+                <label for="bio-edit">Alias:</label>
+                <input type="text" name="bio-edit" value="<?= htmlspecialchars($datos_usuario['bio']) ?>">
+                <?php printError($error_bio_edit); ?>
+
+                <input type="file" name="pfp-edit" value=""> //*pfp
+                <?php printError($error_pfp_edit); ?>
+
+                <!-- <input type="hidden" value="<?= $logged_user['id'] ?>" name="id-for-edit"> -->
+                <input type="submit" value="Guardar cambios">
+
+            </form>
+        </div>
+
 </div>
+<!-- //^JS -->
 
+<script>
+    //^Función para mostrar el form de editar perfil
+    document.addEventListener("DOMContentLoaded", function() {
+        const btn_editar = document.getElementById("btn-editar");
+        const contenedor_editar_perfil = document.getElementById("contenedor-editar-perfil");
+
+        btn_editar.addEventListener("click", function() {
+            contenedor_editar_perfil.style.display = "flex"; //Cambiar el display en diseño si es necesario. DEFAULT:none
+        });
+    });
+</script>
 <?php
     endif;
 

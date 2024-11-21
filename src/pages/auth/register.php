@@ -208,6 +208,8 @@
         <img src="" alt="LOGO">
 
         <form action="" method="POST">
+        <?php printSuccess($registro_exitoso)?>
+
             <div>
                 <label for="nombre">Nombre</label>
                 <input type="text" id="nombre" name="nombre" required value="<?php echo htmlspecialchars($_POST['nombre']); ?>">
@@ -252,7 +254,6 @@
 
         </form>
 
-        <?php printSuccess($registro_exitoso)?>
     </div>
 
 </body>
