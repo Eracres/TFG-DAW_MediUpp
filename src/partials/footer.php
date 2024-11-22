@@ -15,7 +15,7 @@ $socialLinks = [
         <!-- Información básica sobre MediUpp -->
         <div>
             <h3>Sobre MediUpp</h3>
-            <p>MediUpp es una plataforma dedicada a mejorar la gestión de eventos y comunidades médicas.</p>
+            <p>MediUpp es una plataforma dedicada a mejorar la gestión de eventos.</p>
         </div>
 
         <!-- Redes sociales con íconos -->
