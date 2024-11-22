@@ -2172,10 +2172,12 @@ video {
 
 /* Clases personalizadas para el footer */
 
+/* Footer más compacto */
+
 .app-footer {
   --tw-bg-opacity: 1;
   background-color: rgb(250 204 21 / var(--tw-bg-opacity));
-  padding: 1.5rem;
+  padding: 1rem;
   --tw-text-opacity: 1;
   color: rgb(57 62 70 / var(--tw-text-opacity));
 }
@@ -2191,7 +2193,7 @@ video {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 1.5rem;
+  gap: 1rem;
 }
 
 @media (min-width: 768px) {
@@ -2202,16 +2204,14 @@ video {
   }
 }
 
-/* Estilos para los títulos y secciones de texto en el footer */
-
 .app-footer h3 {
-  font-size: 1.125rem;
-  line-height: 1.75rem;
+  font-size: 1rem;
+  line-height: 1.5rem;
   font-weight: 600;
 }
 
 .app-footer p {
-  margin-top: 0.5rem;
+  margin-top: 0.25rem;
   font-size: 0.875rem;
   line-height: 1.25rem;
 }
@@ -2220,12 +2220,7 @@ video {
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 1.25rem;
-}
-
-.dark .app-footer-socials {
-  --tw-text-opacity: 1;
-  color: rgb(250 204 21 / var(--tw-text-opacity));
+  gap: 1rem;
 }
 
 .app-footer-icon {
@@ -2253,7 +2248,9 @@ video {
   color: rgb(156 163 175 / var(--tw-text-opacity));
 }
 
-/* Estilos para el formulario del boletín */
+.app-footer-icon {
+  /* Iconos más pequeños */
+}
 
 .app-footer-form {
   display: flex;
@@ -2267,17 +2264,17 @@ video {
   }
 }
 
-.app-footer input[type="email"] {
+.app-footer-input {
   width: 100%;
   border-radius: 0.25rem;
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-  padding: 0.5rem;
+  padding: 0.25rem;
   --tw-text-opacity: 1;
   color: rgb(17 24 39 / var(--tw-text-opacity));
 }
 
-.app-footer input[type="email"]:is(.dark *) {
+.app-footer-input:is(.dark *) {
   --tw-bg-opacity: 1;
   background-color: rgb(55 65 81 / var(--tw-bg-opacity));
   --tw-text-opacity: 1;
@@ -2285,45 +2282,56 @@ video {
 }
 
 @media (min-width: 768px) {
-  .app-footer input[type="email"] {
+  .app-footer-input {
     width: auto;
   }
 }
 
-.app-footer button[type="submit"] {
+.app-footer-input {
+  /* Menos padding */
+}
+
+.app-footer-button {
   border-radius: 0.25rem;
   --tw-bg-opacity: 1;
-  background-color: rgb(250 204 21 / var(--tw-bg-opacity));
-  padding: 0.5rem;
+  background-color: rgb(249 115 22 / var(--tw-bg-opacity));
+  padding: 0.25rem;
   --tw-text-opacity: 1;
-  color: rgb(17 24 39 / var(--tw-text-opacity));
+  color: rgb(57 62 70 / var(--tw-text-opacity));
 }
 
-.app-footer button[type="submit"]:hover {
+.app-footer-button:hover {
   --tw-bg-opacity: 1;
-  background-color: rgb(202 138 4 / var(--tw-bg-opacity));
+  background-color: rgb(255 156 74 / var(--tw-bg-opacity));
 }
 
-.app-footer button[type="submit"]:is(.dark *) {
+.app-footer-button:is(.dark *) {
   --tw-bg-opacity: 1;
   background-color: rgb(255 111 60 / var(--tw-bg-opacity));
 }
 
-/* Sección inferior con derechos de autor */
+.app-footer-button {
+  /* Menos padding */
+}
 
 .app-footer-copyright {
-  margin-top: 1.5rem;
+  margin-top: 1rem;
   border-top-width: 1px;
   --tw-border-opacity: 1;
   border-color: rgb(55 65 81 / var(--tw-border-opacity));
-  padding-top: 1rem;
+  padding-top: 0.5rem;
   text-align: center;
-  font-size: 0.875rem;
-  line-height: 1.25rem;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  /* Margen reducido */
 }
 
 .app-footer-links:hover {
   text-decoration-line: underline;
+}
+
+.app-footer-links {
+  /* Mantiene estilo */
 }
 
 /*___________________________________________________________________________*/
