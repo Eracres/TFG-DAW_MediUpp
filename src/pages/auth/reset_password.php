@@ -18,14 +18,14 @@
         $new_password_confirm = isset($_POST['new_password_confirm']) ? trim($_POST['new_password_confirm']) : null;
 
         if (empty($new_password)) {
-            $errors['new_password'] = "Debes introducir una nueva contraseña";
+            $errors['new-password'] = "Debes introducir una nueva contraseña";
         } 
 
         if (empty($new_password_confirm)) {
-            $errors['new_password_confirm'] = "Debes confirmar la nueva contraseña";
+            $errors['new-password-confirm'] = "Debes confirmar la nueva contraseña";
         } elseif (!empty($new_password) && !hash_equals($new_password, $new_password_confirm)) {
         //} elseif (!empty($new_password) && $new_password !== $new_password_confirm) {
-            $errors['passwords_not_match'] = "Las contraseñas deben coincidir";
+            $errors['passwords-not-match'] = "Las contraseñas deben coincidir";
         }
 
         if (empty($errors)) {
@@ -47,8 +47,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Resetear tu contraseña </title>
-    <link rel="stylesheet" href="css/estilos.css">
+    <title> Restablece tu contraseña | MediUpp </title>
+    <meta name="description" content="MediUpp es una aplicación web para la organización de todo tipo de eventos">
+    <meta name="author" content="Samuel Macias">
+    <meta name="author" content="Sergio Cáceres">
+    <meta name="author" content="Marcos Almorox">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../../assets/css/output.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script defer src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <h2> Resetea tu contraseña </h2>

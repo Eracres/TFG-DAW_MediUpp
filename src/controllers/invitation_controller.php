@@ -5,9 +5,9 @@
     function createEventInvitation($event_id, $invited_user_id, $sender_user_id) {
         global $db;
 
-        if ($invited_user_id === $sender_user_id) {
+        /*if ($invited_user_id === $sender_user_id) {
             throw new Exception("No puedes invitarte a ti mismo");
-        }
+        }*/
 
         $query = "INSERT INTO invitations (event_id, invited_user_id, sender_user_id, status) VALUES (?, ?, ?, ?)";
         $db->execute($query, [$event_id, $invited_user_id, $sender_user_id, INVITATION_STATUS['pending']]);

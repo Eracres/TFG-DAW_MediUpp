@@ -21,21 +21,4 @@ document.addEventListener("DOMContentLoaded", () => {
             modal.classList.remove("open");
         }
     });
-
-    // CIERRE DE SESIÓN
-    const logoutBtn = document.querySelector("#logout-btn");
-
-    logoutBtn.addEventListener("click", () => {
-        $.ajax({
-            url: "/logout",
-            method: "POST",
-            data: { action: 'logout' },
-            success: (response) => {
-                window.location.href = "/login";
-            },
-            error: (error) => {
-                console.error("Error al cerrar sesión:", error);
-            }
-        });
-    });
 });

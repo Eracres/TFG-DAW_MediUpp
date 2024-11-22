@@ -16,7 +16,7 @@
 
 <div class="">
     <div class="">
-        <button id="logout-btn">Cerrar sesión</button>
+        <button class="logout-btn">Cerrar sesión</button>
     </div>
 </div>
 

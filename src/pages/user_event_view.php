@@ -51,13 +51,17 @@
                     <span> @<?= $logged_user['usern'] ?> </span>
                 </div>
             </button>
-            <div>
+            <div class="">
                 <ul>
-                    <li>
-
-                    </li>
-                    <li>
-
+                    <a href="user_profile.php">
+                        <li>
+                            <i class="fa-solid fa-user"></i>
+                            <span> Mi perfil </span>
+                        </li>
+                    </a>
+                    <li class="logout-btn">
+                        <i class="fa-solid fa-door-open"></i>
+                        <span> Cerrar sesión </span>
                     </li>
                 </ul>
             </div>
@@ -175,7 +179,10 @@
 </div>
 
 <?php
-    $additional_scripts = ['js/event-view_script.js'];
+    $additional_scripts = [
+        '../assets/js/event-view_script.js', 
+        '../assets/js/auth/script.js'
+    ];
     $content = ob_get_clean();
 
     include PARTIALS_DIR . 'layout.php';

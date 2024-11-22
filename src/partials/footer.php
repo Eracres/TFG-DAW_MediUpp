@@ -1,6 +1,5 @@
 <!-- footer.php -->
 <?php
-
     $social_links = [
         'instagram' => '#',
         'youtube' => '#',
@@ -8,7 +7,6 @@
         'twitter' => '#',
         'github' => '#'
     ];
-
 ?>
 
 <footer class="app-footer">

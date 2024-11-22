@@ -41,7 +41,7 @@
                         <span> Perfil </span>
                     </button>
                 </a>
-                <button id="logout-btn" data-action="logout">
+                <button class="logout-btn" data-action="logout">
                     <i class="fa-solid fa-door-open"></i>
                     <span> Cerrar sesión </span>
                 </button>
@@ -84,7 +84,10 @@
 </div>
 
 <?php
-    $additional_scripts = ['../js/auth/script.js'];
+    $additional_scripts = [
+        '../assets/js/event-list_script.js', 
+        '../assets/js/auth/script.js'
+    ];
     $content = ob_get_clean();
 
     include PARTIALS_DIR . 'layout.php';

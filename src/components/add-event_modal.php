@@ -4,7 +4,50 @@
     $errors = [];
 
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['create'])) {
-        
+        $title = isset($_POST['title']) ? trim($_POST['title']) : null;
+        $description = isset($_POST['description']) ? trim($_POST['description']) : null;
+        $type = isset($_POST['type']) ? $_POST['type'] : null;
+        $location = isset($_POST['location']) ? trim($_POST['location']) : null;
+        $start_date = isset($_POST['start_date']) ? $_POST['start_date'] : null;
+        $end_date = isset($_POST['end_date']) ? $_POST['end_date'] : null;
+        $access = isset($_POST['access']) && $_POST['access'] === 'public' ? TRUE_VALUE : FALSE_VALUE;
+
+
+        if (empty($title)) {
+            $errors['empty-title'] = "El título del evento es obligatorio";
+        }
+
+        if (!empty($description) && strlen($description) > 200) {
+            $errors['description_length'] = "La descripción no puede superar los 200 caracteres";
+        }
+
+        if (empty($start_date)) {
+            $errors['empty-startdate'] = "La fecha de inicio del evento es obligatoria";
+        }
+
+        if (empty($end_date)) {
+            $errors['empty-enddate'] = "La fecha de finalización del evento es obligatoria";
+        }
+
+        if (empty($errors)) {
+            $event = [
+                'title' => $title,
+                'description' => $description,
+                'type' => $type,
+                'location' => $location,
+                'start_date' => $start_date,
+                'end_date' => $end_date,
+                'is_public' => $access
+            ];
+
+            $success = createNewEvent($event, $logged_user_id);
+
+            if ($success) {
+                
+            } else {
+                
+            }
+        }
     }
 
 ?>
@@ -28,7 +71,7 @@
                 <div class="modal-form-field">
                     <label for="event-type"> Tipo de evento: </label>
                     <select id="event-type" name="type">
-                        <option value="" disabled selected> Selecciona el tipo </option>
+                        <option disabled selected> Selecciona el tipo </option>
                         <?php foreach (EVENT_TYPE as $key => $value): ?>
                             <option value="<?= $key; ?>"> <?= $value; ?> </option>
                         <?php endforeach; ?>
@@ -49,9 +92,8 @@
                 <div class="modal-form-field">
                 <label for="event-access"> Tipo de acceso: </label>
                     <select id="event-type" name="access">
-                        <option value="" disabled selected> Selecciona el tipo </option>
-                        <option value="public"> Público </option>
                         <option value="private"> Privado </option>
+                        <option value="public"> Público </option>
                     </select>
                 </div>
             </div>

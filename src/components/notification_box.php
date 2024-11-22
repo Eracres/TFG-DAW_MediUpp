@@ -1,18 +1,17 @@
 <!-- notification_box.php -->
 <div>
-    <ul>
-        <?php foreach ($invitations as $invitation): ?>
-            <li>
-                <div>
+    
+        <ul>
+                <li>
                     <div>
-                        <span></span>
+                        <div>
+                            <span></span>
+                        </div>
+                        <div>
+                            <button> <i class="fa-solid fa-check"></i> </button>
+                            <button> <i class="fa-solid fa-xmark"></i> </button>
+                        </div>
                     </div>
-                    <div>
-                        <button></button>
-                        <button></button>
-                    </div>
-                </div>
-            </li>
-        <?php endforeach; ?>
-    </ul>
+                </li>
+        </ul>
 </div>

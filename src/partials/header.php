@@ -3,15 +3,16 @@
     <div class="app-header-container">
         <!-- Logos -->
         <div class="app-header-logo">
-            <img src="../../resources/logo/Logo(final).png" alt="Logo" class="app-header-logo-img">
+            <img src="../../resources/logo/Logo(final).png" alt="MediUpp logo" class="app-header-logo-img">
         </div>
         <div class="app-header-title">
-            <img src="../../resources/logo/Titulo(final).png" alt="Título" class="app-header-title-img">
+            <img src="../../resources/logo/Titulo(final).png" alt="MediUpp title" class="app-header-title-img">
         </div>
-        <!-- Botón de modo oscuro/claro -->
+        <!-- Notificaciones y botón de modo oscuro/claro -->
         <div class="app-header-controls">
-            <button class="notification-button app-header-modo" aria-label="Notifications">
+            <button class="notification-button" aria-label="Notificaciones">
                 <i class="fa-solid fa-inbox"></i>
+                <span class="notification-counter" id="notification-counter"></span>
             </button>
             <?php include COMPONENTS_DIR . 'theme_switcher.php'; ?>
         </div>
