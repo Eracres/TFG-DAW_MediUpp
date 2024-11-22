@@ -1,15 +1,4 @@
 <!-- layout.php -->
-<?php
-
-    $socialLinks = [
-        'instagram' => '#',
-        'youtube' => '#',
-        'linkedin' => '#',
-        'twitter' => '#',
-        'github' => '#'
-    ];
-
-?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -27,7 +16,7 @@
     <script defer src="../js/script.js"></script>
 </head>
 <body>
-    <div class="">
+    <div class="app-body">
         <?php include 'header.php'; ?>
 
         <main class="app-main">
