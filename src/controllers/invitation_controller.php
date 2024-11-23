@@ -18,15 +18,26 @@
     function getUserInvitations($user_id) {
         global $db;
         
-        $query = "SELECT * 
+        $query = "SELECT 
+                    invitations.id,
+                    invitations.status,
+                    invitations.created_at,
+                    invitations.updated_at,
+                    events.title AS event_title,
+                    users.usern AS sender_name
                 FROM invitations 
-                WHERE invited_user_id = ?
+                JOIN 
+                    events ON invitations.event_id = events.id
+                JOIN 
+                    users ON invitations.sender_user_id = users.id
+                WHERE 
+                    invitations.invited_user_id = ?
                 ORDER BY 
                     CASE 
-                        WHEN status = ? THEN 0 
+                        WHEN invitations.status = ? THEN 0 
                         ELSE 1 
                     END,
-                    created_at DESC
+                    invitations.updated_at DESC
                 ";
         $db->execute($query, [$user_id, INVITATION_STATUS['pending']]);
         $invitations = $db->getData(DBConnector::FETCH_ALL);
@@ -49,22 +60,30 @@
         return false;
     }
 
-    function acceptEventInvitation($event_id, $invited_user_id) {
+    function acceptEventInvitation($invitation_id, $invited_user_id) {
         global $db;
 
-        $query = "UPDATE invitations SET status = ? WHERE event_id = ? AND invited_user_id = ?";
-        $db->execute($query, [INVITATION_STATUS['accepted'], $event_id, $invited_user_id]);
+        $query = "UPDATE invitations SET status = ? WHERE id = ? AND invited_user_id = ?";
+        $db->execute($query, [INVITATION_STATUS['accepted'], $invitation_id, $invited_user_id]);
         
-        addUserToEvent($invited_user_id, $event_id);  
+        if ($db->getExecuted()) {
+            $query = "SELECT event_id FROM invitations WHERE id = ? AND invited_user_id = ?";
+            $db->execute($query, [$invitation_id, $invited_user_id]);
+            $event_id = $db->getData(DBConnector::FETCH_COLUMN);
+
+            addUserToEvent($invited_user_id, $event_id);
+        }
         
         return $db->getExecuted();
     }
 
-    function declineEventInvitation($event_id, $invited_user_id) {
+    function declineEventInvitation($invitation_id, $invited_user_id) {
         global $db;
 
-        $query = "UPDATE invitations SET status = ? WHERE event_id = ? AND invited_user_id = ?";
-        $db->execute($query, [INVITATION_STATUS['declined'], $event_id, $invited_user_id]);
+        $query = "UPDATE invitations SET status = ? WHERE id = ? AND invited_user_id = ?";
+        $db->execute($query, [INVITATION_STATUS['declined'], $invitation_id, $invited_user_id]);
+    
+        return $db->getExecuted();
     }
 
     function deleteEventInvitation($event_id, $invited_user_id) {

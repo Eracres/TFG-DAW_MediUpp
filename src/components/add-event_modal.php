@@ -18,7 +18,7 @@
         }
 
         if (!empty($description) && strlen($description) > 200) {
-            $errors['description_length'] = "La descripción no puede superar los 200 caracteres";
+            $errors['description-length'] = "La descripción no puede superar los 200 caracteres";
         }
 
         if (empty($start_date)) {
@@ -40,12 +40,13 @@
                 'is_public' => $access
             ];
 
-            $success = createNewEvent($event, $logged_user_id);
+            $new_event_id = createNewEvent($event, $logged_user_id);
 
-            if ($success) {
-                
+            if ($new_event_id) {
+                header("Location: user_event_view.php?event_id=" . urlencode($new_event_id));
+                exit;
             } else {
-                
+                $errors[""] = "";
             }
         }
     }
@@ -62,38 +63,67 @@
             <div class="modal-body">
                 <div class="modal-form-field">
                     <label for="event-title"> Título del evento: </label>
-                    <input type="text" id="event-title" name="title">
+                    <input type="text" 
+                        class="new-event-input<?= isset($errors['empty-title']) ? ' form-input-error' : ''; ?>" 
+                        name="title" 
+                        value="<?= isset($title) ? htmlspecialchars($title) : '' ?>">
+                    <?php if (isset($errors['empty-title'])): ?>
+                        <span class="form-error-text"> <?= $errors['empty-title']; ?> </span>
+                    <?php endif; ?>
                 </div>
                 <div class="modal-form-field">
                     <label for="event-description"> Descripción: </label>
-                    <textarea id="event-description" name="description" rows="4"></textarea>
+                    <textarea class="new-event-input<?= isset($errors['description-length']) ? ' form-input-error' : ''; ?>" 
+                        id="event-description" 
+                        name="description" 
+                        value="" rows="4"><?= isset($description) ? htmlspecialchars($description) : '' ?></textarea>
+                    <?php if (isset($errors['description-length'])): ?>
+                        <span class="form-error-text"> <?= $errors['description-length']; ?> </span>
+                    <?php endif; ?>
                 </div>
                 <div class="modal-form-field">
                     <label for="event-type"> Tipo de evento: </label>
                     <select id="event-type" name="type">
                         <option disabled selected> Selecciona el tipo </option>
                         <?php foreach (EVENT_TYPE as $key => $value): ?>
-                            <option value="<?= $key; ?>"> <?= $value; ?> </option>
+                            <option value="<?= $key; ?>" <?= isset($type) && $type == $key ? 'selected' : '' ?>> <?= $value; ?> </option>
                         <?php endforeach; ?>
                     </select>
                 </div>
                 <div class="modal-form-field">
                     <label for="event-location"> Ubicación: </label>
-                    <input type="text" id="event-location" name="location">
+                    <input type="text" 
+                        class="new-event-input" 
+                        name="location" 
+                        value="<?= isset($location) ? htmlspecialchars($location) : '' ?>">
                 </div>
                 <div class="modal-form-field">
                     <label for="event-start-date"> Fecha de inicio: </label>
-                    <input type="datetime-local" id="event-start-date" name="start_date">
+                    <input type="datetime-local" 
+                        class="new-event-input<?= isset($errors['empty-startdate']) ? ' form-input-error' : ''; ?>" 
+                        id="event-start-date" 
+                        name="start_date" 
+                        value="<?= isset($start_date) ? $start_date : '' ?>">
+                    <?php if (isset($errors['empty-startdate'])): ?>
+                        <span class="form-error-text"> <?= $errors['empty-startdate']; ?> </span>
+                    <?php endif; ?>
                 </div>
                 <div class="modal-form-field">
                     <label for="event-end-date"> Fecha de finalización: </label>
-                    <input type="datetime-local" id="event-end-date" name="end_date">
+                    <input type="datetime-local" 
+                        class="new-event-input<?= isset($errors['empty-enddate']) ? ' form-input-error' : ''; ?>" 
+                        id="event-end-date" 
+                        name="end_date" 
+                        value="<?= isset($end_date) ? $end_date : '' ?>">
+                    <?php if (isset($errors['empty-enddate'])): ?>
+                        <span class="form-error-text"> <?= $errors['empty-enddate']; ?> </span>
+                    <?php endif; ?>
                 </div>
                 <div class="modal-form-field">
                 <label for="event-access"> Tipo de acceso: </label>
                     <select id="event-type" name="access">
-                        <option value="private"> Privado </option>
-                        <option value="public"> Público </option>
+                        <option value="private" <?= isset($access) && $access === FALSE_VALUE ? 'selected' : '' ?>> Privado </option>
+                        <option value="public" <?= isset($access) && $access === TRUE_VALUE ? 'selected' : '' ?>> Público </option>
                     </select>
                 </div>
             </div>

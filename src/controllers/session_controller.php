@@ -7,7 +7,7 @@
         checkRememberMeCookie();
         // Si no hay una sesión iniciada en este punto redirigimos a la página de inicio de sesión
         if (!isset($_SESSION['logged_user'])) {
-            header("Location: " . PAGES_DIR . "auth/login.php");
+            header("Location: auth/login.php");
             exit();
         }
     }
@@ -15,7 +15,7 @@
     // Redirige fuera de una página si ya hay sesión iniciada
     function redirectIfLoggedIn() {
         if (isset($_SESSION['logged_user'])) {
-            header("Location: " . PAGES_DIR . "user_event_list.php");
+            header("Location: ../user_event_list.php");
             exit();
         }
     }

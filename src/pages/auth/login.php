@@ -60,19 +60,45 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script defer src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
-<body>
-    <div class="">
-        <div class="">
-            <h1> Inicio de sesión </h1>
-            <form action="" method="post">
-                <input type="text" class="<?php echo (!empty($errores)) ? 'error' : ''; ?>" name="usern_or_email" placeholder="Usuario" value="<?= isset($usern_or_email) ? htmlspecialchars($usern_or_email) : "" ?>"><br><br>
-                <input type="password" class="<?php echo (!empty($errores)) ? 'error' : ''; ?>" name="password" placeholder="Contraseña"><br><br>
-                <?php if (!empty($errores)) { ?>
-                    <span class="error"><?php echo $errores ?></span><br><br>
-                <?php } ?>
-                <input type="checkbox" name="remember_me"> Recordar<br><br>
-                <button type="submit" name="send" id=""> Entrar </button>
-            </form> <br>
+<body class="login-body">
+    <div class="login-container">
+        <div class="login-container-content">
+            <img class="login-logo" src="../../../resources/logo/Logo (final).png" alt="Logo">
+            <div class="login-title-container">
+                <h1 class="login-title"> Inicio de sesión </h1>
+            </div> 
+            <div class="login-form">
+                <form action="" method="post">
+                    <div>
+                        <input type="text" 
+                            class="login-input<?= isset($log_errors['empty-fields']) || isset($log_errors['empty-username']) ? ' form-input-error' : ''; ?>" 
+                            name="usern_or_email" 
+                            placeholder="Nombre de usuario o correo electrónico" 
+                            value="<?= isset($usern_or_email) ? htmlspecialchars($usern_or_email) : '' ?>">
+                        <?php if (isset($log_errors['empty-username'])) : ?>
+                            <span class="form-error-text"> <?= $log_errors['empty-username']; ?> </span>
+                        <?php endif; ?>
+                    </div>
+                    <div>
+                        <input type="password" 
+                            class="login-input<?= isset($log_errors['empty-fields']) || isset($log_errors['empty-password']) ? ' form-input-error' : ''; ?>" 
+                            name="password" 
+                            placeholder="Contraseña">
+                        <?php if (isset($log_errors['empty-password'])) : ?>
+                            <span class="form-error-text"> <?= $log_errors['empty-password']; ?> </span>
+                        <?php endif; ?>
+                    </div>
+                    <div class="login-remember">
+                        <input type="checkbox" name="remember_me" id="remember_me">
+                        <label for="remember_me"> Recordarme </label>
+                    </div>
+                    <button type="submit" name="send" class="login-button"> Entrar </button>
+                </form>
+            </div>
+            <div class="login-links">
+                <a href="register.php" class="login-link"> ¿No tienes cuenta? Regístrate </a>
+                <a href="recover-password.php" class="login-link"> Recupera tu contraseña </a>
+            </div>
             <div>
                 <?php include COMPONENTS_DIR . 'google-log_button.php'; ?>
             </div>

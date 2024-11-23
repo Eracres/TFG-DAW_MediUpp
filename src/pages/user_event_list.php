@@ -11,7 +11,7 @@
     $user_events = getUserEvents($logged_user_id);
     $public_events = getPublicEvents();
 
-    $title = "Lista de eventos";
+    $doc_title = "Lista de eventos";
     ob_start();
 ?>
 

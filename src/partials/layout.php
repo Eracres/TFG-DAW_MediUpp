@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> <?= $title . ' | MediUpp' ?? 'MediUpp TFG'; ?> </title>
+    <title> <?= $doc_title . ' | MediUpp' ?? 'MediUpp TFG'; ?> </title>
     <meta name="description" content="MediUpp es una aplicación web para la organización de todo tipo de eventos">
     <meta name="author" content="Samuel Macias">
     <meta name="author" content="Sergio Cáceres">

@@ -39,7 +39,7 @@
     function createNewEvent($event_data, $user_id) {
         global $db;
 
-        $query = "INSERT INTO events (title, description, type, location, start_date, end_date, created_by, is_public) VALUES (?, ?, ?, ?, ?)";
+        $query = "INSERT INTO events (title, description, type, location, start_date, end_date, created_by, is_public) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         $db->execute($query, [
             $event_data['title'],
             $event_data['description'],
@@ -56,5 +56,5 @@
         $query = "INSERT INTO user_events (user_id, event_id, is_admin) VALUES (?, ?, ?)";
         $db->execute($query, [$user_id, $new_event_id, TRUE_VALUE]);
 
-        return $db->getExecuted();
+        return $new_event_id;
     }

@@ -8,7 +8,7 @@
     $logged_user = getLoggedUser();
     $logged_user_id = $logged_user['id'];
 
-    $title = "Perfil de @" . trim($logged_user['usern']);
+    $doc_title = "Perfil de @" . trim($logged_user['usern']);
     ob_start();
 ?>
 <!-- //TODO NOTA de Samu: Siguiendo esquema del FIGMA para 'Pagina de usuario 2.0', 3 contenedores (de izquierda a derecha): editar perfil, eventos creados, eventos públicos.   -->

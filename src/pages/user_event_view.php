@@ -5,7 +5,7 @@
 
     checkSession();
 
-    $current_event_id = urldecode((int)$_GET['event_id']);
+    $current_event_id = (int)urldecode($_GET['event_id']);
     $logged_user = getLoggedUser();
     $logged_user_id = $logged_user['id'];
     
@@ -26,7 +26,7 @@
     $media_posts = getEventPosts($current_event_id);
     $chat_messages = getEventChatMessages($current_event_id);
 
-    $title = trim($event_data['title']);
+    $doc_title = trim($event_data['title']);
     ob_start();
 ?>
 
@@ -39,7 +39,7 @@
                 </button>
             </div>
             <div class="">
-                <h1 class=""> <?= htmlspecialchars($title); ?> </h1>
+                <h1 class=""> <?= htmlspecialchars($event_data['title']); ?> </h1>
             </div>
         </div>
         <div class="">
@@ -60,8 +60,10 @@
                         </li>
                     </a>
                     <li class="logout-btn">
-                        <i class="fa-solid fa-door-open"></i>
-                        <span> Cerrar sesión </span>
+                        <button>
+                            <i class="fa-solid fa-door-open"></i>
+                            <span> Cerrar sesión </span>
+                        </button>
                     </li>
                 </ul>
             </div>
