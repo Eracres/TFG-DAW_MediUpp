@@ -34,33 +34,35 @@
     <div class="event-view-head">
         <div class="head-main">
             <div class="head-main-btn">
-                <button id="home-btn">
-                    <i class="fa-solid fa-house"></i>
-                </button>
+                <a href="user_event_list.php">
+                    <button id="home-btn">
+                        <i class="fa-solid fa-house"></i>
+                    </button>
+                </a>
             </div>
             <div class="head-main-title">
                 <h1 class="event-name"> <?= htmlspecialchars($event_data['title']); ?> </h1>
             </div>
         </div>
         <div class="head-user-control">
-            <button>
-                <div>
+            <button class="head-user-dropdow-btn">
+                <div class="head-user-pfp">
                     <img src="<?= $logged_user['pfp_src'] ?>" alt="Foto de perfil de @<?= $logged_user['usern']; ?>">
                 </div>
-                <div>
+                <div class="head-user-uname">
                     <span> @<?= $logged_user['usern'] ?> </span>
                 </div>
             </button>
-            <div class="">
-                <ul>
+            <div class="head-user-dropdown">
+                <ul class="dropdown-list">
                     <a href="user_profile.php">
-                        <li>
+                        <li class="dropdown-element">
                             <i class="fa-solid fa-user"></i>
                             <span> Mi perfil </span>
                         </li>
                     </a>
-                    <li class="logout-btn">
-                        <button>
+                    <li class="dropdown-element">
+                        <button class="logout-btn">
                             <i class="fa-solid fa-door-open"></i>
                             <span> Cerrar sesión </span>
                         </button>
@@ -79,7 +81,7 @@
                     <div class="event-field event-title">
                         <span id="event-title"><?= htmlspecialchars($event_data['title']); ?></span>
                         <?php if ($isAdmin): ?>
-                            <button class="edit-btn" data-field="title">E</button>
+                            <button class="edit-btn" data-field="title"><i class="fa-solid fa-pen"></i></button>
                         <?php endif; ?>
                     </div>
                     <?php if (!empty($event_data['type'])): ?>
@@ -90,7 +92,7 @@
                     <div class="event-field event-location">
                         <span id="event-location"><?= htmlspecialchars($event_data['location']); ?></span>
                         <?php if ($isAdmin): ?>
-                            <button class="edit-btn" data-field="location">E</button>
+                            <button class="edit-btn" data-field="location"><i class="fa-solid fa-pen"></i></button>
                         <?php endif; ?>
                     </div>
                     <div class="event-date event-field">
