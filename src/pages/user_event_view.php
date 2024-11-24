@@ -30,19 +30,19 @@
     ob_start();
 ?>
 
-<div class="">
-    <div class="">
-        <div class="">
-            <div class="">
-                <button id="">
+<div class="event-view-container">
+    <div class="event-view-head">
+        <div class="head-main">
+            <div class="head-main-btn">
+                <button id="home-btn">
                     <i class="fa-solid fa-house"></i>
                 </button>
             </div>
-            <div class="">
-                <h1 class=""> <?= htmlspecialchars($event_data['title']); ?> </h1>
+            <div class="head-main-title">
+                <h1 class="event-name"> <?= htmlspecialchars($event_data['title']); ?> </h1>
             </div>
         </div>
-        <div class="">
+        <div class="head-user-control">
             <button>
                 <div>
                     <img src="<?= $logged_user['pfp_src'] ?>" alt="Foto de perfil de @<?= $logged_user['usern']; ?>">
@@ -69,13 +69,13 @@
             </div>
         </div>
     </div>
-    <div class="">
+    <div class="event-view-content">
         <section class="event-info">
             <div class="event-details">
-                <div class="">
-                    <h3 class=""> Detalles del evento </h3>
+                <div class="detail-head-text">
+                    <h3 class="head-text"> Detalles del evento </h3>
                 </div>
-                <div class="">
+                <div class="event-data-container">
                     <div class="event-field event-title">
                         <span id="event-title"><?= htmlspecialchars($event_data['title']); ?></span>
                         <?php if ($isAdmin): ?>
@@ -99,8 +99,8 @@
                 </div>
             </div>
             <div class="event-participants"> 
-                <div class="">
-                    <h3 class=""> Participantes </h3>
+                <div class="detail-head-text">
+                    <h3 class="head-text"> Participantes </h3>
                 </div>
                 <div class="event-participants-container">
                     <? if ($isAdmin): ?>

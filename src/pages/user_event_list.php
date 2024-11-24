@@ -15,26 +15,26 @@
     ob_start();
 ?>
 
-<div class="">
-    <div class="">
-        <div class="">
-            <div class="">
+<div class="event-list-container">
+    <div class="event-list-sidebar">
+        <div class="event-list-user-info">
+            <div class="user-info-pfp">
                 <img src="<?= $logged_user['pfp_src']; ?>" alt="Foto de perfil de @<?= $logged_user['usern']; ?>">
             </div>
-            <div>
+            <div class="user-info-alias-uname">
                 <span> <?= $logged_user['alias']; ?> </span>
                 <span> @<?= $logged_user['usern']; ?> </span>
             </div>
         </div>
-        <div class="">
-            <div>
+        <div class="event-list-controls">
+            <div class="controls-row1">
                 <button id="open-modal-btn" data-action="add-event"> 
                     <i class="fa-solid fa-plus"></i> 
                     <span> Añadir evento </span>
                 </button>
                 <?php include COMPONENTS_DIR . 'add-event_modal.php'; ?>
             </div>
-            <div class="">
+            <div class="controls-row1">
                 <a href="user_profile.php">
                     <button id="profile-btn" data-action="view-profile">
                         <i class="fa-solid fa-user"></i>
@@ -48,10 +48,11 @@
             </div>
         </div>   
     </div>
-    <div class="">
-        <section class="">
+    <div class="event-list-sections">
+        <section class="event-list-section section-user-events">
+            <h2 class="section-title"> Tus eventos </h2>
             <?php if (!empty($user_events)): ?>
-                <div class="">
+                <div class="section-event-list">
                     <?php
                         foreach ($user_events as $event) {
                             include COMPONENTS_DIR . 'user-event_card.php';
@@ -59,14 +60,15 @@
                     ?>
                 </div>
             <?php else: ?>
-                <div class="">
-                    <span class=""> No perteneces a ningún evento </span>
+                <div class="section-event-list-empty">
+                    <span class="empty-text"> No perteneces a ningún evento </span>
                 </div>
             <?php endif; ?>
         </section>
-        <section class="">
+        <section class="event-list-section section-public-events">
+            <h2 class="section-title"> Eventos públicos </h2>
             <?php if (!empty($public_events)): ?>
-                <div class="">
+                <div class="section-event-list">
                     <?php
                         foreach ($public_events as $event) {
                             $event['is_disabled'] = ($event['is_joined'] == TRUE_VALUE);
@@ -75,8 +77,8 @@
                     ?>
                 </div>
             <?php else: ?>
-                <div class="">
-                    <span class=""> No hay eventos disponibles </span>
+                <div class="section-event-list-empty">
+                    <span class="empty-text"> No hay eventos disponibles </span>
                 </div>
             <?php endif; ?>
         </section>

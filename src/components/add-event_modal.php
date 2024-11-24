@@ -1,6 +1,8 @@
 <!-- add-event_modal.php -->
 <?php
 
+    $modal_open = isset($_GET['modal']) && $_GET['modal'] === 'open';
+
     $errors = [];
 
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['create'])) {
@@ -53,13 +55,13 @@
 
 ?>
 
-<div class="modal" id="add-event-modal">
+<div class="modal<?= $modal_open ? ' open' : ''; ?>" id="add-event-modal">
     <div class="modal-content">
         <div class="modal-header">
             <h3 class> Crea un nuevo evento </h3>
             <span class="close-modal-btn">&times;</span>
         </div>
-        <form action="" method="post">
+        <form action="?modal=open" method="post">
             <div class="modal-body">
                 <div class="modal-form-field">
                     <label for="event-title"> Título del evento: </label>
@@ -128,7 +130,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="close-modal-btn"> Cancelar </button>
+                <button type="button" class="close-modal-btn"> Cancelar </button>
                 <button type="submit" name="create" id="add-event-btn"> Crear evento </button>
             </div>
         </form>

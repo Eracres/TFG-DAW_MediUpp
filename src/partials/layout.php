@@ -1,4 +1,3 @@
-<!-- layout.php -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -24,9 +23,10 @@
 
         <?php include 'footer.php'; ?>
     </div>
+    <script src="../assets/js/main_script.js"></script>
     <?php if (isset($additional_scripts) && is_array($additional_scripts)): ?>
         <?php foreach ($additional_scripts as $script_src): ?>
-            <script src="<?= htmlspecialchars($script_src); ?>"></script>
+            <script src="<?= $script_src; ?>"></script>
         <?php endforeach; ?>
     <?php endif; ?>
 </body>

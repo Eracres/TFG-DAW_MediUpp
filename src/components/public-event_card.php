@@ -1,5 +1,5 @@
 <!-- public-event_card.php -->
-<div class="public-event-card">
+<div class="event-container">
     <h2><?php echo htmlspecialchars($event['title']); ?></h2>
     <p><?php echo htmlspecialchars(EVENT_TYPE[$event['type']]); ?></p>
     <p>Date: <?php echo htmlspecialchars($event['created_at']); ?></p>

@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
     logoutBtns.forEach((btn) => {
         btn.addEventListener("click", () => {
             $.ajax({
-                url: "/config/ajax_requests.php",
+                url: "/src/config/ajax_requests.php",
                 method: "POST",
                 data: { action: 'logout' },
                 success: () => {
