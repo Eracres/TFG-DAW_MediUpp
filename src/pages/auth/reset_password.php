@@ -62,21 +62,27 @@
     <?php if (isset($exito)) : ?>
         <span class="exito"> <?= $exito ?> </span>
     <?php endif; ?>
-    <?php if (isset($errores['general'])) : ?>
-        <span class="error"> <?= $errores['general'] ?> </span>
+    <?php if (isset($errors['general'])) : ?>
+        <span class="error"> <?= $errors['general'] ?> </span>
     <?php endif; ?>
     <form action="<?= $_SERVER["REQUEST_URI"]; ?>" method="post">
-        <label for="nueva_contrasena"> Nueva contraseña: </label> <br>
-        <input type="password" name="nueva_contrasena"> <br>
-        <?php if (isset($errores['nueva_contrasena'])): ?>
-            <span class="error"> <?= $errores['nueva_contrasena']; ?> </span>
-        <?php endif; ?> <br> 
+        <label for="new_password"> Nueva contraseña: </label>
+        <input type="password" 
+            class="reset-input<?= isset($errors['new-password']) || isset($errors['passwords-not-match']) ? ' form-input-error' : ''; ?>" 
+            name="new_password"
+            value="<?= isset($new_password) ? htmlspecialchars($new_password) : '' ?>">
+        <?php if (isset($errors['new-password'])): ?>
+            <span class="form-error-text"> <?= $errors['new-password']; ?> </span>
+        <?php endif; ?> 
 
-        <label for="confirmar_nueva_contrasena"> Confirma la contraseña: </label> <br>
-        <input type="password" name="confirmar_nueva_contrasena"> <br>
-        <?php if (isset($errores['confirmar_nueva_contrasena'])): ?>
-            <span class="error"> <?= $errores['confirmar_nueva_contrasena']; ?> </span>
-        <?php endif; ?> <br> 
+        <label for="new_password_confirm"> Confirma la contraseña: </label>
+        <input type="password"
+            class="reset-input<?= isset($errors['new-password-confirm']) || isset($errors['passwords-not-match']) ? ' form-input-error' : ''; ?>" 
+            name="new_password_confirm"
+            value="<?= isset($new_password_confirm) ? htmlspecialchars($new_password_confirm) : '' ?>">
+        <?php if (isset($errors['new-password-confirm'])): ?>
+            <span class="form-error-text"> <?= $errors['new-password-confirm']; ?> </span>
+        <?php endif; ?>
 
         <input type="submit" name="resetear" value="RESTABLECER">
     </form>

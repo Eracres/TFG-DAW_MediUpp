@@ -55,17 +55,15 @@
 </head>
 <body>
     <h2> Recupera tu contraseña </h2>
-    <?php if (isset($correo_enviado) && $correo_enviado) : ?>
-        <span class="exito"> <?= $mensaje_exito; ?> </span>
-    <?php elseif (isset($correo_enviado)): ?> 
-        <span class="error"> Ha habido un error al enviar el correo electrónico </span>
-    <?php endif; ?>
     <form action="" method="post">
-        <label for="correo_recuperacion"> Correo electrónico asociado a la cuenta: </label> <br>
-        <input type="email" name="recovery_email"> <br>
-        <?php if (isset($mensaje_error)) : ?>
-            <span class="error"> <?= $mensaje_error; ?> </span>
-        <?php endif; ?> <br>
+        <label for="recovery_email"> Correo electrónico asociado a la cuenta: </label>
+        <input type="email" 
+            class="recover-input<?= isset($error) ? ' form-input-error' : ''; ?>"
+            name="recovery_email"
+            value="<?= isset($recovery_email) ? htmlspecialchars($recovery_email) : '' ?>">
+        <?php if (isset($error)) : ?>
+            <span class="form-error-text"> <?= $error; ?> </span>
+        <?php endif; ?>
 
         <button type="submit" name="send" id=""> Enviar </button>
     </form>

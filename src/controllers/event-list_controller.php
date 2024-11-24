@@ -25,11 +25,11 @@
                     IF(ue.event_id IS NULL, 0, 1) AS is_joined
                 FROM events e
                 LEFT JOIN user_events ue ON e.id = ue.event_id AND ue.user_id = ?
-                WHERE e.is_public = ?
+                WHERE e.is_public = ? AND e.created_by != ?
                 ORDER BY is_joined ASC, e.created_at DESC
                 ";
     
-        $db->execute($query, [$user_id, TRUE_VALUE]);
+        $db->execute($query, [$user_id, TRUE_VALUE, $user_id]);
         $public_events = $db->getData(DBConnector::FETCH_ALL);
     
         return $public_events;
