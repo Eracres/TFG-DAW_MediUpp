@@ -25,5 +25,10 @@
 </div>
 
 <?php
+    $additional_scripts = [
+        '../assets/js/event-view_script.js', 
+        '../assets/js/auth/script.js'
+    ];
     $content = ob_get_clean();
+    
     include PARTIALS_DIR . 'layout.php';

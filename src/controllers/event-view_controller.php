@@ -45,12 +45,22 @@
     // Obtiene los participantes del evento
     function getEventParticipants($event_id) {
         global $db;
-    
-        $query = "SELECT *
+
+        $logged_user_id = getLoggedUser()['id'];
+        $admins = getEventAdmins($event_id);
+        // Primero el usuario logueado, luego los administradores y luego los demás
+        $query = "SELECT u.*, 
+                    CASE WHEN u.id = ? THEN 0 
+                        WHEN u.id IN (?) THEN 1 
+                        ELSE 2 
+                    END AS participant_order
                 FROM users u
                 INNER JOIN user_events ue ON u.id = ue.user_id
-                WHERE ue.event_id = ?";
-        $db->execute($query, [$event_id]);
+                WHERE ue.event_id = ?
+                ORDER BY participant_order, u.usern";
+        $admins_str = implode(',', $admins);
+
+        $db->execute($query, [$logged_user_id, $admins_str, $event_id]);
         $event_participants = $db->getData(DBConnector::FETCH_ALL);
 
         return $event_participants;
@@ -80,8 +90,8 @@
         return $db->getExecuted();
     }
 
-    // Remueve un usuario del evento
-    function leftEvent($event_id, $user_id) {
+    // Elimina un usuario del evento
+    function deleteUserFromEvent($event_id, $user_id) {
         global $db;
 
         $query = "DELETE FROM user_events WHERE event_id = ? AND user_id = ?";

@@ -476,6 +476,23 @@
 }
 
 
+.event-content {
+    @apply flex flex-col bg-gray-100 flex-1;
+}
+
+.event-content-header {
+    @apply flex justify-center items-center gap-4 py-4 bg-gray-200;
+}
+
+.toggle-section-btn {
+    @apply flex items-center gap-2 px-4 py-2 bg-gray-800 text-white rounded-lg cursor-pointer hover:bg-gray-700;
+}
+
+.event-content-dynamic {
+    @apply flex-1 p-4 bg-white rounded-lg shadow-lg mt-4;
+}
+
+
 
 
 /*___________________________________________________________________________*/

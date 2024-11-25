@@ -2,6 +2,85 @@ const MEDIA_SECTION = "media-section";
 const CHAT_SECTION = "chat-section";
 
 document.addEventListener("DOMContentLoaded", () => {
+    // FUNCIONALIDAD DE ACCIONES DE PARTICIPANTES
+
+    const participantActionsBtn = document.querySelectorAll(".participant-actions-btn");
+
+    participantActionsBtn.forEach(btn => {
+        btn.addEventListener("click", () => {
+            
+        });
+    });
+
+    // FUNCIONALIDAD DE ASIGNAR ADMINISTRADOR O ELIMINAR A UN PARTICIPANTE
+
+    const assignAdminBtns = document.querySelectorAll(".assign-participant-admin-btn");
+    const deleteParticipantBtns = document.querySelectorAll(".delete-participant-btn");
+
+    assignAdminBtns.forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+            const participantElement = e.target.closest(".event-participant");
+            const participantId = participantElement.dataset.participantId;
+
+            if (!btn.disabled) {
+                $.ajax({
+                    url: "/path/to/assign-admin-endpoint.php",
+                    method: "POST",
+                    data: { participant_id: participantId },
+                    success: (response) => {
+                        alert("Administrador asignado con éxito.");
+                        location.reload();
+                    },
+                    error: (error) => {
+                        console.error("Error asignando administrador:", error);
+                    },
+                });
+            }
+        });
+    });
+
+    deleteParticipantBtns.forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+            const participantElement = e.target.closest(".event-participant");
+            const participantId = participantElement.dataset.participantId;
+
+            if (!btn.disabled) {
+                if (confirm("¿Seguro que deseas eliminar a este participante?")) {
+                    $.ajax({
+                        url: "",
+                        method: "POST",
+                        data: { participant_id: participantId },
+                        success: (response) => {
+                            alert("Participante eliminado.");
+                            participantElement.remove();
+                        },
+                        error: (error) => {
+                            console.error("Error eliminando participante:", error);
+                        },
+                    });
+                }
+            }
+        });
+    });
+
+    
+    // FUNCIONALIDAD DE ELIMINAR UN USUARIO DE UN EVENTO
+    const leftEventBtn = document.querySelector(".event-left-button");
+
+    leftEventBtn.addEventListener("click", () => {
+        $.ajax({
+            url: "",
+            method: "POST",
+            data: {  },
+            success: (response) => {
+                
+            },
+            error: (error) => {
+
+            }
+        });
+    });
+
     // FUNCIONALIDAD DEL MODAL DE PARTICIPANTES
     const modal = document.querySelector(".modal");
     const modalContainer = document.querySelector(".modal-content");
@@ -109,14 +188,10 @@ function loadChatMessages() {
 }
 
 // IMPRESIÓN DE POSTS MULTIMEDIA Y MENSAJES DE CHAT
-function printMediaPosts(posts) {
-    posts.forEach(post => {
-        
-    });
+function printMediaPost(post) {
+    
 }
 
-function printChatMessages(messages) {
-    messages.forEach(message => {
-        
-    });
+function printChatMessage(message) {
+    
 }

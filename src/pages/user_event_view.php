@@ -14,6 +14,9 @@
         exit;
     }
 
+    $isEventPublic = isEventPublic($current_event_id);
+    $isUserInEvent = isUserInEvent($logged_user_id, $current_event_id);
+
     $event_data = getEventData($current_event_id);
     $participants = getEventParticipants($current_event_id);
     $admins = getEventAdmins($current_event_id);
@@ -22,9 +25,6 @@
     if ($isAdmin) {
         $isCreatorOrSuperAdmin = checkIfCreatorOrSuperAdmin($logged_user_id, $current_event_id);
     }
-
-    $media_posts = getEventPosts($current_event_id);
-    $chat_messages = getEventChatMessages($current_event_id);
 
     $doc_title = trim($event_data['title']);
     ob_start();
@@ -84,7 +84,7 @@
                             <button class="edit-btn" data-field="title"><i class="fa-solid fa-pen"></i></button>
                         <?php endif; ?>
                     </div>
-                    <?php if (!empty($event_data['type'])): ?>
+                    <?php if (!empty($event_data['type']) && isset(EVENT_TYPE[$event_data['type']])): ?>
                         <div class="event-field event-type">
                             <span id="event-type"><?= EVENT_TYPE[$event_data['type']]; ?></span>
                         </div>
@@ -105,17 +105,18 @@
                     <h3 class="head-text"> Participantes </h3>
                 </div>
                 <div class="event-participants-container">
-                    <? if ($isAdmin): ?>
-                        <div>
+                    <?php if ($isAdmin): ?>
+                        <div class="event-add-participant">
                             <button class="open-participant-modal-btn"> 
                                 <i class="fa-solid fa-user-plus"></i> 
                                 <span> Añadir participante </span>
                             </button>
-                            <? include COMPONENTS_DIR . 'add-participant_modal.php'; ?>
+                            <?php include COMPONENTS_DIR . 'add-participant_modal.php'; ?>
                         </div>
-                    <? endif; ?>
+                    <?php endif; ?>
                     <ul class="event-participants-list">
                         <?php foreach ($participants as $participant): ?>
+                            <?php $isParticipantAdmin = in_array($participant['id'], $admins); ?>
                             <li class="event-participant">
                                 <div class="participant-container">
                                     <div class="participant-col1">
@@ -128,15 +129,23 @@
                                             <?php if ($participant['id'] == $logged_user_id): ?>
                                                 Tú
                                             <?php else: ?>
-                                                <?= htmlspecialchars(trim($participant['usern'])); ?>
+                                                @<?= htmlspecialchars(trim($participant['usern'])); ?>
                                             <?php endif; ?> 
                                         </span>
-                                        <?php if (in_array($participant['id'], $admins)): ?>
+                                        <?php if ($isParticipantAdmin): ?>
                                             <div>
                                                 <span class="participant-admin"> <em> Administrador </em> </span>
                                             </div>
                                         <?php endif; ?>
                                     </div>
+                                    <?php if ($participant['id'] != $logged_user_id): ?>
+                                        <div class="participant-col3">
+                                            <button class="participant-actions-btn">
+                                                <i class="fa-solid fa-ellipsis"></i>
+                                            </button>
+                                            <?php include COMPONENTS_DIR . 'event-participant_menu.php'; ?>
+                                        </div>
+                                    <?php endif; ?>
                                 </div>
                             </li>
                         <?php endforeach; ?>
@@ -145,14 +154,17 @@
             </div>
             <div class="event-user-controls">
                 <div class="event-user-controls-container">
-                    <div class="">
-                        <button class="event-left-button"> 
-                            <span> Salir del evento </span> 
-                            <i class="fa-solid fa-right-from-bracket"></i>
-                        </button>
-                    </div>
+                    <!-- Si el usuario no está en el evento, no mostrar el boton de salirse -->
+                    <?php if ($isUserInEvent): ?>
+                        <div class="control-left-event">
+                            <button class="event-left-button"> 
+                                <span> Salir del evento </span> 
+                                <i class="fa-solid fa-right-from-bracket"></i>
+                            </button>
+                        </div>
+                    <?php endif; ?>
                     <?php if (isset($isCreatorOrSuperAdmin) && $isCreatorOrSuperAdmin): ?>
-                        <div class="">
+                        <div class="control-delete-event">
                             <button class="event-delete-button"> 
                                 <span> Eliminar evento </span>
                                 <i class="fa-solid fa-trash"></i>

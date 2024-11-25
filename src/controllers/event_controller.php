@@ -20,12 +20,17 @@
         return $db->getData(DBConnector::FETCH_COLUMN) > 0;
     }
 
-    function canUserAccessEvent($event_id, $user_id) {
+    function isEventPublic($event_id) {
         global $db;
-        // Obtener si el evento es público o privado
+        
         $query = "SELECT is_public FROM events WHERE id = ?";
         $db->execute($query, [$event_id]);
-        $is_public = $db->getData(DBConnector::FETCH_COLUMN);
+        return (bool)$db->getData(DBConnector::FETCH_COLUMN);
+    }
+
+    function canUserAccessEvent($event_id, $user_id) {
+        // Obtener si el evento es público o privado
+        $is_public = isEventPublic($event_id);
         // Si el evento es público, permitir el acceso
         if ($is_public) {
             return true;

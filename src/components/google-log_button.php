@@ -1,3 +1,4 @@
+<!-- google-log_button.php -->
 <a href="">
     <button class="gsi-material-button">
         <div class="gsi-material-button-state"></div>

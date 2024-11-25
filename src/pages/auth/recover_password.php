@@ -24,7 +24,12 @@
 
             $recovery_link = "http://localhost/TFG-DAW_MediUpp/src/auth/reset_password.php?token=$token";
             $recovery_email_subject = "Recupera tu contraseña con MediUpp";
-            $recovery_email_body = COMPONENTS_DIR . "/email_templates/recovery_password_email.php";
+            
+            ob_start();
+            $body_template_path = COMPONENTS_DIR . "/email_templates/recovery_password_email.php";
+            include $body_template_path;
+
+            $recovery_email_body = ob_get_clean();
 
             $sending_success = sendEmail($recovery_email, $recovery_email_subject, $recovery_email_body);
 
