@@ -117,11 +117,11 @@
                     <ul class="event-participants-list">
                         <?php foreach ($participants as $participant): ?>
                             <?php $isParticipantAdmin = in_array($participant['id'], $admins); ?>
-                            <li class="event-participant">
+                            <li class="event-participant" data-participant-id="<?= $participant['id']; ?>">
                                 <div class="participant-container">
                                     <div class="participant-col1">
                                         <div class="participant-pfp-container">
-                                            <img src="" alt="" class="participant-pfp">
+                                            <img src="<?= $participant['pfp_src'] ?>" alt="Foto de perfil de @<?= $participant['usern']; ?>" class="participant-pfp">
                                         </div>
                                     </div>
                                     <div class="participant-col2">

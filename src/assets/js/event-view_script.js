@@ -2,65 +2,78 @@ const MEDIA_SECTION = "media-section";
 const CHAT_SECTION = "chat-section";
 
 document.addEventListener("DOMContentLoaded", () => {
-    // FUNCIONALIDAD DE ACCIONES DE PARTICIPANTES
+    // FUNCIONALIDAD DEL DROPDOWN DEL HEAD
+    const userDropdownBtn = document.querySelector(".head-user-dropdow-btn");
+    
+    userDropdownBtn.addEventListener("click", () => {
+        const dropdown = document.querySelector(".head-user-dropdown");
+        dropdown.classList.toggle("open");
+    });
 
+    // FUNCIONALIDAD DE ACCIONES DE PARTICIPANTES
     const participantActionsBtn = document.querySelectorAll(".participant-actions-btn");
 
     participantActionsBtn.forEach(btn => {
-        btn.addEventListener("click", () => {
-            
+        btn.addEventListener("click", (e) => {
+            const actionsMenu = e.target.closest(".participant-col3").querySelector(".event-participant-actions-menu");
+            actionsMenu.classList.toggle("hidden");
         });
     });
 
     // FUNCIONALIDAD DE ASIGNAR ADMINISTRADOR O ELIMINAR A UN PARTICIPANTE
-
     const assignAdminBtns = document.querySelectorAll(".assign-participant-admin-btn");
     const deleteParticipantBtns = document.querySelectorAll(".delete-participant-btn");
 
     assignAdminBtns.forEach((btn) => {
-        btn.addEventListener("click", (e) => {
-            const participantElement = e.target.closest(".event-participant");
-            const participantId = participantElement.dataset.participantId;
+        if (!btn.disabled) {
+            btn.addEventListener("click", (e) => {
+                const participantElement = e.target.closest(".event-participant");
+                const participantId = participantElement.dataset.participantId;
 
-            if (!btn.disabled) {
-                $.ajax({
-                    url: "/path/to/assign-admin-endpoint.php",
-                    method: "POST",
-                    data: { participant_id: participantId },
-                    success: (response) => {
-                        alert("Administrador asignado con éxito.");
-                        location.reload();
-                    },
-                    error: (error) => {
-                        console.error("Error asignando administrador:", error);
-                    },
-                });
-            }
-        });
+                if (participantId) {
+                    if (confirm("¿Seguro que deseas asignarle como adminitrador?")) {
+                        $.ajax({
+                            url: "/path/to/assign-admin-endpoint.php",
+                            method: "POST",
+                            data: { participant_id: participantId },
+                            success: (response) => {
+                                alert("Administrador asignado con éxito.");
+                                location.reload();
+                            },
+                            error: (error) => {
+                                console.error("Error asignando administrador:", error);
+                            },
+                        });
+                    }
+                }
+            });
+        }
     });
 
     deleteParticipantBtns.forEach((btn) => {
-        btn.addEventListener("click", (e) => {
-            const participantElement = e.target.closest(".event-participant");
-            const participantId = participantElement.dataset.participantId;
+        if (!btn.disabled) {
+            btn.addEventListener("click", (e) => {
+                const participantElement = e.target.closest(".event-participant");
+                const participantId = participantElement.dataset.participantId;
 
-            if (!btn.disabled) {
-                if (confirm("¿Seguro que deseas eliminar a este participante?")) {
-                    $.ajax({
-                        url: "",
-                        method: "POST",
-                        data: { participant_id: participantId },
-                        success: (response) => {
-                            alert("Participante eliminado.");
-                            participantElement.remove();
-                        },
-                        error: (error) => {
-                            console.error("Error eliminando participante:", error);
-                        },
-                    });
+                if (participantId) {
+                    if (confirm("¿Seguro que deseas eliminar a este participante?")) {
+                        $.ajax({
+                            url: "",
+                            method: "POST",
+                            data: { participant_id: participantId },
+                            success: (response) => {
+                                alert("Participante eliminado.");
+                                participantElement.remove();
+                            },
+                            error: (error) => {
+                                console.error("Error eliminando participante:", error);
+                            },
+                        });
+                    }
                 }
-            }
-        });
+            });
+        }
     });
 
     
