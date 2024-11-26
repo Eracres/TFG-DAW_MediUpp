@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     window.addEventListener("click", (e) => {
-        if (e.target !== modalContainer) {
+        if (modal.classList.contains("open") && !modalContainer.contains(e.target)) {
             modal.classList.remove("open");
         }
     });

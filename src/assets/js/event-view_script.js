@@ -15,9 +15,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
     participantActionsBtn.forEach(btn => {
         btn.addEventListener("click", (e) => {
-            const actionsMenu = e.target.closest(".participant-col3").querySelector(".event-participant-actions-menu");
+            const participant = e.target.closest(".event-participant");
+            const actionsMenu = participant.querySelector(".event-participant-actions-menu");
+            // Cerrar otros menús abiertos
+            document.querySelectorAll(".event-participant-actions-menu").forEach((menu) => {
+                if (menu !== actionsMenu) {
+                    menu.classList.add("hidden");
+                }
+            });
+            // Alternar visibilidad del menú actual
             actionsMenu.classList.toggle("hidden");
         });
+    });
+
+    document.addEventListener("click", (e) => {
+        if (!e.target.closest(".participant-col3")) {
+            document.querySelectorAll(".event-participant-actions-menu").forEach((menu) => {
+                menu.classList.add("hidden");
+            });
+        }
     });
 
     // FUNCIONALIDAD DE ASIGNAR ADMINISTRADOR O ELIMINAR A UN PARTICIPANTE
@@ -173,26 +189,40 @@ function loadContent(section) {
 
 // CARGA DE POSTS MULTIMEDIA Y MENSAJES DE CHAT
 function loadMediaPosts() {
+    let data = {
+        action: "get_media_posts",
+        event_id: 1
+    };
 
     $.ajax({
         url: "",
         method: "GET",
         success: (response) => {
-
+            const posts = JSON.parse(response);
+            posts.forEach(post => {
+                printMediaPost(post);
+            });
         },
         error: (error) => {
-            
+
         }
     });
 }
 
 function loadChatMessages() {
+    let data = {
+        action: "get_chat_messages",
+        event_id: 1
+    };
 
     $.ajax({
         url: "",
         method: "GET",
         success: (response) => {
-
+            const messages = JSON.parse(response);
+            messages.forEach(message => {
+                printChatMessage(message);
+            });
         },
         error: (error) => {
             
@@ -202,9 +232,91 @@ function loadChatMessages() {
 
 // IMPRESIÓN DE POSTS MULTIMEDIA Y MENSAJES DE CHAT
 function printMediaPost(post) {
+    const mediaPostContainer = document.querySelector("");
+
+    const postElement = document.createElement("div");
+    postElement.classList.add("");
     
+    // Usuario que sube el post
+    const postRow1 = document.createElement("div");
+    postRow1.classList.add("");
+
+    const postUserAvatar = document.createElement("div");
+    postUserAvatar.classList.add("");
+
+    const postUserAvatarImg = document.createElement("img");
+    postUserAvatarImg.classList.add("");
+
+    const postUserName = document.createElement("span");
+    postUserName.classList.add("");
+
+    postUserAvatar.appendChild(postUserAvatarImg);
+    postRow1.appendChild(postUserAvatar);
+    postRow1.appendChild(postUserName);
+
+    // Contenido multimedia
+    const postRow2 = document.createElement("div");
+    postRow2.classList.add("");
+
+    const postContent = document.createElement("div");
+    postContent.classList.add("");
+
+    const postMedia = document.createElement("img");
+    postMedia.classList.add("");
+
+    postContent.appendChild(postMedia);
+    postRow2.appendChild(postContent);
+
+    postElement.appendChild(postRow1);
+    postElement.appendChild(postRow2);
+
+    mediaPostContainer.appendChild(postElement);
 }
 
 function printChatMessage(message) {
+    const chatContainer = document.querySelector("");
+
+    const messageElement = document.createElement("div");
+    messageElement.classList.add("");
+
+    // Usuario que manda el mensaje
+    const messageRow1 = document.createElement("div");
+    messageRow1.classList.add("");
     
+    const messageUserAvatar = document.createElement("div");
+    messageUserAvatar.classList.add("");
+
+    const messageUserAvatarImg = document.createElement("img");
+    messageUserAvatarImg.classList.add("");
+
+    const messageUserName = document.createElement("span");
+    messageUserName.classList.add("");
+
+    messageUserAvatar.appendChild(messageUserAvatarImg);
+    messageRow1.appendChild(messageUserAvatar);
+    messageRow1.appendChild(messageUserName);
+    
+    // Mensaje
+    const messageRow2 = document.createElement("div");
+    messageRow2.classList.add("");
+
+    const messageContent = document.createElement("span");
+    messageContent.classList.add("");
+
+    messageRow2.appendChild(messageContent);
+
+    // Fecha y hora
+    const messageRow3 = document.createElement("div");
+    messageRow3.classList.add("");
+
+    const messageDate = document.createElement("span");
+    messageDate.classList.add("");
+
+    messageRow3.appendChild(messageDate);
+
+    messageElement.appendChild(messageRow1);
+    messageElement.appendChild(messageRow2);
+    messageElement.appendChild(messageRow3);
+
+    chatContainer.appendChild(messageElement);
 }
