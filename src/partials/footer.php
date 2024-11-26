@@ -14,8 +14,13 @@
         <!-- Contenedor principal del footer con flex y responsive -->
         <div class="app-footer-flextext flex flex-col md:flex-row gap-6 md:justify-between items-start md:items-center">
             <div>
-                <h3 class="text-lg font-semibold">Sobre MediUpp</h3>
-                <p class="text-sm mt-2">MediUpp es una plataforma dedicada a mejorar la gestión de eventos y comunidades médicas.</p>
+                <h3 class="text-lg font-semibold">La plataforma dedicada a mejorar la gestión de eventos</h3>
+                <span>© <?= date("Y"); ?> MediUpp. Todos los derechos reservados.</span>
+                <span>
+                    <a href="#" class="hover:underline">Política de privacidad</a> |
+                    <a href="#" class="hover:underline">Términos de uso</a> |
+                    <a href="#" class="hover:underline">Contacto</a>
+                </span>
             </div>
             <div class="flex gap-3">
                 <?php foreach ($social_links as $platform => $link): ?>
@@ -32,14 +37,4 @@
                 </form>
             </div>
         </div>
-        <!-- Sección inferior con enlaces legales y derechos de autor -->
-        <div class="mt-6 text-center text-sm border-t border-gray-700 pt-4">
-            <span>© <?= date("Y"); ?> MediUpp. Todos los derechos reservados.</span>
-            <span>
-                <a href="#" class="hover:underline">Política de Privacidad</a> |
-                <a href="#" class="hover:underline">Términos de Uso</a> |
-                <a href="#" class="hover:underline">Contacto</a>
-            </span>
-        </div>
-    </div>
 </footer>

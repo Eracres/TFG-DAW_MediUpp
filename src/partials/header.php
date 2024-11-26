@@ -3,10 +3,10 @@
     <div class="app-header-container">
         <!-- Logos -->
         <div class="app-header-logo">
-            <img src="../../resources/logo/Logo(final).png" alt="MediUpp logo" class="app-header-logo-img">
+            <img src="../resources/logo/logo.png" alt="MediUpp logo" class="app-header-logo-img">
         </div>
         <div class="app-header-title">
-            <img src="../../resources/logo/Titulo(final).png" alt="MediUpp title" class="app-header-title-img">
+            <img src="../resources/logo/titulo.png" alt="MediUpp title" class="app-header-title-img">
         </div>
         <!-- Notificaciones y botón de modo oscuro/claro -->
         <div class="app-header-controls">

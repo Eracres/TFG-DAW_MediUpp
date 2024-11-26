@@ -616,10 +616,6 @@ video {
   margin-top: 0.5rem;
 }
 
-.mt-6 {
-  margin-top: 1.5rem;
-}
-
 .block {
   display: block;
 }
@@ -702,15 +698,6 @@ video {
   border-width: 1px;
 }
 
-.border-t {
-  border-top-width: 1px;
-}
-
-.border-gray-700 {
-  --tw-border-opacity: 1;
-  border-color: rgb(55 65 81 / var(--tw-border-opacity));
-}
-
 .bg-blue-500 {
   --tw-bg-opacity: 1;
   background-color: rgb(59 130 246 / var(--tw-bg-opacity));
@@ -754,10 +741,6 @@ video {
   padding-bottom: 0.5rem;
 }
 
-.pt-4 {
-  padding-top: 1rem;
-}
-
 .text-center {
   text-align: center;
 }
@@ -774,11 +757,6 @@ video {
 .text-lg {
   font-size: 1.125rem;
   line-height: 1.75rem;
-}
-
-.text-sm {
-  font-size: 0.875rem;
-  line-height: 1.25rem;
 }
 
 .font-bold {
@@ -899,7 +877,21 @@ video {
 
 .app-header-logo-img {
   margin-right: 0.5rem;
-  width: 2.5rem;
+  width: 3rem;
+}
+
+.app-header-title {
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  --tw-text-opacity: 1;
+  color: rgb(244 244 249 / var(--tw-text-opacity));
+}
+
+.app-header-title-img {
+  margin-right: 0.5rem;
+  width: 9rem;
 }
 
 .app-header-modo {
@@ -1564,6 +1556,7 @@ video {
   position: absolute;
   right: 0px;
   margin-top: 7rem;
+  display: none;
   width: 12rem;
   border-radius: 0.5rem;
   --tw-bg-opacity: 1;
@@ -1572,6 +1565,10 @@ video {
   --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.head-user-dropdown.open {
+  display: flex;
 }
 
 .dropdown-list {

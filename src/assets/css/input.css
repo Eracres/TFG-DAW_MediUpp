@@ -28,7 +28,15 @@
 }
 
 .app-header-logo-img {
-    @apply w-10 mr-2;
+    @apply w-12 mr-2;
+}
+
+.app-header-title {
+    @apply flex items-center text-ghost-white text-2xl;
+}
+
+.app-header-title-img {
+    @apply w-36 mr-2;
 }
 
 .app-header-modo {
@@ -364,7 +372,11 @@
 }
 
 .head-user-dropdown {
-    @apply absolute right-0 bg-gray-800 rounded-lg shadow-lg mt-28 p-2 w-48;
+    @apply absolute right-0 bg-gray-800 rounded-lg shadow-lg mt-28 p-2 w-48 hidden;
+}
+
+.head-user-dropdown.open {
+    @apply flex;
 }
 
 .dropdown-list {
