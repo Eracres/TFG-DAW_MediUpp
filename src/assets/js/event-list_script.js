@@ -13,7 +13,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     closeModalBtns.forEach(btn => {
         btn.addEventListener("click", () => {
-            e.preventDefault();
 
             /*const errorSpans = document.querySelectorAll(".form-error-text");
             errorSpans.forEach(span => span.remove());
@@ -24,9 +23,9 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    window.addEventListener("click", (e) => {
-        if (modal.classList.contains("open") && !modalContainer.contains(e.target)) {
-            modal.classList.remove("open");
-        }
-    });
+    // window.addEventListener("click", (e) => {
+    //     if (modal.classList.contains("open") && !modalContainer.contains(e.target)) {
+    //         modal.classList.remove("open");
+    //     }
+    // });
 });

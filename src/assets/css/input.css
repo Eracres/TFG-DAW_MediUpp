@@ -529,7 +529,7 @@
 
 /* When the modal is open */
 .modal.open {
-    display: flex; /* Show modal as flex when it's open */
+    @apply flex;
 }
 
 .modal-content {
