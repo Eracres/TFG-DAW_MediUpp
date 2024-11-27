@@ -17,24 +17,18 @@ document.addEventListener("DOMContentLoaded", () => {
         btn.addEventListener("click", (e) => {
             const participant = e.target.closest(".event-participant");
             const actionsMenu = participant.querySelector(".event-participant-actions-menu");
+    
             // Cerrar otros menús abiertos
             document.querySelectorAll(".event-participant-actions-menu").forEach((menu) => {
                 if (menu !== actionsMenu) {
-                    menu.classList.add("hidden");
+                    menu.classList.remove("open"); // Aquí se elimina la clase "open" para cerrarlos
                 }
             });
+    
             // Alternar visibilidad del menú actual
-            actionsMenu.classList.toggle("hidden");
+            actionsMenu.classList.toggle("open");
         });
-    });
-
-    document.addEventListener("click", (e) => {
-        if (!e.target.closest(".participant-col3")) {
-            document.querySelectorAll(".event-participant-actions-menu").forEach((menu) => {
-                menu.classList.add("hidden");
-            });
-        }
-    });
+    });;
 
     // FUNCIONALIDAD DE ASIGNAR ADMINISTRADOR O ELIMINAR A UN PARTICIPANTE
     const assignAdminBtns = document.querySelectorAll(".assign-participant-admin-btn");

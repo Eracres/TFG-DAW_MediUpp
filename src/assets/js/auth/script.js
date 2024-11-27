@@ -1,20 +1,18 @@
+import axios from '/path/to/utils';
+
 document.addEventListener("DOMContentLoaded", () => {
     // CIERRE DE SESIÓN
     const logoutBtns = document.querySelectorAll(".logout-btn");
 
     logoutBtns.forEach((btn) => {
         btn.addEventListener("click", () => {
-            $.ajax({
-                url: "/src/config/ajax_requests.php",
-                method: "POST",
-                data: { action: 'logout' },
-                success: () => {
+            axios.post('http://localhost/tfg-daw_mediupp/src/config/ajax_requests.php', { action: 'logout' })
+                .then(() => {
                     window.location.href = "/pages/auth/login.php";
-                },
-                error: (error) => {
+                })
+                .catch((error) => {
                     console.error("Error al cerrar sesión:", error);
-                }
-            });
+                });
         });
     });
 });

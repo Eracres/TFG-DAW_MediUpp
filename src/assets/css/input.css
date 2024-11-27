@@ -375,10 +375,6 @@
     @apply absolute right-0 bg-gray-800 rounded-lg shadow-lg mt-28 p-2 w-48 hidden;
 }
 
-.head-user-dropdown.open {
-    @apply flex;
-}
-
 .dropdown-list {
     @apply list-none p-0 m-0;
 }
@@ -470,6 +466,10 @@
     @apply text-sm text-green-500 italic;
 }
 
+.event-participant-actions-menu {
+    @apply absolute hidden mt-2 right-0 bg-white border border-gray-300 rounded-lg shadow-lg w-48 z-10;
+}
+
 /* Event User Controls */
 .event-user-controls {
     @apply flex justify-between p-4 bg-gray-800 text-white rounded-lg;
@@ -528,7 +528,7 @@
 }
 
 /* When the modal is open */
-.modal.open {
+.open {
     @apply flex;
 }
 
