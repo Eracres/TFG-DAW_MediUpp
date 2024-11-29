@@ -42,18 +42,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 if (participantId) {
                     if (confirm("¿Seguro que deseas asignarle como adminitrador?")) {
-                        $.ajax({
-                            url: "/path/to/assign-admin-endpoint.php",
-                            method: "POST",
-                            data: { participant_id: participantId },
-                            success: (response) => {
+                        let data = {
+                            action: "assign_admin",
+                            participant_id: participantId
+                        };
+
+                        axios.post('/path/to/assign-admin-endpoint.php', data)
+                            .then((response) => {
                                 alert("Administrador asignado con éxito.");
                                 location.reload();
-                            },
-                            error: (error) => {
+                            })
+                            .catch((error) => {
                                 console.error("Error asignando administrador:", error);
-                            },
-                        });
+                            });
                     }
                 }
             });
@@ -68,18 +69,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 if (participantId) {
                     if (confirm("¿Seguro que deseas eliminar a este participante?")) {
-                        $.ajax({
-                            url: "",
-                            method: "POST",
-                            data: { participant_id: participantId },
-                            success: (response) => {
-                                alert("Participante eliminado.");
-                                participantElement.remove();
-                            },
-                            error: (error) => {
+                        let data = {
+                            action: "delete_participant",
+                            participant_id: participantId
+                        };
+
+                        axios.post('/path/to/delete-participant-endpoint.php', data)
+                            .then((response) => {
+                                alert("Participante eliminado con éxito.");
+                                location.reload();
+                            })
+                            .catch((error) => {
                                 console.error("Error eliminando participante:", error);
-                            },
-                        });
+                            });
                     }
                 }
             });
@@ -91,17 +93,18 @@ document.addEventListener("DOMContentLoaded", () => {
     const leftEventBtn = document.querySelector(".event-left-button");
 
     leftEventBtn.addEventListener("click", () => {
-        $.ajax({
-            url: "",
-            method: "POST",
-            data: {  },
-            success: (response) => {
-                
-            },
-            error: (error) => {
+        let data = {
+            action: "leave_event",
+            event_id: 1
+        };
 
-            }
-        });
+        axios.post('/path/to/left-event-endpoint.php', data)
+            .then((response) => {
+                
+            })
+            .catch((error) => {
+                console.error("Error al dejar el evento:", error);
+            });
     });
 
     // FUNCIONALIDAD DEL MODAL DE PARTICIPANTES
@@ -146,16 +149,17 @@ document.addEventListener("DOMContentLoaded", () => {
     sendBtn.addEventListener("click", () => {
         const message = chatInput.value.trim();
         if (message) {
-            $.ajax({
-                url: "",
-                method: "POST",
-                data: {  },
-                success: (response) => {
+            let data = {
+                action: "send_chat_message",
+                message: message
+            };
 
-                },
-                error: (error) => {
-                    
-                }
+            axios.post('/config/ajax_requests.php', data)
+            .then((response) => {
+                console.log("Mensaje enviado:", response.data);
+            })
+            .catch((error) => {
+                console.error("Error al enviar el mensaje:", error);
             });
         }
     });
@@ -188,19 +192,16 @@ function loadMediaPosts() {
         event_id: 1
     };
 
-    $.ajax({
-        url: "",
-        method: "GET",
-        success: (response) => {
-            const posts = JSON.parse(response);
+    axios.get('/config/ajax_requests.php', data )
+        .then((response) => {
+            const posts = response.data;
             posts.forEach(post => {
                 printMediaPost(post);
             });
-        },
-        error: (error) => {
-
-        }
-    });
+        })
+        .catch((error) => {
+            console.log("Error al cargar las publicaciones de medios:", error);
+        });
 }
 
 function loadChatMessages() {
@@ -209,19 +210,16 @@ function loadChatMessages() {
         event_id: 1
     };
 
-    $.ajax({
-        url: "",
-        method: "GET",
-        success: (response) => {
-            const messages = JSON.parse(response);
+    axios.get('/config/ajax_requests.php', data)
+        .then((response) => {
+            const messages = response.data;
             messages.forEach(message => {
                 printChatMessage(message);
             });
-        },
-        error: (error) => {
-            
-        }
-    });
+        })
+        .catch((error) => {
+            console.log("Error al cargar los mensajes del chat:", error);
+        });
 }
 
 // IMPRESIÓN DE POSTS MULTIMEDIA Y MENSAJES DE CHAT

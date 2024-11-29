@@ -22,6 +22,7 @@
 
         <?php include 'footer.php'; ?>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="../assets/js/main_script.js"></script>
     <?php if (isset($additional_scripts) && is_array($additional_scripts)): ?>
         <?php foreach ($additional_scripts as $script_src): ?>
