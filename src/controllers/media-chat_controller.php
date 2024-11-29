@@ -2,7 +2,7 @@
 
     require_once $_SERVER['DOCUMENT_ROOT'] . '/TFG-DAW_MediUpp/src/utils/init.php';
 
-    function getEventPosts($event_id) {
+    function getEventMediaPosts($event_id) {
         global $db;
 
         $query = "SELECT * FROM posts WHERE event_id = ? ORDER BY created_at DESC";

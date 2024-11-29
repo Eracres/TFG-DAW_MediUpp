@@ -34,6 +34,15 @@
             
             declineEventInvitation($invitation_id, $invited_user_id);
         }
+
+        // ENVIA MENSAJE DE CHAT
+        if (isset($_POST['action']) && $_POST['action'] === 'send-chat-message' && isset($_POST['event_id']) && isset($_POST['message'])) {
+            $event_id = $_POST['event_id'];
+            $message = $_POST['message'];
+            $sender_user_id = getLoggedUser()['id'];
+
+            sendMessage($sender_user_id, $event_id, $message);
+        }
     }
 
     if ($_SERVER['REQUEST_METHOD'] === 'GET') {
@@ -46,4 +55,24 @@
             echo json_encode($invitations);
             exit;
         }
+
+        if (isset($_GET['action']) && $_GET['action'] === 'get-media-posts' && isset($_GET['event_id'])) {
+            $event_id = $_GET['event_id'];
+
+            $media_posts = getEventMediaPosts($event_id);
+
+            echo json_encode($media_posts);
+            exit;
+        }
+
+        if (isset($_GET['action']) && $_GET['action'] === 'get-chat-messages' && isset($_GET['event_id'])) {
+            $event_id = $_GET['event_id'];
+
+            $chat_messages = getEventChatMessages($event_id);
+
+            echo json_encode($chat_messages);
+            exit;
+        }
+
+
     }

@@ -372,7 +372,7 @@
 }
 
 .head-user-dropdown {
-    @apply absolute right-0 bg-gray-800 rounded-lg shadow-lg mt-28 p-2 w-48 hidden;
+    @apply absolute right-0 bg-gray-800 rounded-lg shadow-lg mt-32 p-2 w-48 hidden;
 }
 
 .dropdown-list {

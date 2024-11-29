@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (participantId) {
                     if (confirm("¿Seguro que deseas asignarle como adminitrador?")) {
                         let data = {
-                            action: "assign_admin",
+                            action: "assign-admin",
                             participant_id: participantId
                         };
 
@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (participantId) {
                     if (confirm("¿Seguro que deseas eliminar a este participante?")) {
                         let data = {
-                            action: "delete_participant",
+                            action: "delete-participant",
                             participant_id: participantId
                         };
 
@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     leftEventBtn.addEventListener("click", () => {
         let data = {
-            action: "leave_event",
+            action: "leave-event",
             event_id: 1
         };
 
@@ -150,7 +150,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const message = chatInput.value.trim();
         if (message) {
             let data = {
-                action: "send_chat_message",
+                action: "send-chat-message",
                 message: message
             };
 
@@ -188,7 +188,7 @@ function loadContent(section) {
 // CARGA DE POSTS MULTIMEDIA Y MENSAJES DE CHAT
 function loadMediaPosts() {
     let data = {
-        action: "get_media_posts",
+        action: "get-media-posts",
         event_id: 1
     };
 
@@ -206,7 +206,7 @@ function loadMediaPosts() {
 
 function loadChatMessages() {
     let data = {
-        action: "get_chat_messages",
+        action: "get-chat-messages",
         event_id: 1
     };
 
