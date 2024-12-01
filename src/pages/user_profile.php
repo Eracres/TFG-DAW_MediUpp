@@ -6,8 +6,10 @@ checkSession();
 //^-----------------------------------------------------------------------
 
 $logged_user = $_SESSION['logged_user'];
+$logged_user_id = $_SESSION['logged_user']['id'];
 $id_usuario = $_GET['id_usuario'];
-$owner = checkUserOwnProfile($logged_user['id'], $id_usuario); //* FUNCIONA!! 
+
+$owner = checkUserOwnProfile($logged_user_id, $id_usuario); //* FUNCIONA!! 
 
 // echo 'EL USUARIO LOGUEADO ES '.$logged_user['usern'].' y su ID es: '.$logged_user['id'].' que NO COINCIDE CON '.$id_usuario;
 
@@ -21,7 +23,7 @@ $update_exitoso = $error_update = $error_alias_edit = $error_bio_edit = $error_p
 
 
 //gettear id de usuario
-if (!isset($_GET['id_usuario']) || empty($_GET['id_usuario'])) {
+if (!isset($id_usuario) || empty($id_usuario)) {
     die("Este perfil de usuario no existe.
             <script>
                         setTimeout(function() {
@@ -66,6 +68,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $db->execute($queryActualizar, $queryActualizarParams);
     $datos_actualizados = $db->getExecuted();
 
+//*Espacio para llamar a la funcion de actualizar pfp
+
+    updatePfp();
+    
+
     if ($datos_actualizados) {
         $update_exitoso = "Cambios guardados correctamente.";
         $datos_usuario = $db->getData(DBConnector::FETCH_ROW); // Volver a cargar los datos del usuario
@@ -79,18 +86,10 @@ $title = "Perfil de @" . trim($datos_usuario['usern']);
 
 
 ?>
-<!-- //TODO Samu: No tengo figma para fijarme, así que voy a implementar funcionalidades de editar perfil con el esquema visual inspirado en twitter -->
-<!-- //* MENU -->
-<div class="">
-    <div class="">
-        <button id="logout-btn">Cerrar sesión</button>
-    </div>
-</div>
-
-<!-- //* 1: Perfil -->
+<!-- //* 1: Perfil editable (IZQUIERDA)-->
 <div class="">
     <div class="datos-perfil">
-        <img src="<?= $datos_usuario['pfp'] ?>" alt="pfp">
+        <img src="<?= $datos_usuario['pfp_src'] ?>" alt="pfp">
         <h3><?= $datos_usuario['alias'] ?></h3>
         <p><?= $datos_usuario['bio'] ?></p>
     </div>
@@ -98,23 +97,25 @@ $title = "Perfil de @" . trim($datos_usuario['usern']);
     <?php
     if ($owner === True):
 
-    //^BUTTON para transformar en editables los campos del perfil
+    // ^BUTTON para transformar en editables los campos del perfil
+    //^Este formulario solo es visible para el dueño del perfil. 
     ?>
         <button id="btn-editar" type="button">Editar perfil</button>
         <?php printSuccess($update_exitoso) ?>
 
+        <!-- //^Formulario para editar los datos del perfil-->
         <div id="contenedor-editar-perfil" style="display: none;"> <!-- Ocultarlo inicialmente -->
             <h3>Actualiza tus datos</h3>
-            <form action="" id="form-editar-perfil" method="POST">
+            <form action="" id="form-editar-perfil" method="POST" enctype="multipart/form-data">
                 <label for="alias-edit">Alias:</label>
                 <input type="text" name="alias-edit" value="<?= htmlspecialchars($datos_usuario['alias']) ?>">
                 <?php printError($error_alias_edit); ?>
 
-                <label for="bio-edit">Alias:</label>
+                <label for="bio-edit">Algo sobre ti:</label>
                 <input type="text" name="bio-edit" value="<?= htmlspecialchars($datos_usuario['bio']) ?>">
                 <?php printError($error_bio_edit); ?>
 
-                <input type="file" name="pfp-edit" value=""> //*pfp
+                <input type="file" name="pfp-edit[]" id="pfp-edit" value=""> //*pfp
                 <?php printError($error_pfp_edit); ?>
 
                 <!-- <input type="hidden" value="<?= $logged_user['id'] ?>" name="id-for-edit"> -->
@@ -137,6 +138,16 @@ $title = "Perfil de @" . trim($datos_usuario['usern']);
         });
     });
 </script>
+    
+    <!-- //* 2: Contenedor de eventos de usuario (DERECHA)-->
+
+    <div class="">
+
+    </div>
+
+
+
+
 <?php
     endif;
 

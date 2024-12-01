@@ -33,7 +33,7 @@
 
 
     function editProfileValues($user_id, $new_alias, $new_bio){
-        //*Función para editar SOLO alias y bio (pfp más adelante)
+        //*Función para editar SOLO alias y bio. pfp -> files_controller 
         $queryUpdate = "UPDATE users 
                         SET alias = :alias, bio = :bio   
                         WHERE id = :id";
