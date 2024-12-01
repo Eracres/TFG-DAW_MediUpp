@@ -8,3 +8,9 @@ function printError($mensaje){
         <p class="text-red-600">'.$mensaje.'</p>
     ';
 }
+
+function printSuccess($mensaje){
+    echo '
+    <p style="font-size:0.8rem" style="color:green">'.$mensaje.'</p>
+';
+}

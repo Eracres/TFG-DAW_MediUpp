@@ -1,4 +1,4 @@
 <!-- footer.php -->
 <footer>
-    <p> Contenido </p>
+    <p> Contenido del FOOTER </p>
 </footer>
