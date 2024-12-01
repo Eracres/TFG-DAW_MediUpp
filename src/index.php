@@ -27,10 +27,10 @@
 
         <!-- Botones de acción -->
         <div class="flex justify-center space-x-4">
-            <a href="register.php" class="bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600 transition duration-300">
+            <a href="pages/auth/register.php" class="bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600 transition duration-300">
                 Registrarse
             </a>
-            <a href="login.php" class="bg-gray-500 text-white px-6 py-2 rounded hover:bg-gray-600 transition duration-300">
+            <a href="pages/auth/login.php" class="bg-gray-500 text-white px-6 py-2 rounded hover:bg-gray-600 transition duration-300">
                 Login
             </a>
         </div>

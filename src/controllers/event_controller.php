@@ -9,23 +9,34 @@
         $db->execute($query, [$user_id, $event_id]);
     }
 
-    function canUserAccessEvent($event_id, $user_id) {
+    function isUserInEvent($user_id, $event_id) {
         global $db;
-        // Obtener si el evento es público o privado
-        $query = "SELECT is_public FROM events WHERE id = ?";
-        $db->execute($query, [$event_id]);
-        $is_public = $db->getData(DBConnector::FETCH_COLUMN);
-        // Si el evento es público, permitir el acceso
-        if ($is_public) {
-            return true;
-        }
-        // Si el evento es privado, verificar si el usuario pertenece al evento
+
         $query = "SELECT COUNT(*) 
                 FROM user_events 
                 WHERE user_id = ? AND event_id = ?";
         $db->execute($query, [$user_id, $event_id]);
         // Si no es miembro del evento, devolver false
         return $db->getData(DBConnector::FETCH_COLUMN) > 0;
+    }
+
+    function isEventPublic($event_id) {
+        global $db;
+        
+        $query = "SELECT is_public FROM events WHERE id = ?";
+        $db->execute($query, [$event_id]);
+        return (bool)$db->getData(DBConnector::FETCH_COLUMN);
+    }
+
+    function canUserAccessEvent($event_id, $user_id) {
+        // Obtener si el evento es público o privado
+        $is_public = isEventPublic($event_id);
+        // Si el evento es público, permitir el acceso
+        if ($is_public) {
+            return true;
+        }
+        // Si el evento es privado, verificar si el usuario pertenece al evento
+        return isUserInEvent($user_id, $event_id);
     }
 
     function checkEventRemainingUsersAndAdmins($event_id) {

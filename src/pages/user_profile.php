@@ -5,6 +5,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/TFG-DAW_MediUpp/src/utils/init.php';
 checkSession();
 //^-----------------------------------------------------------------------
 
+
 $logged_user = $_SESSION['logged_user'];
 $logged_user_id = $_SESSION['logged_user']['id'];
 $id_usuario = $_GET['id_usuario'];
@@ -138,18 +139,12 @@ $title = "Perfil de @" . trim($datos_usuario['usern']);
         });
     });
 </script>
-    
-    <!-- //* 2: Contenedor de eventos de usuario (DERECHA)-->
-
-    <div class="">
-
-    </div>
 
 
 
 
 <?php
     endif;
-
     $content = ob_get_clean();
+    
     include PARTIALS_DIR . 'layout.php';

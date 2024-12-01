@@ -4,19 +4,40 @@
 
     redirectIfLoggedIn();
 
-    $errors = [];
-
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['send'])) {
         $recovery_email = isset($_POST['recovery_email']) ? trim($_POST['recovery_email']) : null;
 
-        if (empty($correo_recuperacion)) {
-            $errors['recovery_email'] = "Debes introducir tu correo de recuperación";
+        if (empty($recovery_email)) {
+            $error = "Debes introducir tu correo de recuperación";
         } elseif (!validateEmail($recovery_email)) {
-            $errors['recovery_email'] = "Debes introducir un correo válido";
+            $error = "Debes introducir un correo válido";
         }
 
-        if (empty($errors)) {
+        if (empty($error)) {
+            $token = generateToken();
+
+            $valid_user_id = getUserIdByEmail($recovery_email);
             
+            if ($valid_user_id) {
+                saveToken($token, $valid_user_id, TOKEN_TYPE_RECOVERY_PASSWORD);
+            } 
+
+            $recovery_link = "http://localhost/TFG-DAW_MediUpp/src/auth/reset_password.php?token=$token";
+            $recovery_email_subject = "Recupera tu contraseña con MediUpp";
+            
+            ob_start();
+            $body_template_path = COMPONENTS_DIR . "/email_templates/recovery_password_email.php";
+            include $body_template_path;
+
+            $recovery_email_body = ob_get_clean();
+
+            $sending_success = sendEmail($recovery_email, $recovery_email_subject, $recovery_email_body);
+
+            if ($sending_success) {
+
+            } else {
+                
+            }
         }
     }
 
@@ -27,24 +48,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Recuperar contraseña </title>
-    <link rel="stylesheet" href="css/estilos.css">
+    <title> Recupera tu contraseña | MediUpp </title>
+    <meta name="description" content="MediUpp es una aplicación web para la organización de todo tipo de eventos">
+    <meta name="author" content="Samuel Macias">
+    <meta name="author" content="Sergio Cáceres">
+    <meta name="author" content="Marcos Almorox">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../../assets/css/output.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script defer src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <h2> Recupera tu contraseña </h2>
-    <?php if (isset($correo_enviado) && $correo_enviado) : ?>
-        <span class="exito"> <?= $mensaje_exito; ?> </span>
-    <?php elseif (isset($correo_enviado)): ?> 
-        <span class="error"> Ha habido un error al enviar el correo electrónico </span>
-    <?php endif; ?>
     <form action="" method="post">
-        <label for="correo_recuperacion"> Correo electrónico asociado a la cuenta: </label> <br>
-        <input type="email" name="correo_recuperacion"> <br>
-        <?php if (isset($mensaje_error)) : ?>
-            <span class="error"> <?= $mensaje_error; ?> </span>
-        <?php endif; ?> <br>
+        <label for="recovery_email"> Correo electrónico asociado a la cuenta: </label>
+        <input type="email" 
+            class="recover-input<?= isset($error) ? ' form-input-error' : ''; ?>"
+            name="recovery_email"
+            value="<?= isset($recovery_email) ? htmlspecialchars($recovery_email) : '' ?>">
+        <?php if (isset($error)) : ?>
+            <span class="form-error-text"> <?= $error; ?> </span>
+        <?php endif; ?>
 
-        <input type="submit" name="enviar" value="ENVIAR CORREO">
+        <button type="submit" name="send" id=""> Enviar </button>
     </form>
 </body>
 </html>

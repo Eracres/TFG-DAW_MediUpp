@@ -19,17 +19,17 @@
     function getPublicEvents() {
         global $db;
         // Obtemos el ID del usuario que está logueado
-        $user_id = $_SESSION['logged_user']['id'];
+        $user_id = getLoggedUser()['id'];
     
-        $query = "SELECT * FROM events e
-                WHERE e.is_public = ?
-                AND e.id NOT IN (
-                    SELECT event_id
-                    FROM user_events
-                    WHERE user_id = ?
-                )";
+        $query = "SELECT e.*, 
+                    IF(ue.event_id IS NULL, 0, 1) AS is_joined
+                FROM events e
+                LEFT JOIN user_events ue ON e.id = ue.event_id AND ue.user_id = ?
+                WHERE e.is_public = ? AND e.created_by != ?
+                ORDER BY is_joined ASC, e.created_at DESC
+                ";
     
-        $db->execute($query, [TRUE_VALUE, $user_id]);
+        $db->execute($query, [$user_id, TRUE_VALUE, $user_id]);
         $public_events = $db->getData(DBConnector::FETCH_ALL);
     
         return $public_events;
@@ -39,13 +39,16 @@
     function createNewEvent($event_data, $user_id) {
         global $db;
 
-        $query = "INSERT INTO events (title, type, location, start_date, end_date) VALUES (?, ?, ?, ?, ?)";
+        $query = "INSERT INTO events (title, description, type, location, start_date, end_date, created_by, is_public) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         $db->execute($query, [
             $event_data['title'],
+            $event_data['description'],
             $event_data['type'],
             $event_data['location'],
             $event_data['start_date'],
-            $event_data['end_date']
+            $event_data['end_date'],
+            $user_id,
+            $event_data['is_public']
         ]);
         // Obtener el ID del evento recien creado
         $new_event_id = $db->getLastInsertId();
@@ -53,5 +56,5 @@
         $query = "INSERT INTO user_events (user_id, event_id, is_admin) VALUES (?, ?, ?)";
         $db->execute($query, [$user_id, $new_event_id, TRUE_VALUE]);
 
-        return $db->getExecuted();
+        return $new_event_id;
     }

@@ -1,0 +1,710 @@
+/* input.css */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Clase personalizada para el body */
+.app-body {
+    @apply bg-ghost-white text-gray-900 flex flex-col min-h-screen;
+}
+
+.dark .app-body{
+    @apply bg-onyx dark:text-ghost-white font-sans;
+}
+
+/* Clases personalizadas para el header */
+
+.app-header {
+    @apply bg-pumpkin p-4 dark:bg-jet; 
+}
+
+.app-header-container {
+    @apply flex justify-between items-center; 
+}
+
+.app-header-logo {
+    @apply flex items-center text-ghost-white text-2xl;
+}
+
+.app-header-logo-img {
+    @apply w-12 mr-2;
+}
+
+.app-header-title {
+    @apply flex items-center text-ghost-white text-2xl;
+}
+
+.app-header-title-img {
+    @apply w-36 mr-2;
+}
+
+.app-header-modo {
+    @apply bg-sunglow text-onyx rounded-md;
+    @apply w-[150px] h-[40px] flex items-center justify-center text-base;
+    padding: 0.5rem 1rem; 
+}
+
+.app-header-controls {
+    @apply flex items-center space-x-4;
+}
+
+/* ------------------------------------------------------------------------- */
+
+/* Contenedor de iconos y botón de interruptor */
+.toggle-switch-container {
+    @apply flex items-center space-x-2;
+}
+
+/* Botón de interruptor personalizado */
+.toggle-switch {
+    @apply relative w-12 h-6 bg-sunglow rounded-full cursor-pointer transition-colors duration-300 ease-in-out;
+}
+
+/* Círculo interno del interruptor */
+.toggle-switch::before {
+    content: '';
+    @apply absolute top-0.5 left-0.5 w-5 h-5 bg-onyx rounded-full transition-transform duration-300 ease-in-out;
+}
+
+/* Estado activado en modo oscuro */
+.dark .toggle-switch {
+    @apply bg-gray-500;
+}
+
+.dark .toggle-switch::before {
+    @apply transform translate-x-6 bg-jonquil;
+}
+
+/* Iconos del sol y la luna (ajustes opcionales de color en modo oscuro) */
+.toggle-switch-container .fa-sun {
+    @apply text-yellow-500;
+}
+
+.toggle-switch-container .fa-moon {
+    @apply text-gray-500;
+}
+
+.dark .toggle-switch-container .fa-sun {
+    @apply text-gray-400;
+}
+
+.dark .toggle-switch-container .fa-moon {
+    @apply text-yellow-300;
+}
+
+
+/* ------------------------------------------------------------------------- */
+
+.dark .app-header-modo {
+    @apply bg-orange-crayola-1 text-text-dark;
+}
+
+/* Clases personalizadas para el main */
+
+.app-main{
+    @apply flex gap-5 flex-1;
+}
+
+/*Sidebar del administrador*/
+.app-main-aside{
+    @apply w-48 bg-onyx text-ghost-white rounded-lg p-5 flex flex-col justify-between;
+}
+
+.dark .app-main-aside{
+    @apply bg-orange-crayola-2 dark:text-gray-800
+}
+
+.app-main-aside-admin{
+    @apply text-center mb-5;
+}
+
+.app-main-aside-admin-img{
+    @apply w-12 rounded-full mx-auto mb-3;
+}
+
+/* Contenedor de los botones en el sidebar */
+.app-main-buttons {
+    @apply flex gap-4 mt-2 mb-5 justify-center; /* Menor margen superior y ajuste en alineación */
+}
+
+.app-main-buttons-button {
+    @apply w-10 h-10 bg-jet rounded-full text-white flex items-center justify-center;
+}
+
+.dark .app-main-buttons-button {
+    @apply bg-onyx text-white;
+}
+
+/*Ventanas de eventos*/
+
+.app-main-sections{
+    @apply flex-1 bg-onyx rounded-lg p-5; 
+}
+
+.dark .app-main-sections {
+    @apply dark:bg-orange-crayola-2 text-gray-100;
+}
+
+/*Listas de eventos*/
+
+.app-main-sections-eventlist{
+    @apply bg-onyx p-5 rounded-lg; 
+}
+
+.dark .app-main-sections-eventlist {
+    @apply dark:bg-orange-crayola-2;
+}
+
+.app-main-sections-eventlist-title {
+    @apply bg-pumpkin text-center text-onyx font-bold py-3 mb-6 text-2xl tracking-wide uppercase;
+    border-radius: 0.5rem; 
+}
+
+.dark .app-main-sections-eventlist-title {
+    @apply bg-onyx text-center text-jonquil font-bold py-3 mb-6 text-2xl tracking-wide uppercase;
+    border-radius: 0.5rem; 
+}
+
+/*Eventos individuales*/
+
+.app-main-sections-eventlist-event{
+    @apply flex items-center bg-sandy-brown p-3 mb-3 rounded-lg; 
+}
+
+.dark .app-main-sections-eventlist-event {
+    @apply dark:bg-onyx;
+}
+
+.app-main-sections-eventlist-icon{
+    @apply bg-jonquil text-ghost-white p-3 rounded-full mr-3; 
+    width: 40px; 
+    height: 40px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+}
+
+/* Clases personalizadas para el footer */
+
+.app-footer {
+    @apply bg-jonquil text-onyx p-6 dark:bg-jet dark:text-jonquil;
+}
+
+.app-footer-flextext {
+    @apply flex flex-col md:flex-row gap-6 md:justify-between items-start md:items-center;
+}
+
+/* Estilos para los títulos y secciones de texto en el footer */
+.app-footer h3 {
+    @apply text-lg font-semibold;
+}
+
+.app-footer p {
+    @apply text-sm mt-2;
+}
+
+.app-footer-icons {
+    @apply text-onyx flex items-center justify-center text-2xl; /* Tamaño ajustado */
+}
+
+.dark .app-footer-icons {
+    @apply text-jonquil;
+}
+
+/* Estilos para el formulario del boletín */
+.app-footer input[type="email"] {
+    @apply p-2 rounded w-full md:w-auto bg-white dark:bg-gray-700 text-gray-900 dark:text-ghost-white;
+}
+
+.app-footer button[type="submit"] {
+    @apply bg-jonquil text-gray-900 p-2 rounded hover:bg-yellow-600 dark:bg-orange-crayola-1;
+}
+
+/* Sección inferior con derechos de autor */
+.app-footer-copyright {
+    @apply mt-6 text-center text-sm border-t border-gray-700 pt-4;
+}
+
+.app-footer-links {
+    @apply hover:underline;
+}
+
+
+
+/*Listas de eventos*/
+
+.event-list-container {
+    @apply flex;
+}
+
+.dark .event-list-container {
+    @apply dark:bg-orange-crayola-2;
+}
+
+.event-list-sidebar {
+    @apply flex flex-col;
+}
+
+.event-list-user-info {
+    @apply flex flex-col items-center;
+}
+
+.event-list-sections {
+    @apply flex gap-5;
+}
+
+.event-list-section {
+    @apply flex-1 bg-onyx rounded-lg p-5;
+}
+
+.dark .event-list-section {
+    @apply dark:bg-orange-crayola-2 text-gray-100;
+}
+
+/*Listas de eventos*/
+
+.dark .app-main-sections {
+    @apply dark:bg-orange-crayola-2 text-gray-100;
+}
+
+.section-title {
+    @apply bg-pumpkin text-center text-onyx font-bold py-3 mb-6 text-2xl tracking-wide uppercase;
+    border-radius: 0.5rem; 
+}
+
+.dark .section-title {
+    @apply bg-onyx text-center text-jonquil font-bold py-3 mb-6 text-2xl tracking-wide uppercase;
+    border-radius: 0.5rem; 
+}
+
+.section-event-list {
+    @apply bg-onyx p-5 rounded-lg max-h-[450px] overflow-y-auto relative;
+}
+
+.dark .section-event-list {
+    @apply dark:bg-orange-crayola-2;
+}
+
+/*Ventanas de eventos*/
+
+/*.section-user-events,
+.section-public-events {
+    @apply flex-1 bg-onyx rounded-lg p-5; 
+}
+
+.dark .section-user-events,
+.dark .section-public-events {
+    @apply dark:bg-orange-crayola-2 text-gray-100;
+}*/
+
+/*Eventos individuales*/
+
+.event-container{
+    @apply flex items-center bg-sandy-brown p-3 mb-3 rounded-lg; 
+}
+
+.dark .event-container {
+    @apply dark:bg-onyx;
+}
+
+
+/*Estilos de barra de scroll*/
+
+.section-event-list::-webkit-scrollbar {
+    width: 8px; 
+}
+
+.section-event-list::-webkit-scrollbar-track {
+    background-color: #333; 
+    border-radius: 1rem; 
+}
+
+.section-event-list::-webkit-scrollbar-thumb {
+    background-color: #f90; 
+    border-radius: 1rem; 
+    border: 2px solid #333; 
+}
+
+.section-event-list::-webkit-scrollbar-thumb:hover {
+    background-color: #ffb700; 
+}
+
+
+
+
+.event-view-container {
+    @apply flex flex-col w-full min-h-screen;
+}
+
+/* Event View Header */
+.event-view-head {
+    @apply flex justify-between items-center p-2 bg-gray-800 text-white;
+}
+
+.head-main {
+    @apply flex gap-3 items-center;
+}
+
+.head-main-btn button {
+    @apply flex p-2 text-white bg-transparent border-none cursor-pointer;
+}
+
+.head-main-title .event-name {
+    @apply text-2xl font-bold text-white;
+}
+
+/* User Dropdown */
+.head-user-control {
+    @apply flex items-center space-x-2 relative;
+}
+
+.head-user-dropdow-btn {
+    @apply flex items-center space-x-2;
+}
+
+.head-user-pfp {
+    @apply rounded-full overflow-hidden w-7 h-7;
+}
+
+.head-user-pfp img {
+    @apply w-full h-full object-cover;
+}
+
+.head-user-dropdown {
+    @apply absolute right-0 bg-gray-800 rounded-lg shadow-lg mt-32 p-2 w-48 hidden;
+}
+
+.dropdown-list {
+    @apply list-none p-0 m-0;
+}
+
+.dropdown-element {
+    @apply flex items-center p-2 text-white hover:bg-gray-700 cursor-pointer;
+}
+
+.logout-btn {
+    @apply flex items-center text-white hover:text-red-500;
+}
+
+.logout-btn i {
+    @apply mr-2;
+}
+
+/* Event Content */
+.event-view-content {
+    @apply flex bg-gray-100 flex-1;
+}
+
+/* Event Info Section */
+.event-info {
+    @apply bg-white p-7 rounded-lg shadow-lg mb-6;
+}
+
+.event-details {
+    @apply flex flex-col gap-4;
+}
+
+.detail-head-text .head-text {
+    @apply text-xl font-medium text-gray-800 mb-4;
+}
+
+.event-data-container {
+    @apply flex flex-col gap-4;
+}
+
+.event-field {
+    @apply flex justify-between items-center py-2;
+}
+
+.edit-btn {
+    @apply bg-blue-500 text-white p-2 rounded-lg ml-2 cursor-pointer hover:bg-blue-600;
+}
+
+/* Participants Section */
+.event-participants {
+    @apply flex flex-col;
+}
+
+.event-participants-container {
+    @apply flex flex-col gap-3;
+}
+
+.open-participant-modal-btn {
+    @apply bg-green-500 text-white py-2 px-4 rounded-lg mb-4 hover:bg-green-600;
+}
+
+.event-participants-list {
+    @apply list-none p-0 m-0;
+}
+
+.event-participant {
+    @apply flex items-center p-3 bg-gray-200 rounded-lg mb-3;
+}
+
+.participant-container {
+    @apply flex w-full justify-between items-center;
+}
+
+.participant-col1 {
+    @apply flex items-center;
+}
+
+.participant-pfp-container img {
+    @apply w-12 h-12 rounded-full object-cover;
+}
+
+.participant-col2 {
+    @apply flex flex-col items-start ml-4;
+}
+
+.participant-name {
+    @apply font-semibold text-gray-800;
+}
+
+.participant-admin {
+    @apply text-sm text-green-500 italic;
+}
+
+.event-participant-actions-menu {
+    @apply absolute hidden mt-2 right-0 bg-white border border-gray-300 rounded-lg shadow-lg w-48 z-10;
+}
+
+/* Event User Controls */
+.event-user-controls {
+    @apply flex justify-between p-4 bg-gray-800 text-white rounded-lg;
+}
+
+.event-user-controls-container {
+    @apply flex items-center gap-4;
+}
+
+.event-left-button {
+    @apply bg-red-500 text-white p-3 rounded-lg hover:bg-red-600 flex items-center;
+}
+
+.event-delete-button {
+    @apply bg-red-700 text-white p-3 rounded-lg hover:bg-red-800 flex items-center;
+}
+
+
+.event-content {
+    @apply flex flex-col bg-gray-100 flex-1;
+}
+
+.event-content-header {
+    @apply flex justify-center items-center gap-4 py-4 bg-gray-200;
+}
+
+.toggle-section-btn {
+    @apply flex items-center gap-2 px-4 py-2 bg-gray-800 text-white rounded-lg cursor-pointer hover:bg-gray-700;
+}
+
+.event-content-dynamic {
+    @apply flex-1 p-4 bg-white rounded-lg shadow-lg mt-4;
+}
+
+
+
+
+/*___________________________________________________________________________*/
+
+/* COMPONENTES */
+
+/* add-event_modal.php */
+
+/* Modal Container */
+.modal {
+    display: none; /* Modal is hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Make sure it's on top */
+}
+
+/* When the modal is open */
+.open {
+    @apply flex;
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 500px;
+}
+
+.modal-content {
+    @apply bg-jet text-ghost-white rounded-lg shadow-lg max-w-2xl w-full p-6;
+}
+
+/* Modal Header */
+.modal-header {
+    @apply flex justify-between items-center border-b border-gray-700 pb-4 mb-4;
+}
+.modal-header h3 {
+    @apply text-pumpkin font-bold text-lg;
+}
+/* Modal Close Button */
+.modal-close-btn {
+    @apply absolute top-2 right-2 bg-gray-700 text-white text-sm w-8 h-8 rounded-full flex items-center justify-center cursor-pointer hover:bg-gray-600 hover:text-orange-crayola-2 transition duration-200 ease-in-out;
+}
+
+
+/* Modal Form */
+.modal-body {
+    @apply space-y-4;
+}
+.modal-form-field {
+    @apply flex flex-col space-y-2;
+}
+
+/* Labels */
+.modal-form-field label {
+    @apply font-semibold text-sm text-ghost-white;
+}
+
+/* Input Fields */
+.modal-form-field input[type="text"],
+.modal-form-field input[type="datetime-local"],
+.modal-form-field select,
+.modal-form-field textarea {
+    @apply bg-jet text-white px-4 py-2 rounded focus:ring-2 focus:ring-pumpkin focus:outline-none;
+}
+
+/* Textarea Specific */
+.modal-form-field textarea {
+    @apply resize-none;
+}
+
+/* Select Dropdown */
+.modal-form-field select {
+    @apply bg-gray-800 text-white px-4 py-2 rounded focus:ring-2 focus:ring-pumpkin focus:outline-none;
+}
+
+/* Modal Footer */
+.modal-footer {
+    @apply flex justify-end space-x-4 mt-4; /* Espaciado y alineación */
+}
+
+/* Close Button */
+.modal-close-btn {
+    @apply bg-gray-600 text-white py-2 px-4 rounded hover:bg-gray-700 transition;
+}
+
+/* Create Button */
+.modal-create {
+    @apply bg-pumpkin text-white font-semibold py-2 px-6 rounded shadow-md hover:bg-orange-crayola-2 hover:shadow-lg transition duration-300 ease-in-out;
+}
+
+/* google-log_button.php */
+
+.gsi-material-button {
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    -webkit-appearance: none;
+    background-color: WHITE;
+    background-image: none;
+    border: 1px solid #747775;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    color: #1f1f1f;
+    cursor: pointer;
+    font-family: 'Roboto', arial, sans-serif;
+    font-size: 14px;
+    height: 40px;
+    letter-spacing: 0.25px;
+    outline: none;
+    overflow: hidden;
+    padding: 0 12px;
+    position: relative;
+    text-align: center;
+    -webkit-transition: background-color .218s, border-color .218s, box-shadow .218s;
+    transition: background-color .218s, border-color .218s, box-shadow .218s;
+    vertical-align: middle;
+    white-space: nowrap;
+    width: auto;
+    max-width: 400px;
+    min-width: min-content;
+    }
+
+    .gsi-material-button .gsi-material-button-icon {
+    height: 20px;
+    margin-right: 12px;
+    min-width: 20px;
+    width: 20px;
+    }
+
+    .gsi-material-button .gsi-material-button-content-wrapper {
+    -webkit-align-items: center;
+    align-items: center;
+    display: flex;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    -webkit-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    height: 100%;
+    justify-content: space-between;
+    position: relative;
+    width: 100%;
+    }
+
+    .gsi-material-button .gsi-material-button-contents {
+    -webkit-flex-grow: 1;
+    flex-grow: 1;
+    font-family: 'Roboto', arial, sans-serif;
+    font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: top;
+    }
+
+    .gsi-material-button .gsi-material-button-state {
+    -webkit-transition: opacity .218s;
+    transition: opacity .218s;
+    bottom: 0;
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    }
+
+    .gsi-material-button:disabled {
+    cursor: default;
+    background-color: #ffffff61;
+    border-color: #1f1f1f1f;
+    }
+
+    .gsi-material-button:disabled .gsi-material-button-contents {
+    opacity: 38%;
+    }
+
+    .gsi-material-button:disabled .gsi-material-button-icon {
+    opacity: 38%;
+    }
+
+    .gsi-material-button:not(:disabled):active .gsi-material-button-state, 
+    .gsi-material-button:not(:disabled):focus .gsi-material-button-state {
+    background-color: #303030;
+    opacity: 12%;
+    }
+
+    .gsi-material-button:not(:disabled):hover {
+    -webkit-box-shadow: 0 1px 2px 0 rgba(60, 64, 67, .30), 0 1px 3px 1px rgba(60, 64, 67, .15);
+    box-shadow: 0 1px 2px 0 rgba(60, 64, 67, .30), 0 1px 3px 1px rgba(60, 64, 67, .15);
+    }
+
+    .gsi-material-button:not(:disabled):hover .gsi-material-button-state {
+    background-color: #303030;
+    opacity: 8%;
+    }
