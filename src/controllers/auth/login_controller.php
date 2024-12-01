@@ -30,6 +30,11 @@
             destroyCookie(COOKIE_REMEMBER_ME_NAME);
         }
 
-        header("Location: " . PAGES_DIR . "login.php");
+        $response = [
+            'success' => true,
+            'message' => '¡Sesión cerrada con éxito!',
+            'redirect' => '/tfg-daw_mediupp/src/pages/auth/login.php'
+        ];
+        echo json_encode($response);
         exit;
     }

@@ -7,9 +7,9 @@
         // CERRAR SESIÓN
         if (isset($_POST['action']) && $_POST['action'] === 'logout') {
             logout();
-            exit;
         }
 
+        // INVITAR A UN USUARIO A UN EVENTO
         if (isset($_POST['action']) && $_POST['action'] === 'send-invitation' && isset($_POST['event_id']) && isset($_POST['invited_user_id'])) {
             $event_id = $_POST['event_id'];
             $invited_user_id = $_POST['invited_user_id'];
@@ -18,7 +18,6 @@
             createEventInvitation($event_id, $invited_user_id, getLoggedUser()['id']);
 
         }
-
 
         // ACEPTAR O RECHAZAR INVITACIÓN
         if (isset($_POST['action']) && $_POST['action'] === 'accept-invitation' && isset($_POST['invitation_id'])) {
@@ -43,6 +42,14 @@
 
             sendMessage($sender_user_id, $event_id, $message);
         }
+
+        // SALIR DE UN EVENTO
+        if (isset($_POST['action']) && $_POST['action'] === 'leave-event' && isset($_POST['event_id'])) {
+            $event_id = $_POST['event_id'];
+            $user_id = getLoggedUser()['id'];
+
+            deleteUserFromEvent($event_id, $user_id);
+        }
     }
 
     if ($_SERVER['REQUEST_METHOD'] === 'GET') {
@@ -56,6 +63,7 @@
             exit;
         }
 
+        // OBTEBER POSTS DE UN EVENTO
         if (isset($_GET['action']) && $_GET['action'] === 'get-media-posts' && isset($_GET['event_id'])) {
             $event_id = $_GET['event_id'];
 
@@ -65,6 +73,7 @@
             exit;
         }
 
+        // OBTENER MENSAJES DE CHAT DE UN EVENTO
         if (isset($_GET['action']) && $_GET['action'] === 'get-chat-messages' && isset($_GET['event_id'])) {
             $event_id = $_GET['event_id'];
 
@@ -73,6 +82,4 @@
             echo json_encode($chat_messages);
             exit;
         }
-
-
     }

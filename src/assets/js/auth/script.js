@@ -6,9 +6,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
     logoutBtns.forEach((btn) => {
         btn.addEventListener("click", () => {
-            axios.post('http://localhost/tfg-daw_mediupp/src/config/ajax_requests.php', { action: 'logout' })
+            axios.post('/tfg-daw_mediupp/src/ajax/requests.php', { action: 'logout' })
                 .then((response) => {
-                    console.log("Respuesta del servidor:", response.data);
+                    const data = response.data;
+                    if (data.success) {
+                        console.log(data.message);
+                        // Redirige al usuario al login
+                        window.location.href = data.redirect;
+                    } else {
+                        console.error('Error en el servidor:', data.message);
+                        alert('No se pudo cerrar sesión. Intenta nuevamente.');
+                    }
                 })
                 .catch((error) => {
                     console.error("Error al cerrar sesión:", error);

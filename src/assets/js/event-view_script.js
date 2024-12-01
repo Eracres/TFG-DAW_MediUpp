@@ -2,6 +2,8 @@ const MEDIA_SECTION = "media-section";
 const CHAT_SECTION = "chat-section";
 
 document.addEventListener("DOMContentLoaded", () => {
+    loadContent(MEDIA_SECTION);
+
     // FUNCIONALIDAD DEL DROPDOWN DEL HEAD
     const userDropdownBtn = document.querySelector(".head-user-dropdow-btn");
     
@@ -47,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             participant_id: participantId
                         };
 
-                        axios.post('/path/to/assign-admin-endpoint.php', data)
+                        axios.post('http://localhost/tfg-daw_mediupp/src/ajax/requests.php', data)
                             .then((response) => {
                                 alert("Administrador asignado con éxito.");
                                 location.reload();
@@ -74,7 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             participant_id: participantId
                         };
 
-                        axios.post('/path/to/delete-participant-endpoint.php', data)
+                        axios.post('http://localhost/tfg-daw_mediupp/src/ajax/requests.php', data)
                             .then((response) => {
                                 alert("Participante eliminado con éxito.");
                                 location.reload();
@@ -98,7 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
             event_id: 1
         };
 
-        axios.post('/path/to/left-event-endpoint.php', data)
+        axios.post('http://localhost/tfg-daw_mediupp/src/ajax/requests.php', data)
             .then((response) => {
                 
             })
@@ -113,62 +115,41 @@ document.addEventListener("DOMContentLoaded", () => {
     const addParticipantBtn = document.getElementById("add-participant-btn");
     const openParticipantModalBtn = document.getElementById("open-participant-modal-btn");
     
-    openParticipantModalBtn.addEventListener("click", () => {
-        modal.classList.add("open");
-    });
+    if (openParticipantModalBtn) {
+        openParticipantModalBtn.addEventListener("click", () => {
+            console.log("Abriendo modal de participantes");
+        });
+    }
 
-    addParticipantBtn.addEventListener("click", () => {
-        
-    });
-
-    window.addEventListener("click", (e) => {
-        if (e.target === modalContainer) {
-            modal.classList.remove("open");
-        }
-    });
+    // window.addEventListener("click", (e) => {
+    //     if (e.target === modalContainer) {
+    //         modal.classList.remove("open");
+    //     }
+    // });
 
     // FUNCIONALIDAD DE CARGA DE SECCIONES Y CONTENIDO (MEDIA POSTS Y CHAT)
     const toggleSectionBtns = document.querySelectorAll(".toggle-section-btn");
 
-    toggleSectionBtns.forEach(V => {
+    toggleSectionBtns.forEach(btn => {
         btn.addEventListener("click", () => {
             const target = btn.getAttribute("data-target");
             loadContent(target);
         });
     });
 
+    // CARGA DINAMICA DE SECCION
+
+
+
     // CHAT Y ENVIO DE MENSAJES
     const chatInput = document.getElementById("chat-input");
     const openEmojisBtn = document.getElementById("open-emojis-btn");
-    const sendBtn = document.querySelector(".send-message-btn");
 
     openEmojisBtn.addEventListener("click", () => {
         // Mostrar emojis
     });
 
-    sendBtn.addEventListener("click", () => {
-        const message = chatInput.value.trim();
-        if (message) {
-            let data = {
-                action: "send-chat-message",
-                message: message
-            };
-
-            axios.post('/config/ajax_requests.php', data)
-            .then((response) => {
-                console.log("Mensaje enviado:", response.data);
-            })
-            .catch((error) => {
-                console.error("Error al enviar el mensaje:", error);
-            });
-        }
-    });
-
     chatInput.addEventListener("keypress", (e) => {
-        if (e.key === "Enter" && !e.shiftKey) {
-            sendButton.click();
-        }
-
         if (e.key === "Enter" && e.shiftKey) {
             chatInput.value += "\n";
         }
@@ -192,7 +173,7 @@ function loadMediaPosts() {
         event_id: 1
     };
 
-    axios.get('/config/ajax_requests.php', data )
+    axios.get('http://localhost/tfg-daw_mediupp/src/ajax/requests.php', data )
         .then((response) => {
             const posts = response.data;
             posts.forEach(post => {
@@ -210,7 +191,7 @@ function loadChatMessages() {
         event_id: 1
     };
 
-    axios.get('/config/ajax_requests.php', data)
+    axios.get('http://localhost/tfg-daw_mediupp/src/ajax/requests.php', data)
         .then((response) => {
             const messages = response.data;
             messages.forEach(message => {

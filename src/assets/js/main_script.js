@@ -29,7 +29,7 @@ function toggleDarkMode() {
 }
 
 function loadUserNotifications() {
-    axios.get('/config/ajax_requests.php', { action: 'get-notifications' })
+    axios.get('http://localhost/tfg-daw_mediupp/src/ajax/requests.php', { action: 'get-notifications' })
         .then((response) => {
             const notifications = response.data;
             renderNotificationsList(notifications);
@@ -113,7 +113,7 @@ function handleInvitation(action, invitationId) {
         invitation_id: invitationId
     };
 
-    axios.post('/config/ajax_requests.php', data)
+    axios.post('http://localhost/tfg-daw_mediupp/src/ajax/requests.php', data)
         .then(() => {
             updateSingleNotificationContent(invitationId, action);
         })
