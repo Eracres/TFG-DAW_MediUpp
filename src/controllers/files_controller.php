@@ -37,7 +37,7 @@ function updatePfp() {
             $db = DBConnector::getInstance();
             $queryActualizarPfp = "UPDATE users SET pfp_src = :pfp WHERE id = :id";
             $queryActualizarPfpParams = [
-                ':pfp' => '/uploads/perfiles/' . $nuevo_nombre,
+                ':pfp' => '/TFG-DAW_MediUpp/uploads/perfiles/' . $nuevo_nombre,
                 ':id' => $_GET['id_usuario']
             ];
 

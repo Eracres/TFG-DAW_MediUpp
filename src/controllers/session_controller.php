@@ -7,7 +7,7 @@
         checkRememberMeCookie();
         // Si no hay una sesión iniciada en este punto redirigimos a la página de inicio de sesión
         if (!isset($_SESSION['logged_user'])) {
-            header("Location: auth/login.php");
+            header("Location: ".PAGES_DIR."auth/login.php");
             exit();
         }
     }
