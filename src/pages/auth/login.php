@@ -63,7 +63,7 @@
 <body class="login-body">
     <div class="login-container">
         <div class="login-container-content">
-            <img class="login-logo" src="../../../resources/logo/Logo (final).png" alt="Logo">
+            <img class="login-logo" src="../../resources/logo/logo.png" alt="Logo">
             <div class="login-title-container">
                 <h1 class="login-title"> Inicio de sesión </h1>
             </div> 

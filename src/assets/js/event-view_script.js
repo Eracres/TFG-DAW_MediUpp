@@ -2,7 +2,7 @@ const MEDIA_SECTION = "media-section";
 const CHAT_SECTION = "chat-section";
 
 document.addEventListener("DOMContentLoaded", () => {
-    loadContent(MEDIA_SECTION);
+    //loadContent(MEDIA_SECTION);
 
     // FUNCIONALIDAD DEL DROPDOWN DEL HEAD
     const userDropdownBtn = document.querySelector(".head-user-dropdow-btn");
@@ -158,11 +158,20 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function loadContent(section) {
+    const dynamicContent = document.querySelector(".dynamic-content");
+    dynamicContent.innerHTML = "";
     // Dependiendo del botón que se preosione, cargamos su contenido
+    const openPostModalBtn = document.querySelector(".floating-button");
+    const sendMessageBar = document.querySelector(".message-bar");
+
     if (section === MEDIA_SECTION) {
         loadMediaPosts();
+        
+
     } else if (section === CHAT_SECTION) {
         loadChatMessages();
+
+        
     }
 }
 

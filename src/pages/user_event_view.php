@@ -78,24 +78,39 @@
                     <h3 class="head-text"> Detalles del evento </h3>
                 </div>
                 <div class="event-data-container">
-                    <div class="event-field event-title">
+                    <div class="event-field event-data-title">
                         <span id="event-title"><?= htmlspecialchars($event_data['title']); ?></span>
                         <?php if ($isAdmin): ?>
                             <button class="edit-btn" data-field="title"><i class="fa-solid fa-pen"></i></button>
                         <?php endif; ?>
                     </div>
                     <?php if (!empty($event_data['type']) && isset(EVENT_TYPE[$event_data['type']])): ?>
-                        <div class="event-field event-type">
+                        <div class="event-field event-data-type">
                             <span id="event-type"><?= EVENT_TYPE[$event_data['type']]; ?></span>
                         </div>
                     <?php endif; ?>
-                    <div class="event-field event-location">
+                    <div class="event-field event-data-location">
                         <span id="event-location"><?= htmlspecialchars($event_data['location']); ?></span>
                         <?php if ($isAdmin): ?>
                             <button class="edit-btn" data-field="location"><i class="fa-solid fa-pen"></i></button>
                         <?php endif; ?>
                     </div>
-                    <div class="event-date event-field">
+                    <div class="event-field event-data-duration">
+                        <span id="event-duration">
+                        <?php 
+                            $start_date = strtotime($event_data['start_date']);
+                            $end_date = strtotime($event_data['end_date']);
+                            
+                            if (date('Y-m-d', $start_date) === date('Y-m-d', $end_date)): ?>
+                                <?= htmlspecialchars(date('d/m/Y', $start_date)); ?> 
+                                (<?= htmlspecialchars(date('H:i', $start_date)); ?> - <?= htmlspecialchars(date('H:i', $end_date)); ?>)
+                            <?php else: ?>
+                                <?= htmlspecialchars(date('d/m/Y', $start_date)); ?> - <?= htmlspecialchars(date('d/m/Y', $end_date)); ?>
+                            <?php endif; ?>
+                        </span>
+                        </span>
+                    </div>
+                    <div class="event-field event-data-createddate">
                         <span id="event-date"><?= htmlspecialchars($event_data['created_at']); ?></span>
                     </div>
                 </div>
@@ -188,6 +203,16 @@
             <div class="event-content-dynamic" id="dynamic-content">
                 <div class="">
                     <!-- El contenido se cargará aquí -->
+                    <div class="open-post-modal-btn">
+                        <button id="create-post-btn" class="btn btn-primary">Crear Post</button>
+                    </div>
+
+                    <div class="chat-message-bar">
+                        <form action="">
+                            <input type="text" id="chat-message-input" placeholder="Escribe un mensaje..." />
+                            <button id="send-message-btn" class="btn btn-primary">Enviar</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </section>
