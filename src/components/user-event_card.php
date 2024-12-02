@@ -7,8 +7,16 @@
                 <span class="event-type"><?= htmlspecialchars(EVENT_TYPE[$event['type']]); ?></span>
             <?php endif; ?>
             <span class="event-duration">
-                <?= htmlspecialchars(date('d/m/Y', strtotime($event['start_date']))); ?> -  
-                <?= htmlspecialchars(date('d/m/Y', strtotime($event['end_date']))); ?>
+                <?php 
+                    $start_date = strtotime($event['start_date']);
+                    $end_date = strtotime($event['end_date']);
+                    
+                    if (date('Y-m-d', $start_date) === date('Y-m-d', $end_date)): ?>
+                        <?= htmlspecialchars(date('d/m/Y', $start_date)); ?> 
+                        (<?= htmlspecialchars(date('H:i', $start_date)); ?> - <?= htmlspecialchars(date('H:i', $end_date)); ?>)
+                    <?php else: ?>
+                        <?= htmlspecialchars(date('d/m/Y', $start_date)); ?> - <?= htmlspecialchars(date('d/m/Y', $end_date)); ?>
+                    <?php endif; ?>
             </span>
         </div>
     </div>

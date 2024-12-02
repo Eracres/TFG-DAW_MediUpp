@@ -588,6 +588,10 @@ video {
   }
 }
 
+.visible {
+  visibility: visible;
+}
+
 .static {
   position: static;
 }
@@ -1893,8 +1897,6 @@ video {
 /* Event Info Section */
 
 .event-info {
-  margin-bottom: 1.5rem;
-  border-radius: 0.5rem;
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
   padding: 1.75rem;
@@ -2116,7 +2118,7 @@ video {
   flex: 1 1 0%;
   flex-direction: column;
   --tw-bg-opacity: 1;
-  background-color: rgb(243 244 246 / var(--tw-bg-opacity));
+  background-color: rgb(229 231 235 / var(--tw-bg-opacity));
 }
 
 .event-content-header {
@@ -2124,8 +2126,6 @@ video {
   align-items: center;
   justify-content: center;
   gap: 1rem;
-  --tw-bg-opacity: 1;
-  background-color: rgb(229 231 235 / var(--tw-bg-opacity));
   padding-top: 1rem;
   padding-bottom: 1rem;
 }
@@ -2152,15 +2152,20 @@ video {
 }
 
 .event-content-dynamic {
-  margin-top: 1rem;
   flex: 1 1 0%;
-  border-radius: 0.5rem;
-  --tw-bg-opacity: 1;
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-  padding: 1rem;
   --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.dynamic-container {
+  margin: 1.25rem;
+  margin-top: 0px;
+  min-height: 100%;
+  flex: 1 1 0%;
+  border-radius: 0.75rem;
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
 /*___________________________________________________________________________*/

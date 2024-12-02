@@ -518,7 +518,7 @@
 
 /* Event Info Section */
 .event-info {
-    @apply bg-white p-7 rounded-lg shadow-lg mb-6;
+    @apply bg-white p-7 shadow-lg;
 }
 
 .event-details {
@@ -613,11 +613,11 @@
 
 
 .event-content {
-    @apply flex flex-col bg-gray-100 flex-1;
+    @apply flex flex-col flex-1 bg-gray-200;
 }
 
 .event-content-header {
-    @apply flex justify-center items-center gap-4 py-4 bg-gray-200;
+    @apply flex justify-center items-center gap-4 py-4;
 }
 
 .toggle-section-btn {
@@ -625,10 +625,12 @@
 }
 
 .event-content-dynamic {
-    @apply flex-1 p-4 bg-white rounded-lg shadow-lg mt-4;
+    @apply flex-1 shadow-lg;
 }
 
-
+.dynamic-container {
+    @apply flex-1 m-5 mt-0 rounded-xl bg-white min-h-full;
+}
 
 
 /*___________________________________________________________________________*/

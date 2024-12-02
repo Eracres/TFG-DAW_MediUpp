@@ -108,7 +108,9 @@
                                 <?= htmlspecialchars(date('d/m/Y', $start_date)); ?> - <?= htmlspecialchars(date('d/m/Y', $end_date)); ?>
                             <?php endif; ?>
                         </span>
-                        </span>
+                        <?php if ($isAdmin): ?>
+                            <button class="edit-btn" data-field="duration"><i class="fa-solid fa-pen"></i></button>
+                        <?php endif; ?>
                     </div>
                     <div class="event-field event-data-createddate">
                         <span id="event-date"><?= htmlspecialchars($event_data['created_at']); ?></span>
@@ -201,7 +203,7 @@
                 </button>
             </div>
             <div class="event-content-dynamic" id="dynamic-content">
-                <div class="">
+                <div class="dynamic-container">
                     <!-- El contenido se cargará aquí -->
                     <div class="open-post-modal-btn">
                         <button id="create-post-btn" class="btn btn-primary">Crear Post</button>

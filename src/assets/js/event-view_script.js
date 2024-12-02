@@ -15,22 +15,33 @@ document.addEventListener("DOMContentLoaded", () => {
     // FUNCIONALIDAD DE ACCIONES DE PARTICIPANTES
     const participantActionsBtn = document.querySelectorAll(".participant-actions-btn");
 
+    const closeAllActionMenus = () => {
+        document.querySelectorAll(".event-participant-actions-menu").forEach((menu) => {
+            menu.classList.remove("open");
+        });
+    };
+
     participantActionsBtn.forEach(btn => {
         btn.addEventListener("click", (e) => {
+            e.stopPropagation();
             const participant = e.target.closest(".event-participant");
             const actionsMenu = participant.querySelector(".event-participant-actions-menu");
     
             // Cerrar otros menús abiertos
             document.querySelectorAll(".event-participant-actions-menu").forEach((menu) => {
                 if (menu !== actionsMenu) {
-                    menu.classList.remove("open"); // Aquí se elimina la clase "open" para cerrarlos
+                    menu.classList.remove("open");
                 }
             });
     
             // Alternar visibilidad del menú actual
             actionsMenu.classList.toggle("open");
         });
-    });;
+    });
+
+    document.addEventListener("scroll", () => {
+        closeAllActionMenus(); // Cierra los menús al hacer scroll
+    });
 
     // FUNCIONALIDAD DE ASIGNAR ADMINISTRADOR O ELIMINAR A UN PARTICIPANTE
     const assignAdminBtns = document.querySelectorAll(".assign-participant-admin-btn");
