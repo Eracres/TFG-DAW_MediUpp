@@ -69,6 +69,12 @@ function insertPosts() {
         $event_id = $current_event_id;
         $user_id = $logged_user_id; //Variable declarada al principio del fichero en el que se va a llamar a este controlador
 
+        //!BURRADA QUE FLIPAS------------------------------------------------------------------------------
+        // $event_id = 1;
+        // $user_id = 4; //Variable declarada al principio del fichero en el que se va a llamar a este controlador
+
+
+
         // Carpeta de destino
         $ruta_destino = $_SERVER['DOCUMENT_ROOT'] . '/TFG-DAW_MediUpp/uploads/posts/';
         if (!is_dir($ruta_destino)) {
@@ -107,7 +113,7 @@ function insertPosts() {
                 $queryInsertPostParams = [
                     ':event_id' => $event_id,
                     ':sender_id' => $user_id,
-                    ':file_src' => '/uploads/posts/' . $nuevo_nombre
+                    ':file_src' => '/TFG-DAW_MediUpp/uploads/posts/' . $nuevo_nombre
                 ];
 
                 $db->execute($queryInsertPost, $queryInsertPostParams);
