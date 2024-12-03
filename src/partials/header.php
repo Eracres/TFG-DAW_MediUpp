@@ -7,7 +7,7 @@
         </div>
         <div class="app-header-title">
             <a href="user_event_list.php">
-                <img src="../resources/logo/titulo.png" alt="MediUpp title" class="app-header-title-img">
+                <img src="../resources/logo/title.png" alt="MediUpp title" class="app-header-title-img">
             </a>
         </div>
         <!-- Notificaciones y botón de modo oscuro/claro -->

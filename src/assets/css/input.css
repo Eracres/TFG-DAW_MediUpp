@@ -149,7 +149,7 @@
 /* Clases personalizadas para el footer */
 
 .app-footer {
-    @apply bg-jonquil text-onyx p-6 dark:bg-jet dark:text-jonquil;
+    @apply bg-jonquil text-onyx py-3.5 px-5 dark:bg-jet dark:text-jonquil;
 }
 
 .app-footer-flextext {

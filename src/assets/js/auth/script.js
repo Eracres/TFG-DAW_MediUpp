@@ -13,18 +13,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 },
                 body: JSON.stringify({ action: 'logout' }),
             })
-                .then((response) => {
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
-                    return response.json();
-                })
+                .then((response) => response.ok ? response.json() : Promise.reject(response))
                 .then((data) => {
                     if (data.success) {
                         console.log(data.message);
-                        window.location.href = data.redirect;
+                        setTimeout(() => {
+                            window.location.href = data.redirect;
+                        }, 250);
                     } else {
-                        console.error('Error en el servidor:', data.message);
                         alert('No se pudo cerrar sesión. Intenta nuevamente.');
                     }
                 })
