@@ -35,7 +35,7 @@
                 <?php include COMPONENTS_DIR . 'add-event_modal.php'; ?>
             </div>
             <div class="controls-row">
-                <a href="user_profile.php">
+                <a href="user_profile.php?user_id=<?= urlencode($logged_user_id) ?>">
                     <button class="profile-btn" data-action="view-profile">
                         <i class="fa-solid fa-user"></i>
                         <span> Perfil </span>

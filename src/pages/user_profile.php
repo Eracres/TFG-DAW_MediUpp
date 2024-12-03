@@ -1,18 +1,15 @@
 <?php
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/TFG-DAW_MediUpp/src/utils/init.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/TFG-DAW_MediUpp/src/utils/init.php';
 
-checkSession();
-//^-----------------------------------------------------------------------
+    checkSession();
 
+    $user_id = (int)urldecode($_GET['user_id']);
+    $logged_user = $_SESSION['logged_user'];
+    $logged_user_id = $_SESSION['logged_user']['id'];
 
-$logged_user = $_SESSION['logged_user'];
-$logged_user_id = $_SESSION['logged_user']['id'];
-$id_usuario = $_GET['id_usuario'];
+    $owner = checkUserOwnProfile($logged_user_id, $user_id); //* FUNCIONA!! 
 
-$owner = checkUserOwnProfile($logged_user_id, $id_usuario); //* FUNCIONA!! 
-
-// echo 'EL USUARIO LOGUEADO ES '.$logged_user['usern'].' y su ID es: '.$logged_user['id'].' que NO COINCIDE CON '.$id_usuario;
 
 ob_start();
 
@@ -24,7 +21,7 @@ $update_exitoso = $error_update = $error_alias_edit = $error_bio_edit = $error_p
 
 
 //gettear id de usuario
-if (!isset($id_usuario) || empty($id_usuario)) {
+if (!isset($user_id) || empty($user_id)) {
     die("Este perfil de usuario no existe.
             <script>
                         setTimeout(function() {
@@ -40,7 +37,7 @@ if (!isset($id_usuario) || empty($id_usuario)) {
 // Crear y ejecutar la consulta para obtener los datos del usuario
 $queryDatos = "SELECT * FROM users WHERE id = :id";
 $queryDatosParams = [
-    ':id' => $id_usuario // Usamos el prefijo ':' en la clave para coincidir con los parámetros del query
+    ':id' => $user_id // Usamos el prefijo ':' en la clave para coincidir con los parámetros del query
 ];
 
 // Ejecutar la consulta usando el DBConnector
@@ -62,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $queryActualizarParams = [
         ':alias' => $edited_alias,
         ':bio' => $edited_bio,
-        ':id' => $id_usuario
+        ':id' => $user_id
     ];
 
     $db = DBConnector::getInstance();

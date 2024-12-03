@@ -6,9 +6,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // FUNCIONALIDAD DEL DROPDOWN DEL HEAD
     const userDropdownBtn = document.querySelector(".head-user-dropdow-btn");
+    const dropdown = document.querySelector(".head-user-dropdown");
     
     userDropdownBtn.addEventListener("click", () => {
-        const dropdown = document.querySelector(".head-user-dropdown");
         dropdown.classList.toggle("open");
     });
 

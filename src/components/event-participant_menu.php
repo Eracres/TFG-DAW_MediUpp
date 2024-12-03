@@ -2,7 +2,7 @@
 <div class="event-participant-actions-menu">
     <ul class="menu-list">
         <li class="list-element">
-            <a href="user_profile.php">
+            <a href="user_profile.php?user_id=<?= urlencode($participant['id']) ?>">
                 <button class="menu-btn">
                     <i class="fa-solid fa-user"></i>
                     <span> Ver perfil </span>

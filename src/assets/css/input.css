@@ -350,7 +350,7 @@
 }
 
 .open-modal-btn {
-    @apply bg-blue-500  hover:bg-blue-600;
+    @apply bg-gray-400  hover:bg-gray-500;
 }
 
 .profile-btn,
@@ -408,24 +408,78 @@
 
 /*Eventos individuales*/
 
-.event-container{
-    @apply flex flex-col bg-sandy-brown p-3 rounded-lg; 
+.section-user-events .event-container,
+.section-public-events .event-container {
+    @apply flex bg-sandy-brown p-3 rounded-lg; 
 }
-
-.dark .event-container {
+.dark .section-user-events .event-container,
+.dark .section-public-events .event-container {
     @apply dark:bg-onyx;
 }
 
-.event-title {
+.section-user-events .event-container{
+    @apply flex-col; 
+}
+
+.section-user-events .event-title {
     @apply text-xl font-bold mb-2;
 }
 
-.event-type {
+.section-user-events .event-type {
     @apply bg-pumpkin text-ghost-white px-2 py-1 text-sm rounded;
 }
 
-.event-duration {
+.section-user-events .event-duration {
     @apply text-gray-600 text-sm;
+}
+
+/*Eventos publicos*/
+.section-public-events .event-container {
+    @apply justify-between; 
+}
+
+.section-public-events .event-public-info {
+    @apply flex flex-col;
+}
+
+.section-public-events .event-title {
+    @apply text-xl font-bold mb-2;
+}
+
+.section-public-events .row-2 {
+    @apply flex gap-2;
+}
+
+.section-public-events .event-type-cnt {
+    @apply flex items-center;
+}
+
+.section-public-events .event-type-cnt .event-type {
+    @apply bg-pumpkin text-ghost-white px-2 py-1 text-sm rounded;
+}
+
+.section-public-events .event-dates {
+    @apply flex items-center gap-2;
+}
+
+.section-public-events .event-dates i {
+    @apply text-gray-600;
+}
+
+.section-public-events .event-duration {
+    @apply flex flex-col text-gray-600 text-sm;
+}
+
+.section-public-events .event-actions {
+    @apply flex items-center;
+}
+
+.section-public-events .event-join-btn {
+    @apply bg-gray-400 text-white py-2 px-4 rounded disabled:opacity-50;
+}
+
+.section-public-events .event-view-btn {
+    @apply bg-orange-700 text-white py-2 px-4 rounded;
 }
 
 
@@ -518,7 +572,7 @@
 
 /* Event Info Section */
 .event-info {
-    @apply bg-white p-7 shadow-lg;
+    @apply bg-white p-7 shadow-lg w-96;
 }
 
 .event-details {
@@ -567,7 +621,7 @@
 }
 
 .participant-col1 {
-    @apply flex items-center;
+    @apply flex items-center mr-4;
 }
 
 .participant-pfp-container img {
@@ -575,7 +629,8 @@
 }
 
 .participant-col2 {
-    @apply flex flex-col items-start ml-4;
+    @apply flex flex-col justify-center flex-1; /* Ajusta el texto verticalmente */
+    text-align: left;
 }
 
 .participant-name {
@@ -834,3 +889,50 @@
     background-color: #303030;
     opacity: 8%;
     }
+
+
+
+
+.recover-body {
+    @apply bg-onyx text-ghost-white font-sans flex items-center justify-center min-h-screen;
+}
+
+/* Contenedor principal */
+.recover-container {
+    @apply bg-jet shadow-lg rounded-lg p-8 max-w-lg text-center;
+}
+
+/* Logo */
+.recover-logo {
+    @apply w-24 h-auto mx-auto mb-6;
+}
+
+/* Título */
+.recover-title {
+    @apply text-2xl font-bold text-pumpkin mb-6;
+}
+
+/* Formulario */
+.recover-form {
+    @apply flex flex-col space-y-4;
+}
+
+/* Campos del formulario */
+.recover-field {
+    @apply flex flex-col space-y-2 text-left;
+}
+
+/* Etiquetas */
+.recover-label {
+    @apply font-semibold text-sm text-ghost-white;
+}
+
+/* Inputs */
+.recover-input {
+    @apply bg-gray-800 text-white px-4 py-2 rounded focus:ring-2 focus:ring-pumpkin focus:outline-none;
+}
+
+/* Botón de enviar */
+.recover-button {
+    @apply bg-pumpkin text-white py-2 px-4 rounded hover:bg-orange-crayola-2 transition duration-300;
+}

@@ -6,12 +6,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
     logoutBtns.forEach((btn) => {
         btn.addEventListener("click", () => {
-            axios.post('/tfg-daw_mediupp/src/ajax/requests.php', { action: 'logout' })
+            fetch('http://localhost/tfg-daw_mediupp/src/ajax/requests.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ action: 'logout' }),
+            })
                 .then((response) => {
-                    const data = response.data;
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then((data) => {
                     if (data.success) {
                         console.log(data.message);
-                        // Redirige al usuario al login
                         window.location.href = data.redirect;
                     } else {
                         console.error('Error en el servidor:', data.message);

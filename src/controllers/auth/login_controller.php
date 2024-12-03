@@ -19,6 +19,7 @@
     }
 
     function logout() {
+        ob_start();
         session_destroy();
         unset($_SESSION['logged_user']);
         //session_unset();
@@ -35,6 +36,7 @@
             'message' => '¡Sesión cerrada con éxito!',
             'redirect' => '/tfg-daw_mediupp/src/pages/auth/login.php'
         ];
+        ob_clean();
         echo json_encode($response);
         exit;
     }

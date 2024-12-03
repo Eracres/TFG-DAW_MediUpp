@@ -55,7 +55,7 @@
             </button>
             <div class="head-user-dropdown">
                 <ul class="dropdown-list">
-                    <a href="user_profile.php">
+                    <a href="user_profile.php?user_id=<?= urlencode($logged_user_id) ?>">
                         <li class="dropdown-element">
                             <i class="fa-solid fa-user"></i>
                             <span> Mi perfil </span>

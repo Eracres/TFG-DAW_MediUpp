@@ -2,10 +2,15 @@
 
     require_once $_SERVER['DOCUMENT_ROOT'] . '/TFG-DAW_MediUpp/src/utils/init.php';
 
+    header('Content-Type: application/json; charset=utf-8');
+    header('Cache-Control: no-cache, no-store, must-revalidate');
+    header('Pragma: no-cache');
+
     // SOLICITUDES AJAX PARA EL FUNCIONAMIENTO DEL PROYECTO
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // CERRAR SESIÓN
-        if (isset($_POST['action']) && $_POST['action'] === 'logout') {
+        $input = json_decode(file_get_contents('php://input'), true);
+        if (isset($input['action']) && $input['action'] === 'logout') {
             logout();
         }
 
