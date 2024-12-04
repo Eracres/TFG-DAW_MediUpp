@@ -49,12 +49,88 @@
         }
 
         // SALIR DE UN EVENTO
-        if (isset($_POST['action']) && $_POST['action'] === 'leave-event' && isset($_POST['event_id'])) {
-            $event_id = $_POST['event_id'];
+        if (isset($input['action']) && $input['action'] === 'leave-event' && isset($input['event_id'])) {
+            $event_id = (int)$input['event_id'];
             $user_id = getLoggedUser()['id'];
 
-            deleteUserFromEvent($event_id, $user_id);
+            try {
+                deleteUserFromEvent($event_id, $user_id);
+                $response = [
+                    'success' => true,
+                    'message' => '¡Has salido del evento exitosamente!',
+                    'redirect' => '/tfg-daw_mediupp/src/pages/user_event_list.php'
+                ];
+            } catch (Exception $e) {
+                $response = [
+                    'success' => false,
+                    'message' => 'Hubo un problema al salir del evento: ' . $e->getMessage()
+                ];
+            }
+
+            echo json_encode($response);
+            exit;
         }
+
+        if (isset($input['action']) && $input['action'] === 'delete-event' && isset($input['event_id'])) {
+            $event_id = (int)$input['event_id'];
+
+            try {
+                deleteEvent($event_id);
+                $response = [
+                    'success' => true,
+                    'message' => '¡Evento eliminado exitosamente!',
+                    'redirect' => '/tfg-daw_mediupp/src/pages/user_event_list.php'
+                ];
+            } catch (Exception $e) {
+                $response = [
+                    'success' => false,
+                    'message' => 'Hubo un problema al eliminar el evento: ' . $e->getMessage()
+                ];
+            }
+
+            echo json_encode($response);
+            exit;
+        }
+
+        if (isset($input['action']) && $input['action'] === 'delete-participant' && isset($input['participant_id']) && isset($input['event_id'])) {
+            $event_id = (int)$input['event_id'];
+            $participant_id = (int)$input['participant_id'];
+
+            try {
+                deleteUserFromEvent($event_id, $participant_id);
+                $response = [
+                    'success'=> true,
+                    'message'=> '¡Participante eliminado exitosamente!'
+                ];
+            } catch (Exception $e) {
+                $response = [
+                    'success'=> false,
+                    'message'=> ''. $e->getMessage()
+                ];  
+            }
+            echo json_encode($response);
+            exit;
+        }
+
+        if (isset($input['action']) && $input['action'] === "assign-admin" && isset($input['participant_id']) && isset($input['event_id'])) {
+            $event_id = (int)$input['event_id'];
+            $participant_id = (int)$input['participant_id'];
+
+            try {
+                assignAdminUser($event_id, $participant_id);
+                $response = [
+                    'success'=> true,
+                    'message'=> '¡Participante asignado como administrador exitosamente!'
+                ];
+            } catch (Exception $e) {
+                $response = [
+                    'success'=> false,
+                    'message'=> 'f'. $e->getMessage()
+                ];
+            }
+            echo json_encode($response);
+            exit;
+        }    
     }
 
     if ($_SERVER['REQUEST_METHOD'] === 'GET') {

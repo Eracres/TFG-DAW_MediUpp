@@ -174,17 +174,17 @@
                     <!-- Si el usuario no está en el evento, no mostrar el boton de salirse -->
                     <?php if ($isUserInEvent): ?>
                         <div class="control-left-event">
-                            <button class="event-left-button"> 
-                                <span> Salir del evento </span> 
+                            <button class="event-left-button" data-event-id="<?= $event_data['id'] ?>"> 
                                 <i class="fa-solid fa-right-from-bracket"></i>
+                                <span> Salir del evento </span> 
                             </button>
                         </div>
                     <?php endif; ?>
                     <?php if (isset($isCreatorOrSuperAdmin) && $isCreatorOrSuperAdmin): ?>
                         <div class="control-delete-event">
-                            <button class="event-delete-button"> 
-                                <span> Eliminar evento </span>
+                            <button class="event-delete-button" data-event-id="<?= $event_data['id'] ?>"> 
                                 <i class="fa-solid fa-trash"></i>
+                                <span> Eliminar evento </span>
                             </button>
                         </div>
                     <?php endif; ?>
@@ -220,6 +220,10 @@
         </section>
     </div>
 </div>
+
+<script>
+    let curretGlobalEventId = <?= $current_event_id ?>;
+</script>
 
 <?php
     $additional_scripts = [

@@ -1,5 +1,5 @@
 <!-- public-event_card.php -->
-<div class="event-container">
+<div class="event-container <?= $event['is_joined'] ? 'disabled' : ''; ?>">
     <div class="event-public-info">
         <h2 class="event-title"><?= htmlspecialchars($event['title']); ?></h2>
         <div class="row-2">
