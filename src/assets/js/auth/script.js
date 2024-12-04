@@ -6,15 +6,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
     logoutBtns.forEach((btn) => {
         btn.addEventListener("click", () => {
-            axios.post('/tfg-daw_mediupp/src/ajax/requests.php', { action: 'logout' })
-                .then((response) => {
-                    const data = response.data;
+            fetch('http://localhost/tfg-daw_mediupp/src/ajax/requests.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ action: 'logout' }),
+            })
+                .then((response) => response.ok ? response.json() : Promise.reject(response))
+                .then((data) => {
                     if (data.success) {
                         console.log(data.message);
-                        // Redirige al usuario al login
-                        window.location.href = data.redirect;
+                        setTimeout(() => {
+                            window.location.href = data.redirect;
+                        }, 250);
                     } else {
-                        console.error('Error en el servidor:', data.message);
                         alert('No se pudo cerrar sesión. Intenta nuevamente.');
                     }
                 })

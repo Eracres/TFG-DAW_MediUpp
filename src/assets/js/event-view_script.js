@@ -2,35 +2,46 @@ const MEDIA_SECTION = "media-section";
 const CHAT_SECTION = "chat-section";
 
 document.addEventListener("DOMContentLoaded", () => {
-    loadContent(MEDIA_SECTION);
+    //loadContent(MEDIA_SECTION);
 
     // FUNCIONALIDAD DEL DROPDOWN DEL HEAD
     const userDropdownBtn = document.querySelector(".head-user-dropdow-btn");
+    const dropdown = document.querySelector(".head-user-dropdown");
     
     userDropdownBtn.addEventListener("click", () => {
-        const dropdown = document.querySelector(".head-user-dropdown");
         dropdown.classList.toggle("open");
     });
 
     // FUNCIONALIDAD DE ACCIONES DE PARTICIPANTES
     const participantActionsBtn = document.querySelectorAll(".participant-actions-btn");
 
+    const closeAllActionMenus = () => {
+        document.querySelectorAll(".event-participant-actions-menu").forEach((menu) => {
+            menu.classList.remove("open");
+        });
+    };
+
     participantActionsBtn.forEach(btn => {
         btn.addEventListener("click", (e) => {
+            e.stopPropagation();
             const participant = e.target.closest(".event-participant");
             const actionsMenu = participant.querySelector(".event-participant-actions-menu");
     
             // Cerrar otros menús abiertos
             document.querySelectorAll(".event-participant-actions-menu").forEach((menu) => {
                 if (menu !== actionsMenu) {
-                    menu.classList.remove("open"); // Aquí se elimina la clase "open" para cerrarlos
+                    menu.classList.remove("open");
                 }
             });
     
             // Alternar visibilidad del menú actual
             actionsMenu.classList.toggle("open");
         });
-    });;
+    });
+
+    document.addEventListener("scroll", () => {
+        closeAllActionMenus(); // Cierra los menús al hacer scroll
+    });
 
     // FUNCIONALIDAD DE ASIGNAR ADMINISTRADOR O ELIMINAR A UN PARTICIPANTE
     const assignAdminBtns = document.querySelectorAll(".assign-participant-admin-btn");
@@ -46,16 +57,26 @@ document.addEventListener("DOMContentLoaded", () => {
                     if (confirm("¿Seguro que deseas asignarle como adminitrador?")) {
                         let data = {
                             action: "assign-admin",
-                            participant_id: participantId
+                            participant_id: participantId,
+                            event_id: curretGlobalEventId
                         };
 
-                        axios.post('http://localhost/tfg-daw_mediupp/src/ajax/requests.php', data)
-                            .then((response) => {
-                                alert("Administrador asignado con éxito.");
-                                location.reload();
+                        fetch('/tfg-daw_mediupp/src/ajax/requests.php', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(data),
+                        })
+                            .then((response) => (response.ok ? response.json() : Promise.reject(response)))
+                            .then((data) => {
+                                if (data.success) {
+                                    alert(data.message);
+                                    window.location.reload();
+                                } else {
+                                    alert(data.message || "Ocurrió un error.");
+                                }
                             })
                             .catch((error) => {
-                                console.error("Error asignando administrador:", error);
+                                console.error("Error en la solicitud:", error);
                             });
                     }
                 }
@@ -73,16 +94,26 @@ document.addEventListener("DOMContentLoaded", () => {
                     if (confirm("¿Seguro que deseas eliminar a este participante?")) {
                         let data = {
                             action: "delete-participant",
-                            participant_id: participantId
+                            participant_id: participantId,
+                            event_id: curretGlobalEventId
                         };
 
-                        axios.post('http://localhost/tfg-daw_mediupp/src/ajax/requests.php', data)
-                            .then((response) => {
-                                alert("Participante eliminado con éxito.");
-                                location.reload();
+                        fetch('/tfg-daw_mediupp/src/ajax/requests.php', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(data),
+                        })
+                            .then((response) => (response.ok ? response.json() : Promise.reject(response)))
+                            .then((data) => {
+                                if (data.success) {
+                                    alert(data.message);
+                                    window.location.reload();
+                                } else {
+                                    alert(data.message || "Ocurrió un error.");
+                                }
                             })
                             .catch((error) => {
-                                console.error("Error eliminando participante:", error);
+                                console.error("Error en la solicitud:", error);
                             });
                     }
                 }
@@ -95,19 +126,58 @@ document.addEventListener("DOMContentLoaded", () => {
     const leftEventBtn = document.querySelector(".event-left-button");
 
     leftEventBtn.addEventListener("click", () => {
+        const currentEventId = leftEventBtn.dataset.eventId;
         let data = {
             action: "leave-event",
-            event_id: 1
+            event_id: currentEventId
         };
 
-        axios.post('http://localhost/tfg-daw_mediupp/src/ajax/requests.php', data)
-            .then((response) => {
-                
+        fetch('/tfg-daw_mediupp/src/ajax/requests.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data),
+        })
+            .then((response) => response.ok ? response.json() : Promise.reject(response))
+            .then((data) => {
+                if (data.success) {
+                    console.log(data.message);
+                    setTimeout(() => window.location.href = data.redirect, 250);
+                } else {
+                    alert(data.message || 'No se pudo salir del evento. Intenta nuevamente.');
+                }
             })
-            .catch((error) => {
-                console.error("Error al dejar el evento:", error);
-            });
+            .catch((error) => console.error("Error al salir del evento:", error));
     });
+
+    const deleteEventBtn = document.querySelector(".event-delete-button");
+
+    if (deleteEventBtn) {
+        deleteEventBtn.addEventListener("click", () => {
+            const currentEventId = deleteEventBtn.dataset.eventId;
+            let data = {
+                action: "delete-event",
+                event_id: currentEventId
+            };
+
+            if (confirm("¿Seguro que deseas eliminar este evento?")) {
+                fetch('/tfg-daw_mediupp/src/ajax/requests.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data),
+                })
+                    .then((response) => response.ok ? response.json() : Promise.reject(response))
+                    .then((data) => {
+                        if (data.success) {
+                            console.log(data.message);
+                            setTimeout(() => window.location.href = data.redirect, 250);
+                        } else {
+                            alert(data.message || 'No se pudo eliminar el evento. Intenta nuevamente.');
+                        }
+                    })
+                    .catch((error) => console.error("Error al eliminar el evento:", error));
+            }
+        });
+    }
 
     // FUNCIONALIDAD DEL MODAL DE PARTICIPANTES
     const modal = document.querySelector(".modal");
@@ -145,23 +215,34 @@ document.addEventListener("DOMContentLoaded", () => {
     const chatInput = document.getElementById("chat-input");
     const openEmojisBtn = document.getElementById("open-emojis-btn");
 
-    openEmojisBtn.addEventListener("click", () => {
-        // Mostrar emojis
-    });
+    // openEmojisBtn.addEventListener("click", () => {
+    //     // Mostrar emojis
+    // });
 
-    chatInput.addEventListener("keypress", (e) => {
-        if (e.key === "Enter" && e.shiftKey) {
-            chatInput.value += "\n";
-        }
-    });
+    // chatInput.addEventListener("keypress", (e) => {
+    //     if (e.key === "Enter" && e.shiftKey) {
+    //         chatInput.value += "\n";
+    //     }
+    // });
 
 });
 
 function loadContent(section) {
+    const dynamicContent = document.querySelector(".dynamic-content");
+    dynamicContent.innerHTML = "";
     // Dependiendo del botón que se preosione, cargamos su contenido
+    const openPostModalBtn = document.querySelector(".floating-button");
+    const sendMessageBar = document.querySelector(".message-bar");
+
+    openPostModalBtn.classList.add("hidden");
+    sendMessageBar.classList.add("hidden");
+
     if (section === MEDIA_SECTION) {
+        openPostModalBtn.classList.remove("hidden");   
         loadMediaPosts();
+
     } else if (section === CHAT_SECTION) {
+        sendMessageBar.classList.remove("hidden");
         loadChatMessages();
     }
 }
@@ -170,7 +251,7 @@ function loadContent(section) {
 function loadMediaPosts() {
     let data = {
         action: "get-media-posts",
-        event_id: 1
+        event_id: curretGlobalEventId
     };
 
     axios.get('http://localhost/tfg-daw_mediupp/src/ajax/requests.php', data )
@@ -188,7 +269,7 @@ function loadMediaPosts() {
 function loadChatMessages() {
     let data = {
         action: "get-chat-messages",
-        event_id: 1
+        event_id: curretGlobalEventId
     };
 
     axios.get('http://localhost/tfg-daw_mediupp/src/ajax/requests.php', data)

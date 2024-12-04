@@ -1,7 +1,7 @@
 <?php
     require_once $_SERVER['DOCUMENT_ROOT'] . '/TFG-DAW_MediUpp/src/utils/init.php';
 
-    //&comentar línea siguiente para probar el fichero solo
+    checkRememberMeCookie();
     redirectIfLoggedIn();
 
     //*Display para errores en pantalla

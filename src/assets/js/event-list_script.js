@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const modal = document.querySelector(".modal");
     const modalContainer = document.querySelector(".modal-content");
     const modalForm = document.querySelector("form");
-    const openModalBtn = document.querySelector("#open-modal-btn");
+    const openModalBtn = document.querySelector(".open-modal-btn");
     const closeModalBtns = document.querySelectorAll(".close-modal-btn");
     //const addEventBtn = document.querySelector("#add-event-btn");
 

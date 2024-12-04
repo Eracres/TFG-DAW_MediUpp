@@ -103,7 +103,7 @@
 /* Clases personalizadas para el main */
 
 .app-main{
-    @apply flex gap-5 flex-1;
+    @apply m-0 p-0 flex-1;
 }
 
 /*Sidebar del administrador*/
@@ -146,49 +146,10 @@
     @apply dark:bg-orange-crayola-2 text-gray-100;
 }
 
-/*Listas de eventos*/
-
-.app-main-sections-eventlist{
-    @apply bg-onyx p-5 rounded-lg; 
-}
-
-.dark .app-main-sections-eventlist {
-    @apply dark:bg-orange-crayola-2;
-}
-
-.app-main-sections-eventlist-title {
-    @apply bg-pumpkin text-center text-onyx font-bold py-3 mb-6 text-2xl tracking-wide uppercase;
-    border-radius: 0.5rem; 
-}
-
-.dark .app-main-sections-eventlist-title {
-    @apply bg-onyx text-center text-jonquil font-bold py-3 mb-6 text-2xl tracking-wide uppercase;
-    border-radius: 0.5rem; 
-}
-
-/*Eventos individuales*/
-
-.app-main-sections-eventlist-event{
-    @apply flex items-center bg-sandy-brown p-3 mb-3 rounded-lg; 
-}
-
-.dark .app-main-sections-eventlist-event {
-    @apply dark:bg-onyx;
-}
-
-.app-main-sections-eventlist-icon{
-    @apply bg-jonquil text-ghost-white p-3 rounded-full mr-3; 
-    width: 40px; 
-    height: 40px; 
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-}
-
 /* Clases personalizadas para el footer */
 
 .app-footer {
-    @apply bg-jonquil text-onyx p-6 dark:bg-jet dark:text-jonquil;
+    @apply bg-jonquil text-onyx py-3.5 px-5 dark:bg-jet dark:text-jonquil;
 }
 
 .app-footer-flextext {
@@ -230,20 +191,171 @@
     @apply hover:underline;
 }
 
+/* Login y Register */
 
+/* Estilo general del cuerpo para la página de login */
+.login-body {
+    @apply bg-onyx text-ghost-white font-sans flex items-center justify-center min-h-screen;
+}
+
+/* Contenedor principal */
+.login-container {
+    @apply bg-jet shadow-lg rounded-lg p-8 max-w-md text-center;
+}
+
+/* Logotipo */
+.login-logo {
+    @apply w-24 h-auto mx-auto mb-4; /* Tamaño reducido y centrado */
+}
+
+/* Título */
+.login-title {
+    @apply text-3xl font-bold text-pumpkin mb-6;
+}
+
+/* Título principal */
+.login-title-container {
+    @apply flex justify-center items-center mb-4; 
+}
+
+.login-title {
+   
+    @apply text-2xl font-bold mb-1;
+
+    /* Gradiente de colores aplicado al texto */
+    background: linear-gradient(90deg, #F97316, #FF6F3C, #FF8643, #FF9C4A, #FACC15, #FFC857);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+    transition: background-position 0.5s ease-in-out;
+    background-size: 200%;
+}
+
+/* Efecto hover para que el gradiente se mueva, creando una animación en el color */
+.login-title:hover {
+    background-position: 100%;
+}
+
+/* Formulario */
+.login-form {
+    @apply flex flex-col space-y-4;
+}
+
+/* Inputs */
+.login-input {
+    @apply bg-gray-800 text-white px-4 py-2 rounded focus:ring-2 focus:ring-pumpkin focus:outline-none;
+}
+
+/* Input en caso de error */
+.login-input-error {
+    @apply border-2 border-red-500;
+}
+
+/* Texto de error */
+.login-error-text {
+    @apply text-red-500 text-sm italic;
+}
+
+/* Checkbox y label */
+.login-remember {
+    @apply flex items-center justify-start text-sm text-gray-400 space-x-2;
+}
+
+.login-remember input {
+    @apply w-4 h-4 text-pumpkin;
+}
+
+/* Botón de enviar */
+.login-button {
+    @apply bg-pumpkin text-white py-2 px-4 rounded hover:bg-orange-crayola-2 transition duration-300;
+}
+
+/* Contenedor de los enlaces */
+.login-links {
+    @apply mt-4 text-center flex flex-col items-center space-y-2;
+}
+
+/* Estilos de los enlaces */
+.login-link {
+    @apply text-pumpkin font-semibold no-underline transition duration-300;
+}
+
+/* Efecto hover para los enlaces */
+.login-link:hover {
+    @apply text-orange-crayola-2 underline;
+}
 
 /*Listas de eventos*/
 
 .event-list-container {
-    @apply flex;
+    @apply m-3 flex gap-3 min-h-full;
 }
 
 .dark .event-list-container {
     @apply dark:bg-orange-crayola-2;
 }
 
+
+
 .event-list-sidebar {
-    @apply flex flex-col;
+    @apply w-48 bg-onyx text-ghost-white rounded-lg p-5 flex flex-col justify-between;
+}
+
+.dark .event-list-sidebar {
+    @apply bg-orange-crayola-2 dark:text-gray-800
+}
+
+.event-list-sidebar-user-info {
+    @apply text-center mb-5;
+}
+
+.user-info-pfp {
+    @apply w-12 rounded-full mx-auto mb-3;
+}
+
+.user-info-pfp img {
+    @apply w-full h-full object-cover;
+}
+
+.user-info-alias-uname {
+    @apply flex flex-col items-center;
+}
+
+/* Contenedor de los botones en el sidebar */
+.event-list-sidebar-controls {
+    @apply flex flex-col gap-4 justify-center; 
+}
+
+.controls-row {
+    @apply flex justify-center gap-4;
+}
+
+.open-modal-btn, 
+.profile-btn, 
+.event-list-sidebar-controls .logout-btn {
+    @apply flex flex-col items-center py-2 px-4 rounded-lg gap-1 text-white;
+}
+
+.open-modal-btn i, 
+.profile-btn i, 
+.event-list-sidebar-controls .logout-btn i {
+    @apply text-2xl;
+}
+
+.open-modal-btn span, 
+.profile-btn span, 
+.event-list-sidebar-controls .logout-btn span {
+    @apply text-sm;
+}
+
+.open-modal-btn {
+    @apply bg-gray-400  hover:bg-gray-500;
+}
+
+.profile-btn,
+.event-list-sidebar-controls .logout-btn {
+    @apply bg-gray-300 text-black hover:bg-gray-400;
 }
 
 .event-list-user-info {
@@ -251,7 +363,7 @@
 }
 
 .event-list-sections {
-    @apply flex gap-5;
+    @apply flex gap-3 flex-1;
 }
 
 .event-list-section {
@@ -264,10 +376,6 @@
 
 /*Listas de eventos*/
 
-.dark .app-main-sections {
-    @apply dark:bg-orange-crayola-2 text-gray-100;
-}
-
 .section-title {
     @apply bg-pumpkin text-center text-onyx font-bold py-3 mb-6 text-2xl tracking-wide uppercase;
     border-radius: 0.5rem; 
@@ -278,11 +386,11 @@
     border-radius: 0.5rem; 
 }
 
-.section-event-list {
-    @apply bg-onyx p-5 rounded-lg max-h-[450px] overflow-y-auto relative;
+.list {
+    @apply flex flex-col gap-3.5 bg-onyx ml-2 mr-2 mb-2 max-h-[450px] overflow-y-auto relative;
 }
 
-.dark .section-event-list {
+.dark .list {
     @apply dark:bg-orange-crayola-2;
 }
 
@@ -300,33 +408,99 @@
 
 /*Eventos individuales*/
 
-.event-container{
-    @apply flex items-center bg-sandy-brown p-3 mb-3 rounded-lg; 
+.section-user-events .event-container,
+.section-public-events .event-container {
+    @apply flex bg-sandy-brown p-3 rounded-lg; 
+}
+.dark .section-user-events .event-container,
+.dark .section-public-events .event-container {
+    @apply dark:bg-onyx;
 }
 
-.dark .event-container {
-    @apply dark:bg-onyx;
+.section-user-events .event-container{
+    @apply flex-col; 
+}
+
+.section-user-events .event-title {
+    @apply text-xl font-bold mb-2;
+}
+
+.section-user-events .event-type {
+    @apply bg-pumpkin text-ghost-white px-2 py-1 text-sm rounded;
+}
+
+.section-user-events .event-duration {
+    @apply text-gray-600 text-sm;
+}
+
+/*Eventos publicos*/
+.section-public-events .event-container {
+    @apply justify-between; 
+}
+
+.section-public-events .event-public-info {
+    @apply flex flex-col;
+}
+
+.section-public-events .event-title {
+    @apply text-xl font-bold mb-2;
+}
+
+.section-public-events .row-2 {
+    @apply flex gap-2;
+}
+
+.section-public-events .event-type-cnt {
+    @apply flex items-center;
+}
+
+.section-public-events .event-type-cnt .event-type {
+    @apply bg-pumpkin text-ghost-white px-2 py-1 text-sm rounded;
+}
+
+.section-public-events .event-dates {
+    @apply flex items-center gap-2;
+}
+
+.section-public-events .event-dates i {
+    @apply text-gray-600;
+}
+
+.section-public-events .event-duration {
+    @apply flex flex-col text-gray-600 text-sm;
+}
+
+.section-public-events .event-actions {
+    @apply flex items-center;
+}
+
+.section-public-events .event-join-btn {
+    @apply bg-gray-400 text-white py-2 px-4 rounded disabled:opacity-50;
+}
+
+.section-public-events .event-view-btn {
+    @apply bg-orange-700 text-white py-2 px-4 rounded;
 }
 
 
 /*Estilos de barra de scroll*/
 
-.section-event-list::-webkit-scrollbar {
+.list::-webkit-scrollbar {
     width: 8px; 
 }
 
-.section-event-list::-webkit-scrollbar-track {
+.list::-webkit-scrollbar-track {
     background-color: #333; 
     border-radius: 1rem; 
 }
 
-.section-event-list::-webkit-scrollbar-thumb {
+.list::-webkit-scrollbar-thumb {
     background-color: #f90; 
     border-radius: 1rem; 
     border: 2px solid #333; 
 }
 
-.section-event-list::-webkit-scrollbar-thumb:hover {
+.list::-webkit-scrollbar-thumb:hover {
     background-color: #ffb700; 
 }
 
@@ -372,7 +546,7 @@
 }
 
 .head-user-dropdown {
-    @apply absolute right-0 bg-gray-800 rounded-lg shadow-lg mt-32 p-2 w-48 hidden;
+    @apply absolute right-0 top-11 bg-gray-800 rounded-lg shadow-lg p-2 w-48 hidden;
 }
 
 .dropdown-list {
@@ -398,7 +572,7 @@
 
 /* Event Info Section */
 .event-info {
-    @apply bg-white p-7 rounded-lg shadow-lg mb-6;
+    @apply bg-white p-7 shadow-lg w-96;
 }
 
 .event-details {
@@ -447,7 +621,7 @@
 }
 
 .participant-col1 {
-    @apply flex items-center;
+    @apply flex items-center mr-4;
 }
 
 .participant-pfp-container img {
@@ -455,7 +629,8 @@
 }
 
 .participant-col2 {
-    @apply flex flex-col items-start ml-4;
+    @apply flex flex-col justify-center flex-1; /* Ajusta el texto verticalmente */
+    text-align: left;
 }
 
 .participant-name {
@@ -466,8 +641,12 @@
     @apply text-sm text-green-500 italic;
 }
 
+.participant-col3 {
+    @apply flex items-center relative;
+}
+
 .event-participant-actions-menu {
-    @apply absolute hidden mt-2 right-0 bg-white border border-gray-300 rounded-lg shadow-lg w-48 z-10;
+    @apply absolute hidden right-0 top-7 bg-white border border-gray-300 rounded-lg shadow-lg w-48 z-10;
 }
 
 /* Event User Controls */
@@ -489,11 +668,11 @@
 
 
 .event-content {
-    @apply flex flex-col bg-gray-100 flex-1;
+    @apply flex flex-col flex-1 bg-gray-200;
 }
 
 .event-content-header {
-    @apply flex justify-center items-center gap-4 py-4 bg-gray-200;
+    @apply flex justify-center items-center gap-4 py-4;
 }
 
 .toggle-section-btn {
@@ -501,10 +680,12 @@
 }
 
 .event-content-dynamic {
-    @apply flex-1 p-4 bg-white rounded-lg shadow-lg mt-4;
+    @apply flex-1 shadow-lg;
 }
 
-
+.dynamic-container {
+    @apply flex-1 m-5 mt-0 rounded-xl bg-white min-h-full;
+}
 
 
 /*___________________________________________________________________________*/
@@ -708,3 +889,50 @@
     background-color: #303030;
     opacity: 8%;
     }
+
+
+
+
+.recover-body {
+    @apply bg-onyx text-ghost-white font-sans flex items-center justify-center min-h-screen;
+}
+
+/* Contenedor principal */
+.recover-container {
+    @apply bg-jet shadow-lg rounded-lg p-8 max-w-lg text-center;
+}
+
+/* Logo */
+.recover-logo {
+    @apply w-24 h-auto mx-auto mb-6;
+}
+
+/* Título */
+.recover-title {
+    @apply text-2xl font-bold text-pumpkin mb-6;
+}
+
+/* Formulario */
+.recover-form {
+    @apply flex flex-col space-y-4;
+}
+
+/* Campos del formulario */
+.recover-field {
+    @apply flex flex-col space-y-2 text-left;
+}
+
+/* Etiquetas */
+.recover-label {
+    @apply font-semibold text-sm text-ghost-white;
+}
+
+/* Inputs */
+.recover-input {
+    @apply bg-gray-800 text-white px-4 py-2 rounded focus:ring-2 focus:ring-pumpkin focus:outline-none;
+}
+
+/* Botón de enviar */
+.recover-button {
+    @apply bg-pumpkin text-white py-2 px-4 rounded hover:bg-orange-crayola-2 transition duration-300;
+}

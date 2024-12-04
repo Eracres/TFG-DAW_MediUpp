@@ -55,7 +55,7 @@
             </button>
             <div class="head-user-dropdown">
                 <ul class="dropdown-list">
-                    <a href="user_profile.php">
+                    <a href="user_profile.php?user_id=<?= urlencode($logged_user_id) ?>">
                         <li class="dropdown-element">
                             <i class="fa-solid fa-user"></i>
                             <span> Mi perfil </span>
@@ -78,24 +78,41 @@
                     <h3 class="head-text"> Detalles del evento </h3>
                 </div>
                 <div class="event-data-container">
-                    <div class="event-field event-title">
+                    <div class="event-field event-data-title">
                         <span id="event-title"><?= htmlspecialchars($event_data['title']); ?></span>
                         <?php if ($isAdmin): ?>
                             <button class="edit-btn" data-field="title"><i class="fa-solid fa-pen"></i></button>
                         <?php endif; ?>
                     </div>
                     <?php if (!empty($event_data['type']) && isset(EVENT_TYPE[$event_data['type']])): ?>
-                        <div class="event-field event-type">
+                        <div class="event-field event-data-type">
                             <span id="event-type"><?= EVENT_TYPE[$event_data['type']]; ?></span>
                         </div>
                     <?php endif; ?>
-                    <div class="event-field event-location">
+                    <div class="event-field event-data-location">
                         <span id="event-location"><?= htmlspecialchars($event_data['location']); ?></span>
                         <?php if ($isAdmin): ?>
                             <button class="edit-btn" data-field="location"><i class="fa-solid fa-pen"></i></button>
                         <?php endif; ?>
                     </div>
-                    <div class="event-date event-field">
+                    <div class="event-field event-data-duration">
+                        <span id="event-duration">
+                        <?php 
+                            $start_date = strtotime($event_data['start_date']);
+                            $end_date = strtotime($event_data['end_date']);
+                            
+                            if (date('Y-m-d', $start_date) === date('Y-m-d', $end_date)): ?>
+                                <?= htmlspecialchars(date('d/m/Y', $start_date)); ?> 
+                                (<?= htmlspecialchars(date('H:i', $start_date)); ?> - <?= htmlspecialchars(date('H:i', $end_date)); ?>)
+                            <?php else: ?>
+                                <?= htmlspecialchars(date('d/m/Y', $start_date)); ?> - <?= htmlspecialchars(date('d/m/Y', $end_date)); ?>
+                            <?php endif; ?>
+                        </span>
+                        <?php if ($isAdmin): ?>
+                            <button class="edit-btn" data-field="duration"><i class="fa-solid fa-pen"></i></button>
+                        <?php endif; ?>
+                    </div>
+                    <div class="event-field event-data-createddate">
                         <span id="event-date"><?= htmlspecialchars($event_data['created_at']); ?></span>
                     </div>
                 </div>
@@ -157,17 +174,17 @@
                     <!-- Si el usuario no está en el evento, no mostrar el boton de salirse -->
                     <?php if ($isUserInEvent): ?>
                         <div class="control-left-event">
-                            <button class="event-left-button"> 
-                                <span> Salir del evento </span> 
+                            <button class="event-left-button" data-event-id="<?= $event_data['id'] ?>"> 
                                 <i class="fa-solid fa-right-from-bracket"></i>
+                                <span> Salir del evento </span> 
                             </button>
                         </div>
                     <?php endif; ?>
                     <?php if (isset($isCreatorOrSuperAdmin) && $isCreatorOrSuperAdmin): ?>
                         <div class="control-delete-event">
-                            <button class="event-delete-button"> 
-                                <span> Eliminar evento </span>
+                            <button class="event-delete-button" data-event-id="<?= $event_data['id'] ?>"> 
                                 <i class="fa-solid fa-trash"></i>
+                                <span> Eliminar evento </span>
                             </button>
                         </div>
                     <?php endif; ?>
@@ -186,13 +203,27 @@
                 </button>
             </div>
             <div class="event-content-dynamic" id="dynamic-content">
-                <div class="">
+                <div class="dynamic-container">
                     <!-- El contenido se cargará aquí -->
+                    <div class="open-post-modal-btn">
+                        <button id="create-post-btn" class="btn btn-primary">Crear Post</button>
+                    </div>
+
+                    <div class="chat-message-bar">
+                        <form action="">
+                            <input type="text" id="chat-message-input" placeholder="Escribe un mensaje..." />
+                            <button id="send-message-btn" class="btn btn-primary">Enviar</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </section>
     </div>
 </div>
+
+<script>
+    let curretGlobalEventId = <?= $current_event_id ?>;
+</script>
 
 <?php
     $additional_scripts = [

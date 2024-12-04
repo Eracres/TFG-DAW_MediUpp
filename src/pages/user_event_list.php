@@ -17,7 +17,7 @@
 
 <div class="event-list-container">
     <div class="event-list-sidebar">
-        <div class="event-list-user-info">
+        <div class="event-list-sidebar-user-info">
             <div class="user-info-pfp">
                 <img src="<?= $logged_user['pfp_src']; ?>" alt="Foto de perfil de @<?= $logged_user['usern']; ?>">
             </div>
@@ -26,17 +26,17 @@
                 <span> @<?= $logged_user['usern']; ?> </span>
             </div>
         </div>
-        <div class="event-list-controls">
-            <div class="controls-row1">
-                <button id="open-modal-btn" data-action="add-event"> 
+        <div class="event-list-sidebar-controls">
+            <div class="controls-row">
+                <button class="open-modal-btn" data-action="add-event"> 
                     <i class="fa-solid fa-plus"></i> 
                     <span> Añadir evento </span>
                 </button>
                 <?php include COMPONENTS_DIR . 'add-event_modal.php'; ?>
             </div>
-            <div class="controls-row1">
-                <a href="user_profile.php">
-                    <button id="profile-btn" data-action="view-profile">
+            <div class="controls-row">
+                <a href="user_profile.php?user_id=<?= urlencode($logged_user_id) ?>">
+                    <button class="profile-btn" data-action="view-profile">
                         <i class="fa-solid fa-user"></i>
                         <span> Perfil </span>
                     </button>
@@ -52,7 +52,7 @@
         <section class="event-list-section section-user-events">
             <h2 class="section-title"> Tus eventos </h2>
             <?php if (!empty($user_events)): ?>
-                <div class="section-event-list">
+                <div class="list">
                     <?php
                         foreach ($user_events as $event) {
                             include COMPONENTS_DIR . 'user-event_card.php';
@@ -68,7 +68,7 @@
         <section class="event-list-section section-public-events">
             <h2 class="section-title"> Eventos públicos </h2>
             <?php if (!empty($public_events)): ?>
-                <div class="section-event-list">
+                <div class="list">
                     <?php
                         foreach ($public_events as $event) {
                             $event['is_disabled'] = ($event['is_joined'] == TRUE_VALUE);
