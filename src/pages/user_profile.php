@@ -12,8 +12,6 @@ $id_usuario = $_GET['id_usuario'];
 
 $owner = checkUserOwnProfile($logged_user_id, $id_usuario); //* FUNCIONA!! 
 
-// echo 'EL USUARIO LOGUEADO ES '.$logged_user['usern'].' y su ID es: '.$logged_user['id'].' que NO COINCIDE CON '.$id_usuario;
-
 ob_start();
 
 
@@ -21,14 +19,7 @@ ob_start();
 $update_exitoso = $error_update = $error_alias_edit = $error_bio_edit = $error_pfp_edit = "";
 
 
-
-
-
-
-
 //Select para mostrar antes de editar
-
-// Crear y ejecutar la consulta para obtener los datos del usuario
 $queryDatos = "SELECT * FROM users WHERE id = :id";
 $queryDatosParams = [
     ':id' => $id_usuario // Usamos el prefijo ':' en la clave para coincidir con los parámetros del query
@@ -42,9 +33,9 @@ $db->execute($queryDatos, $queryDatosParams);
 $datos_usuario = $db->getData(DBConnector::FETCH_ROW);
 
 
-//gettear id de usuario
+//REDIRIGIR a página de perfil del usuario en caso de que la página a visitar no exista
 if (!isset($id_usuario) || empty($id_usuario) || empty($datos_usuario)) {
-    header("Location:".PAGES_DIR."user_profile.php/?id_usuario=".$logged_user_id);
+    header("Location:".PAGES_DIR."user_profile.php?id_usuario=".$logged_user_id); //!WARNING
 }
 
 

@@ -50,10 +50,29 @@
         return $db->getExecuted();
     }
 
+    function checkIfUserExists($user_id){
+        global $db;
+
+        $queryUsers = "SELECT id FROM users WHERE id = :id";
+        $queryUsersParams = [
+            ':id' => $user_id
+        ];
+
+        $userExists = $db->execute($queryUsers, $queryUsersParams);
+
+        if(empty($userExists)){
+            return False;
+
+        }else{
+            return True;
+        }
+
+    }
+
+
     function checkUserOwnProfile($logged_user_id, $owner_id){
-        /*//* Necesario en user_profile.php: comprueba si el ID del logged_user coincide con el ID del perfil visitado, 
-        //*   SOLO en caso positivo, muestra el botón de editar perfil. 
-        */
+        //*Necesario en user_profile.php: comprueba si el ID del logged_user coincide con el ID del perfil visitado, 
+        //*SOLO en caso positivo, muestra el botón de editar perfil. 
         $logged_user_id = (int)$logged_user_id;
         $owner_id = (int)$owner_id;
 
@@ -68,7 +87,7 @@
 
 
     function editProfileValues($user_id, $new_alias, $new_bio){
-        //*Función para editar SOLO alias y bio. pfp -> files_controller 
+        //*Función para editar SOLO alias y bio. Para actualizar pfp -> files_controller: updatePfp()
         $queryUpdate = "UPDATE users 
                         SET alias = :alias, bio = :bio   
                         WHERE id = :id";
@@ -89,8 +108,3 @@
             $error_update = "Los datos no han podido actualizarse.";
         }
     }
-
-    // //Funcion para printear errores
-    // function printError($mensaje){
-    //     echo '<p class="text-red-600" style="color:red">'.$mensaje.'</p>';
-    // }

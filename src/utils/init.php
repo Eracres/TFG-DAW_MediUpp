@@ -3,6 +3,7 @@
     require_once __DIR__ . '/global-variables.php';
 
     define('ROOT_DIR', $_SERVER['DOCUMENT_ROOT'] . '/TFG-DAW_MediUpp/src/');
+    define('NOT_ROOT_DIR','/TFG-DAW_MediUpp/src/');
     define('COMPONENTS_DIR', ROOT_DIR . 'components/');
     define('CONTROLLERS_DIR', ROOT_DIR . 'controllers/');
     define('PAGES_DIR', ROOT_DIR . 'pages/');

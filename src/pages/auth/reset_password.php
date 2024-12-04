@@ -5,7 +5,7 @@
     redirectIfLoggedIn();
 
     if (!isset($_GET['token']) || !validateToken($_GET['token'])) {
-        header("Location: " . PAGES_DIR ."login.php");
+        header("Location: " . NOT_ROOT_DIR ."pages/auth/login.php");
         exit();
     } else {
         $token = htmlspecialchars($_GET['token']);
@@ -32,7 +32,7 @@
             $success = resetPasswordWithToken($token, $new_password);
 
             if ($success) {
-                header("Location: " . PAGES_DIR . "auth/login.php");
+                header("Location: " . NOT_ROOT_DIR . "pages/auth/login.php");
                 exit();
             } else {
                 $errors['reset_failed'] = "Error al restablecer la contraseña. Inténtalo de nuevo.";

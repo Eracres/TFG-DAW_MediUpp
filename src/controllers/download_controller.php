@@ -50,16 +50,3 @@ function downloadEventMedia($event_id) {
 //*Llamada a la función pulsando el botón
 
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <form action="" method="POST">
-        <button type="submit" name="descargar-zip">Descargar ZIP</button>
-    </form>
-</body>
-</html>

@@ -138,8 +138,4 @@ function insertPosts() {
 }
 
 
-
-
-
-
 ?>

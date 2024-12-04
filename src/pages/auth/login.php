@@ -35,7 +35,8 @@
                     setcookie(COOKIE_REMEMBER_ME_NAME, $token, time() + DEFAULT_REMEMBER_ME_TOKEN_EXPIRATION_TIME, "/");
                 }
                 
-                header("Location: ../user_event_list.php");
+                // header("Location: ../user_event_list.php");
+                header("Location:".PAGES_DIR."user_event_list.php");
                 exit();
             } else {
                 $log_errors['wrong-credentials'] = "Credenciales incorrectas";

@@ -45,7 +45,7 @@
             $new_event_id = createNewEvent($event, $logged_user_id);
 
             if ($new_event_id) {
-                header("Location: user_event_view.php?event_id=" . urlencode($new_event_id));
+                header("Location: ".NOT_ROOT_DIR."pages/user_event_view.php?event_id=" . urlencode($new_event_id));
                 exit;
             } else {
                 $errors[""] = "";
