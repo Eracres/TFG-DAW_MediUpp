@@ -15,7 +15,6 @@
 <?php endif; ?>
 
 <form action="" method="POST" enctype="multipart/form-data">
-    <!-- <input type="number" name="event-id" required> //!INNECESARIO, la función de inserción ya lo pilla por GET -->
 
     <label for="file-upload">Comparte tu experiencia (Fotos/Vídeos):</label>
     <input type="file" name="file-upload[]" accept="image/*,video/*" multiple required>

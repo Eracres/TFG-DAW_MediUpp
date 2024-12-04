@@ -1,5 +1,5 @@
 <p text-align="center">
-  <img src="./resources/logo/Logo.png" alt="Logo MediUpp" width="300">
+  <img src="src/resources/logo/logo.png" alt="Logo MediUpp" width="100">
 </p>
 
 
