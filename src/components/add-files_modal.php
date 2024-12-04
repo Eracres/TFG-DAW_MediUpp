@@ -9,7 +9,7 @@
         insertPosts(); // Llamamos a la función definida en files_controller.php
     }
 ?>
-<h1>Subir Multimedia</h1>
+<h1>Subir multimedia</h1>
 <?php if (!empty($error_message)): ?>
     <p style="color: red;"><?= htmlspecialchars($error_message) ?></p>
 <?php endif; ?>

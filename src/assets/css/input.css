@@ -288,6 +288,8 @@
 
 /*Listas de eventos*/
 
+/*Listas de eventos*/
+
 .event-list-container {
     @apply m-3 flex gap-3 min-h-full;
 }
@@ -299,7 +301,7 @@
 
 
 .event-list-sidebar {
-    @apply w-48 bg-onyx text-ghost-white rounded-lg p-5 flex flex-col justify-between;
+    @apply bg-onyx text-ghost-white rounded-lg flex flex-col justify-between p-6;
 }
 
 .dark .event-list-sidebar {
@@ -307,7 +309,7 @@
 }
 
 .event-list-sidebar-user-info {
-    @apply text-center mb-5;
+    @apply text-center m-2;
 }
 
 .user-info-pfp {
@@ -334,7 +336,7 @@
 .open-modal-btn, 
 .profile-btn, 
 .event-list-sidebar-controls .logout-btn {
-    @apply flex flex-col items-center py-2 px-4 rounded-lg gap-1 text-white;
+    @apply flex flex-col items-center py-2 px-3 rounded-lg gap-1 text-white;
 }
 
 .open-modal-btn i, 
@@ -350,7 +352,11 @@
 }
 
 .open-modal-btn {
-    @apply bg-gray-400  hover:bg-gray-500;
+    @apply bg-gray-400 hover:bg-gray-500 flex-1;
+}
+
+.profile-btn {
+    @apply w-20;
 }
 
 .profile-btn,
@@ -483,6 +489,30 @@
 }
 
 
+.event-container.disabled {
+    background-color: #f9f9f9;
+    opacity: 0.6;
+    pointer-events: none; /* Desactiva la interacción */
+    border-color: #ccc;
+}
+
+/* Cambia el color de los textos dentro del contenedor */
+.event-container.disabled .event-title,
+.event-container.disabled .event-type,
+.event-container.disabled .event-dates,
+.event-container.disabled button {
+    color: #999 !important;
+}
+
+/* Opcional: cambia el estilo del botón */
+.event-container.disabled .event-join-btn {
+    background-color: #e0e0e0;
+    color: #777;
+    cursor: not-allowed;
+    border: 1px solid #ccc;
+}
+
+
 /*Estilos de barra de scroll*/
 
 .list::-webkit-scrollbar {
@@ -503,7 +533,6 @@
 .list::-webkit-scrollbar-thumb:hover {
     background-color: #ffb700; 
 }
-
 
 
 
@@ -572,7 +601,7 @@
 
 /* Event Info Section */
 .event-info {
-    @apply bg-white p-7 shadow-lg w-96;
+    @apply bg-white p-7 shadow-lg w-96 flex flex-col gap-10;
 }
 
 .event-details {
@@ -605,15 +634,19 @@
 }
 
 .open-participant-modal-btn {
-    @apply bg-green-500 text-white py-2 px-4 rounded-lg mb-4 hover:bg-green-600;
+    @apply bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 w-full;
 }
 
 .event-participants-list {
-    @apply list-none p-0 m-0;
+    @apply list-none p-0 m-0 p-2 bg-gray-100 rounded-lg shadow-lg;
 }
 
 .event-participant {
     @apply flex items-center p-3 bg-gray-200 rounded-lg mb-3;
+}
+
+.event-participant:last-child {
+    @apply mb-0;
 }
 
 .participant-container {
@@ -625,7 +658,7 @@
 }
 
 .participant-pfp-container img {
-    @apply w-12 h-12 rounded-full object-cover;
+    @apply w-10 h-10 rounded-full object-cover;
 }
 
 .participant-col2 {
@@ -651,19 +684,24 @@
 
 /* Event User Controls */
 .event-user-controls {
-    @apply flex justify-between p-4 bg-gray-800 text-white rounded-lg;
+    @apply flex mt-3 w-full;
 }
 
 .event-user-controls-container {
-    @apply flex items-center gap-4;
+    @apply flex flex-col gap-3 w-full;
+}
+
+.event-left-button,
+.event-delete-button {
+    @apply flex items-center gap-2;
 }
 
 .event-left-button {
-    @apply bg-red-500 text-white p-3 rounded-lg hover:bg-red-600 flex items-center;
+    @apply bg-red-500 text-white p-3 rounded-lg hover:bg-red-600 flex items-center justify-center w-full;
 }
 
 .event-delete-button {
-    @apply bg-red-700 text-white p-3 rounded-lg hover:bg-red-800 flex items-center;
+    @apply bg-red-700 text-white p-3 rounded-lg hover:bg-red-800 flex items-center justify-center w-full;
 }
 
 
@@ -671,12 +709,13 @@
     @apply flex flex-col flex-1 bg-gray-200;
 }
 
+
 .event-content-header {
     @apply flex justify-center items-center gap-4 py-4;
 }
 
 .toggle-section-btn {
-    @apply flex items-center gap-2 px-4 py-2 bg-gray-800 text-white rounded-lg cursor-pointer hover:bg-gray-700;
+    @apply flex items-center gap-2 px-4 py-2 bg-gray-600 text-white rounded-lg cursor-pointer hover:bg-gray-700;
 }
 
 .event-content-dynamic {
