@@ -24,7 +24,7 @@ function updatePfp() {
         }
 
         // Mover el archivo a una carpeta segura
-        $ruta_destino = $_SERVER['DOCUMENT_ROOT'] . '/uploads/perfiles/';
+        $ruta_destino = $_SERVER['DOCUMENT_ROOT'] . '/TFG-DAW_MediUpp/uploads/perfiles/';
         if (!is_dir($ruta_destino)) {
             mkdir($ruta_destino, 0777, true);
         }
@@ -37,7 +37,7 @@ function updatePfp() {
             $db = DBConnector::getInstance();
             $queryActualizarPfp = "UPDATE users SET pfp_src = :pfp WHERE id = :id";
             $queryActualizarPfpParams = [
-                ':pfp' => '/uploads/perfiles/' . $nuevo_nombre,
+                ':pfp' => '/TFG-DAW_MediUpp/uploads/perfiles/' . $nuevo_nombre,
                 ':id' => $_GET['id_usuario']
             ];
 
@@ -62,15 +62,21 @@ function updatePfp() {
 //Función para subir contenido multimedia
 function insertPosts() {
     global $error_message;
+    // global $current_event_id;
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_FILES['file-upload']['tmp_name'][0])) {
         $archivos = $_FILES['file-upload'];
-        $event_id = $_GET['event-id'];
+        $event_id = $current_event_id;
         $user_id = $logged_user_id; //Variable declarada al principio del fichero en el que se va a llamar a este controlador
 
-        // $user_id = 4; //!BARBARIDAD HORRIBLE: Descomentar línea anterior para el correcto funcionamiento
+        //!BURRADA QUE FLIPAS------------------------------------------------------------------------------
+        // $event_id = 1;
+        // $user_id = 4; //Variable declarada al principio del fichero en el que se va a llamar a este controlador
+
+
+
         // Carpeta de destino
-        $ruta_destino = $_SERVER['DOCUMENT_ROOT'] . '/uploads/posts/';
+        $ruta_destino = $_SERVER['DOCUMENT_ROOT'] . '/TFG-DAW_MediUpp/uploads/posts/';
         if (!is_dir($ruta_destino)) {
             mkdir($ruta_destino, 0777, true);
         }
@@ -107,7 +113,7 @@ function insertPosts() {
                 $queryInsertPostParams = [
                     ':event_id' => $event_id,
                     ':sender_id' => $user_id,
-                    ':file_src' => '/uploads/posts/' . $nuevo_nombre
+                    ':file_src' => '/TFG-DAW_MediUpp/uploads/posts/' . $nuevo_nombre
                 ];
 
                 $db->execute($queryInsertPost, $queryInsertPostParams);

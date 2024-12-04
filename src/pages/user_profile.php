@@ -18,20 +18,6 @@ ob_start();
 $update_exitoso = $error_update = $error_alias_edit = $error_bio_edit = $error_pfp_edit = "";
 
 
-
-
-//gettear id de usuario
-if (!isset($user_id) || empty($user_id)) {
-    die("Este perfil de usuario no existe.
-            <script>
-                        setTimeout(function() {
-                            window.location.href = 'login.php';
-                        }, 2500);
-                        </script>
-        "); //^CAMBIAR
-}
-
-
 //Select para mostrar antes de editar
 
 // Crear y ejecutar la consulta para obtener los datos del usuario
@@ -46,6 +32,14 @@ $db->execute($queryDatos, $queryDatosParams);
 
 // Obtener los datos del usuario como una FILA asociativa
 $datos_usuario = $db->getData(DBConnector::FETCH_ROW);
+
+
+//gettear id de usuario
+if (!isset($id_usuario) || empty($id_usuario) || empty($datos_usuario)) {
+    header("Location:".PAGES_DIR."user_profile.php/?id_usuario=".$logged_user_id);
+}
+
+
 
 
 //Insertar datos editados
