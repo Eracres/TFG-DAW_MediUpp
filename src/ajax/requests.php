@@ -40,12 +40,26 @@
         }
 
         // ENVIA MENSAJE DE CHAT
-        if (isset($_POST['action']) && $_POST['action'] === 'send-chat-message' && isset($_POST['event_id']) && isset($_POST['message'])) {
-            $event_id = $_POST['event_id'];
-            $message = $_POST['message'];
+        if (isset($input['action']) && $input['action'] === 'send-chat-message' && isset($input['event_id']) && isset($input['message'])) {
+            $event_id = $input['event_id'];
+            $message = $input['message'];
             $sender_user_id = getLoggedUser()['id'];
 
-            sendMessage($sender_user_id, $event_id, $message);
+            try {
+                sendMessage($sender_user_id, $event_id, $message);
+                $response = [
+                    'success' => true,
+                    'message' => '¡Has enviado el mensaje!',
+                ];
+            } catch (Exception $e) {
+                $response = [
+                    'success' => false,
+                    'message' => 'Hubo un problema al mandar el mensaje: ' . $e->getMessage()
+                ];
+            }
+
+            echo json_encode($response);
+            exit;
         }
 
         // SALIR DE UN EVENTO
@@ -135,32 +149,32 @@
 
     if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         // OBTENER INVITACIONES
-        if (isset($_GET['action']) && $_GET['action'] === 'get-invitations') {
-            $user_id = getLoggedUser()['id'];
-
-            $invitations = getUserInvitations($user_id);
-
-            echo json_encode($invitations);
-            exit;
-        }
-
-        // OBTEBER POSTS DE UN EVENTO
         if (isset($_GET['action']) && $_GET['action'] === 'get-media-posts' && isset($_GET['event_id'])) {
             $event_id = $_GET['event_id'];
-
-            $media_posts = getEventMediaPosts($event_id);
-
+        
+            $media_posts = getEventMediaPosts($event_id); // Asegúrate de que esta función devuelva todos los posts.
+        
             echo json_encode($media_posts);
             exit;
         }
-
-        // OBTENER MENSAJES DE CHAT DE UN EVENTO
+        
+        // Obtener mensajes de chat de un evento
         if (isset($_GET['action']) && $_GET['action'] === 'get-chat-messages' && isset($_GET['event_id'])) {
             $event_id = $_GET['event_id'];
-
-            $chat_messages = getEventChatMessages($event_id);
-
+        
+            $chat_messages = getEventChatMessages($event_id); // Asegúrate de que esta función devuelva todos los mensajes.
+        
             echo json_encode($chat_messages);
+            exit;
+        }
+
+        if (isset($_GET['action']) && $_GET['action'] === 'get-user-info' && isset($_GET['user_id'])) {
+            $user_id = $_GET['user_id'];
+        
+            // Obtener datos del usuario
+            $user = getUserById($user_id);
+        
+            echo json_encode($user);
             exit;
         }
     }

@@ -205,24 +205,16 @@
             <div class="event-content-dynamic" id="dynamic-content">
                 <div class="dynamic-container">
                     <!-- El contenido se cargará aquí -->
-                    <div class="open-post-modal-btn">
-                        <button id="create-post-btn" class="btn btn-primary">Crear Post</button>
-                    </div>
-
-                    <div class="chat-message-bar">
-                        <form action="">
-                            <input type="text" id="chat-message-input" placeholder="Escribe un mensaje..." />
-                            <button id="send-message-btn" class="btn btn-primary">Enviar</button>
-                        </form>
-                    </div>
                 </div>
             </div>
         </section>
     </div>
 </div>
+<?php include COMPONENTS_DIR . 'add-files_modal.php'; ?>
 
 <script>
-    let curretGlobalEventId = <?= $current_event_id ?>;
+    const currentGlobalEventId = <?= $current_event_id ?>;
+    const currentUserId = <?= $logged_user_id ?>;
 </script>
 
 <?php

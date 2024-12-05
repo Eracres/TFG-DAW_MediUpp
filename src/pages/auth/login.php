@@ -97,7 +97,7 @@
             </div>
             <div class="login-links">
                 <a href="register.php" class="login-link"> ¿No tienes cuenta? Regístrate </a>
-                <a href="recover-password.php" class="login-link"> Recupera tu contraseña </a>
+                <a href="recover_password.php" class="login-link"> Recupera tu contraseña </a>
             </div>
             <div>
                 <?php include COMPONENTS_DIR . 'google-log_button.php'; ?>

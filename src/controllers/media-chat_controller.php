@@ -9,7 +9,7 @@
         $db->execute($query, [$event_id]);
         $posts = $db->getData(DBConnector::FETCH_ROW);
 
-        return $posts;
+        return $posts ? $posts : [];
     }
 
     // Obtener las reacciones de un post
@@ -84,5 +84,5 @@
         $db->execute($query, [$event_id]);
         $messages = $db->getData(DBConnector::FETCH_ALL);
 
-        return $messages;
+        return $messages ? $messages : [];
     }

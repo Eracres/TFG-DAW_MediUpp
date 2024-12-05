@@ -1933,6 +1933,7 @@ video {
   position: absolute;
   right: 0px;
   top: 2.75rem;
+  z-index: 50;
   display: none;
   width: 12rem;
   border-radius: 0.5rem;
@@ -2286,6 +2287,13 @@ video {
   border-radius: 0.75rem;
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+  display: flex;
+  flex-direction: column;
+  /* Esto asegura que los mensajes se apilen verticalmente */
+  gap: 10px;
+  /* Espacio entre los mensajes */
+  overflow-y: auto;
+  position: relative;
 }
 
 /*___________________________________________________________________________*/
@@ -2786,6 +2794,300 @@ video {
 }
 
 .recover-button:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 134 67 / var(--tw-bg-opacity));
+}
+
+.chat-message-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #f8f8f8;
+  border-top: 1px solid #ddd;
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+  z-index: 10;
+}
+
+.chat-message-bar form {
+  display: flex;
+  width: 100%;
+}
+
+.chat-message-bar input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  margin-right: 10px;
+}
+
+.chat-message-bar button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.chat-message-bar button:hover {
+  background-color: #0056b3;
+}
+
+.message-element {
+  max-width: 300px;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  display: inline-block;
+}
+
+.message-row-1 {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.message-user-avatar {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.message-user-avatar img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.user-message .message-row-1 {
+  flex-direction: row-reverse;
+}
+
+.message-user-name {
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.message-date {
+  font-size: 10px;
+  font-style: italic;
+}
+
+/* Mensaje del usuario */
+
+.user-message {
+  background-color: #747775;
+  /* Color de fondo */
+  color: white;
+  /* Color de texto */
+  text-align: right;
+  /* Alineación a la derecha */
+  margin-left: auto;
+  /* Mover hacia la derecha */
+  margin-right: 10px;
+}
+
+/* Mensaje de otra persona */
+
+.other-message {
+  background-color: #e9ecef;
+  /* Color de fondo */
+  color: black;
+  /* Color de texto */
+  text-align: left;
+  /* Alineación a la izquierda */
+  margin-right: auto;
+  /* Mover hacia la izquierda */
+  margin-left: 10px;
+}
+
+.open-post-modal-btn {
+  position: absolute;
+  /* Posiciona el botón respecto al contenedor */
+  top: 20px;
+  /* Ajusta la distancia desde la parte superior */
+  left: 20px;
+  /* Ajusta la distancia desde la parte izquierda */
+  z-index: 100;
+  /* Asegúrate de que esté por encima de otros elementos */
+}
+
+.open-post-modal-btn button {
+  background-color: #007bff;
+  /* Color del botón */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.open-post-modal-btn button:hover {
+  background-color: #0056b3;
+}
+
+.files-modal-container {
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(57 62 70 / var(--tw-bg-opacity));
+  --tw-bg-opacity: 0.9;
+  --tw-text-opacity: 1;
+  color: rgb(244 244 249 / var(--tw-text-opacity));
+}
+
+/* Modal Content */
+
+.files-modal-content {
+  width: 100%;
+  max-width: 32rem;
+  border-radius: 0.5rem;
+  --tw-bg-opacity: 1;
+  background-color: rgb(46 46 46 / var(--tw-bg-opacity));
+  padding: 1.5rem;
+  --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+/* Modal Header */
+
+.modal-header {
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom-width: 1px;
+  --tw-border-opacity: 1;
+  border-color: rgb(55 65 81 / var(--tw-border-opacity));
+  padding-bottom: 1rem;
+}
+
+.modal-title {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  font-weight: 700;
+  --tw-text-opacity: 1;
+  color: rgb(249 115 22 / var(--tw-text-opacity));
+}
+
+.modal-close-btn {
+  cursor: pointer;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  --tw-text-opacity: 1;
+  color: rgb(156 163 175 / var(--tw-text-opacity));
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.modal-close-btn:hover {
+  --tw-text-opacity: 1;
+  color: rgb(255 134 67 / var(--tw-text-opacity));
+}
+
+/* Modal Form */
+
+.upload-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.upload-form > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(1rem * var(--tw-space-y-reverse));
+}
+
+/* Form Field */
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-field > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(0.5rem * var(--tw-space-y-reverse));
+}
+
+.form-label {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 600;
+  --tw-text-opacity: 1;
+  color: rgb(244 244 249 / var(--tw-text-opacity));
+}
+
+.form-input {
+  border-radius: 0.25rem;
+  --tw-bg-opacity: 1;
+  background-color: rgb(31 41 55 / var(--tw-bg-opacity));
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.form-input:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+  --tw-ring-opacity: 1;
+  --tw-ring-color: rgb(249 115 22 / var(--tw-ring-opacity));
+}
+
+/* Modal Footer */
+
+.modal-footer {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.modal-footer > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 0;
+  margin-right: calc(1rem * var(--tw-space-x-reverse));
+  margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));
+}
+
+/* Submit Button */
+
+.upload-submit-btn {
+  border-radius: 0.25rem;
+  --tw-bg-opacity: 1;
+  background-color: rgb(249 115 22 / var(--tw-bg-opacity));
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  font-weight: 600;
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
+  transition-duration: 300ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.upload-submit-btn:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(255 134 67 / var(--tw-bg-opacity));
 }

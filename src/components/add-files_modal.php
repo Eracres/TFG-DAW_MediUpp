@@ -9,16 +9,16 @@
         insertPosts(); // Llamamos a la función definida en files_controller.php
     }
 ?>
-<h1>Subir Multimedia</h1>
-<?php if (!empty($error_message)): ?>
-    <p style="color: red;"><?= htmlspecialchars($error_message) ?></p>
-<?php endif; ?>
-
-<form action="" method="POST" enctype="multipart/form-data">
-
-    <label for="file-upload">Comparte tu experiencia (Fotos/Vídeos):</label>
-    <input type="file" name="file-upload[]" accept="image/*,video/*" multiple required>
-
-    <input type="submit" name="subir-archivos" value="Subir archivos">
-    <p> <?= $error_message ?> </p>
-</form>
+<div class="files-modal-container">
+    <div class="files-modal-content">
+        <h1 class="modal-title">Subir Multimedia</h1>
+        <?php if (!empty($error_message)): ?>
+            <p class="error-message"><?= htmlspecialchars($error_message) ?></p>
+        <?php endif; ?>
+        <form action="" method="POST" enctype="multipart/form-data" class="modal-form">
+            <label for="file-upload" class="modal-label">Comparte tu experiencia (Fotos/Vídeos):</label>
+            <input type="file" name="file-upload[]" accept="image/*,video/*" multiple required class="modal-input">
+            <input type="submit" name="subir-archivos" value="Subir archivos" class="modal-submit-btn">
+        </form>
+    </div>
+</div>

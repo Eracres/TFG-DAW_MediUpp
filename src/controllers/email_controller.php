@@ -18,16 +18,16 @@
         try {
             //$mail->SMTPDebug = SMTP::DEBUG_SERVER;
             $mail->isSMTP();
-            $mail->Host = '';
+            $mail->Host = 'smtp.educa.madrid.org';
             $mail->SMTPAuth = false;
-            $mail->Username = '';
-            $mail->Password = '';
+            $mail->Username = 'malmoroxcabrera@educa.madrid.org';
+            $mail->Password = 'Almoroxii1133';
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
             $mail->Port = 587;
 
             $mail->CharSet = 'UTF-8';
-            $mail->setFrom('', '');
-            $mail->addAddress($email, '');
+            $mail->setFrom('malmoroxcabrera@educa.madrid.org', 'MediUpp TFG');
+            $mail->addAddress($email);
             $mail->Subject = $subject;
             $mail->isHTML(true);
             $mail->Body = $body;

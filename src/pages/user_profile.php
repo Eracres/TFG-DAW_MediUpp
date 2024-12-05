@@ -35,8 +35,8 @@ $datos_usuario = $db->getData(DBConnector::FETCH_ROW);
 
 
 //gettear id de usuario
-if (!isset($id_usuario) || empty($id_usuario) || empty($datos_usuario)) {
-    header("Location:".PAGES_DIR."user_profile.php/?id_usuario=".$logged_user_id);
+if (!isset($user_id) || empty($user_id) || empty($datos_usuario)) {
+    header("Location:".PAGES_DIR."user_profile.php?user_id=".$logged_user_id);
 }
 
 
