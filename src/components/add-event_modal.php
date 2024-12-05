@@ -31,6 +31,10 @@
             $errors['empty-enddate'] = "La fecha de finalización del evento es obligatoria";
         }
 
+        if ($start_date && $end_date && strtotime($start_date) >= strtotime($end_date)) {
+            $errors['invalid-dates'] = "La fecha de inicio no puede ser igual o posterior a la fecha de finalización";
+        }
+
         if (empty($errors)) {
             $event = [
                 'title' => $title,
@@ -102,7 +106,7 @@
                 <div class="modal-form-field">
                     <label for="event-start-date"> Fecha de inicio: </label>
                     <input type="datetime-local" 
-                        class="new-event-input<?= isset($errors['empty-startdate']) ? ' form-input-error' : ''; ?>" 
+                        class="new-event-input<?= (isset($errors['empty-startdate']) || isset($errors['invalid-dates'])) ? ' form-input-error' : ''; ?>" 
                         id="event-start-date" 
                         name="start_date" 
                         value="<?= isset($start_date) ? $start_date : '' ?>">
@@ -113,7 +117,7 @@
                 <div class="modal-form-field">
                     <label for="event-end-date"> Fecha de finalización: </label>
                     <input type="datetime-local" 
-                        class="new-event-input<?= isset($errors['empty-enddate']) ? ' form-input-error' : ''; ?>" 
+                        class="new-event-input<?= (isset($errors['empty-enddate']) || isset($errors['invalid-dates'])) ? ' form-input-error' : ''; ?>" 
                         id="event-end-date" 
                         name="end_date" 
                         value="<?= isset($end_date) ? $end_date : '' ?>">

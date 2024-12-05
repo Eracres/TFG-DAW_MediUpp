@@ -63,7 +63,7 @@
 <body class="login-body">
     <div class="login-container">
         <div class="login-container-content">
-            <img class="login-logo" src="../../../resources/logo/Logo (final).png" alt="Logo">
+            <img class="login-logo" src="../../resources/logo/logo.png" alt="Logo">
             <div class="login-title-container">
                 <h1 class="login-title"> Inicio de sesión </h1>
             </div> 
@@ -97,7 +97,7 @@
             </div>
             <div class="login-links">
                 <a href="register.php" class="login-link"> ¿No tienes cuenta? Regístrate </a>
-                <a href="recover-password.php" class="login-link"> Recupera tu contraseña </a>
+                <a href="recover_password.php" class="login-link"> Recupera tu contraseña </a>
             </div>
             <div>
                 <?php include COMPONENTS_DIR . 'google-log_button.php'; ?>

@@ -2,38 +2,45 @@ const MEDIA_SECTION = "media-section";
 const CHAT_SECTION = "chat-section";
 
 document.addEventListener("DOMContentLoaded", () => {
+    loadContent(MEDIA_SECTION);
+
     // FUNCIONALIDAD DEL DROPDOWN DEL HEAD
     const userDropdownBtn = document.querySelector(".head-user-dropdow-btn");
+    const dropdown = document.querySelector(".head-user-dropdown");
     
     userDropdownBtn.addEventListener("click", () => {
-        const dropdown = document.querySelector(".head-user-dropdown");
         dropdown.classList.toggle("open");
     });
 
     // FUNCIONALIDAD DE ACCIONES DE PARTICIPANTES
     const participantActionsBtn = document.querySelectorAll(".participant-actions-btn");
 
+    const closeAllActionMenus = () => {
+        document.querySelectorAll(".event-participant-actions-menu").forEach((menu) => {
+            menu.classList.remove("open");
+        });
+    };
+
     participantActionsBtn.forEach(btn => {
         btn.addEventListener("click", (e) => {
+            e.stopPropagation();
             const participant = e.target.closest(".event-participant");
             const actionsMenu = participant.querySelector(".event-participant-actions-menu");
+    
             // Cerrar otros menús abiertos
             document.querySelectorAll(".event-participant-actions-menu").forEach((menu) => {
                 if (menu !== actionsMenu) {
-                    menu.classList.add("hidden");
+                    menu.classList.remove("open");
                 }
             });
+    
             // Alternar visibilidad del menú actual
-            actionsMenu.classList.toggle("hidden");
+            actionsMenu.classList.toggle("open");
         });
     });
 
-    document.addEventListener("click", (e) => {
-        if (!e.target.closest(".participant-col3")) {
-            document.querySelectorAll(".event-participant-actions-menu").forEach((menu) => {
-                menu.classList.add("hidden");
-            });
-        }
+    document.addEventListener("scroll", () => {
+        closeAllActionMenus(); // Cierra los menús al hacer scroll
     });
 
     // FUNCIONALIDAD DE ASIGNAR ADMINISTRADOR O ELIMINAR A UN PARTICIPANTE
@@ -48,18 +55,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 if (participantId) {
                     if (confirm("¿Seguro que deseas asignarle como adminitrador?")) {
-                        $.ajax({
-                            url: "/path/to/assign-admin-endpoint.php",
-                            method: "POST",
-                            data: { participant_id: participantId },
-                            success: (response) => {
-                                alert("Administrador asignado con éxito.");
-                                location.reload();
-                            },
-                            error: (error) => {
-                                console.error("Error asignando administrador:", error);
-                            },
-                        });
+                        let data = {
+                            action: "assign-admin",
+                            participant_id: participantId,
+                            event_id: curretGlobalEventId
+                        };
+
+                        fetch('/tfg-daw_mediupp/src/ajax/requests.php', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(data),
+                        })
+                            .then((response) => (response.ok ? response.json() : Promise.reject(response)))
+                            .then((data) => {
+                                if (data.success) {
+                                    alert(data.message);
+                                    window.location.reload();
+                                } else {
+                                    alert(data.message || "Ocurrió un error.");
+                                }
+                            })
+                            .catch((error) => {
+                                console.error("Error en la solicitud:", error);
+                            });
                     }
                 }
             });
@@ -74,18 +92,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 if (participantId) {
                     if (confirm("¿Seguro que deseas eliminar a este participante?")) {
-                        $.ajax({
-                            url: "",
-                            method: "POST",
-                            data: { participant_id: participantId },
-                            success: (response) => {
-                                alert("Participante eliminado.");
-                                participantElement.remove();
-                            },
-                            error: (error) => {
-                                console.error("Error eliminando participante:", error);
-                            },
-                        });
+                        let data = {
+                            action: "delete-participant",
+                            participant_id: participantId,
+                            event_id: curretGlobalEventId
+                        };
+
+                        fetch('/tfg-daw_mediupp/src/ajax/requests.php', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(data),
+                        })
+                            .then((response) => (response.ok ? response.json() : Promise.reject(response)))
+                            .then((data) => {
+                                if (data.success) {
+                                    alert(data.message);
+                                    window.location.reload();
+                                } else {
+                                    alert(data.message || "Ocurrió un error.");
+                                }
+                            })
+                            .catch((error) => {
+                                console.error("Error en la solicitud:", error);
+                            });
                     }
                 }
             });
@@ -97,18 +126,58 @@ document.addEventListener("DOMContentLoaded", () => {
     const leftEventBtn = document.querySelector(".event-left-button");
 
     leftEventBtn.addEventListener("click", () => {
-        $.ajax({
-            url: "",
-            method: "POST",
-            data: {  },
-            success: (response) => {
-                
-            },
-            error: (error) => {
+        const currentEventId = leftEventBtn.dataset.eventId;
+        let data = {
+            action: "leave-event",
+            event_id: currentEventId
+        };
 
+        fetch('/tfg-daw_mediupp/src/ajax/requests.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data),
+        })
+            .then((response) => response.ok ? response.json() : Promise.reject(response))
+            .then((data) => {
+                if (data.success) {
+                    console.log(data.message);
+                    setTimeout(() => window.location.href = data.redirect, 250);
+                } else {
+                    alert(data.message || 'No se pudo salir del evento. Intenta nuevamente.');
+                }
+            })
+            .catch((error) => console.error("Error al salir del evento:", error));
+    });
+
+    const deleteEventBtn = document.querySelector(".event-delete-button");
+
+    if (deleteEventBtn) {
+        deleteEventBtn.addEventListener("click", () => {
+            const currentEventId = deleteEventBtn.dataset.eventId;
+            let data = {
+                action: "delete-event",
+                event_id: currentEventId
+            };
+
+            if (confirm("¿Seguro que deseas eliminar este evento?")) {
+                fetch('/tfg-daw_mediupp/src/ajax/requests.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data),
+                })
+                    .then((response) => response.ok ? response.json() : Promise.reject(response))
+                    .then((data) => {
+                        if (data.success) {
+                            console.log(data.message);
+                            setTimeout(() => window.location.href = data.redirect, 250);
+                        } else {
+                            alert(data.message || 'No se pudo eliminar el evento. Intenta nuevamente.');
+                        }
+                    })
+                    .catch((error) => console.error("Error al eliminar el evento:", error));
             }
         });
-    });
+    }
 
     // FUNCIONALIDAD DEL MODAL DE PARTICIPANTES
     const modal = document.querySelector(".modal");
@@ -116,207 +185,252 @@ document.addEventListener("DOMContentLoaded", () => {
     const addParticipantBtn = document.getElementById("add-participant-btn");
     const openParticipantModalBtn = document.getElementById("open-participant-modal-btn");
     
-    openParticipantModalBtn.addEventListener("click", () => {
-        modal.classList.add("open");
-    });
+    if (openParticipantModalBtn) {
+        openParticipantModalBtn.addEventListener("click", () => {
+            console.log("Abriendo modal de participantes");
+        });
+    }
 
-    addParticipantBtn.addEventListener("click", () => {
-        
-    });
-
-    window.addEventListener("click", (e) => {
-        if (e.target === modalContainer) {
-            modal.classList.remove("open");
-        }
-    });
-
+    // window.addEventListener("click", (e) => {
+    //     if (e.target === modalContainer) {
+    //         modal.classList.remove("open");
+    //     }
+    // });
+    
+    const dynamicContent = document.querySelector("#dynamic-content");
     // FUNCIONALIDAD DE CARGA DE SECCIONES Y CONTENIDO (MEDIA POSTS Y CHAT)
     const toggleSectionBtns = document.querySelectorAll(".toggle-section-btn");
 
-    toggleSectionBtns.forEach(V => {
+    toggleSectionBtns.forEach(btn => {
         btn.addEventListener("click", () => {
             const target = btn.getAttribute("data-target");
+            
             loadContent(target);
         });
     });
 
+    // CARGA DINAMICA DE SECCION
+
+
+
     // CHAT Y ENVIO DE MENSAJES
     const chatInput = document.getElementById("chat-input");
     const openEmojisBtn = document.getElementById("open-emojis-btn");
-    const sendBtn = document.querySelector(".send-message-btn");
 
-    openEmojisBtn.addEventListener("click", () => {
-        // Mostrar emojis
-    });
+    // openEmojisBtn.addEventListener("click", () => {
+    //     // Mostrar emojis
+    // });
 
-    sendBtn.addEventListener("click", () => {
-        const message = chatInput.value.trim();
-        if (message) {
-            $.ajax({
-                url: "",
-                method: "POST",
-                data: {  },
-                success: (response) => {
+    // chatInput.addEventListener("keypress", (e) => {
+    //     if (e.key === "Enter" && e.shiftKey) {
+    //         chatInput.value += "\n";
+    //     }
+    // });
 
-                },
-                error: (error) => {
-                    
-                }
-            });
+
+const sendMessageBar = document.querySelector(".chat-message-bar");
+
+const dynamicContainer = document.querySelector(".dynamic-container");
+
+    dynamicContainer.addEventListener("submit", (event) => {
+        if (event.target.matches(".chat-message-bar form")) {
+            event.preventDefault(); // Evitar el comportamiento predeterminado del formulario
+
+            const messageInput = document.querySelector("#chat-message-input");
+            const message = messageInput.value.trim();
+
+            if (message) {
+                sendMessage(message);
+                messageInput.value = ""; // Limpiar el campo después de enviar
+            }
         }
     });
 
-    chatInput.addEventListener("keypress", (e) => {
-        if (e.key === "Enter" && !e.shiftKey) {
-            sendButton.click();
-        }
+function sendMessage(message) {
+    const data = {
+        action: "send-chat-message",
+        event_id: currentGlobalEventId,
+        message: message
+    };
 
-        if (e.key === "Enter" && e.shiftKey) {
-            chatInput.value += "\n";
-        }
-    });
-
-});
+    fetch('/tfg-daw_mediupp/src/ajax/requests.php', {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    })
+        .then((response) => response.json())
+        .then((result) => {
+            if (result.success) {
+                // Mensaje enviado con éxito
+                loadContent(CHAT_SECTION);
+            } else {
+                // Si 'success' es falso, asegúrate de que 'result.error' exista
+                console.error("Error al enviar el mensaje");
+            }
+        })
+        .catch((error) => {
+            console.error("Error en la solicitud de envío de mensaje:", error);
+        });
+}
 
 function loadContent(section) {
-    // Dependiendo del botón que se preosione, cargamos su contenido
-    if (section === MEDIA_SECTION) {
+
+    const dynamicContainer = document.querySelector(".dynamic-container");
+    dynamicContainer.innerHTML = '';
+
+    if (section === MEDIA_SECTION) {;
         loadMediaPosts();
+        const postModalBtnHTML = `
+            <div class="open-post-modal-btn">
+                <button id="create-post-btn" class="btn btn-primary">Crear Post</button>
+            </div>
+        `;
+        dynamicContainer.insertAdjacentHTML('beforeend', postModalBtnHTML);
     } else if (section === CHAT_SECTION) {
         loadChatMessages();
+        const chatMessageBarHTML = `
+            <div class="chat-message-bar">
+                <form action="" method="post">
+                    <input type="text" id="chat-message-input" placeholder="Escribe un mensaje..." />
+                    <button id="send-message-btn" class="btn btn-primary">Enviar</button>
+                </form>
+            </div>
+        `;
+        dynamicContainer.insertAdjacentHTML('beforeend', chatMessageBarHTML);
     }
 }
 
 // CARGA DE POSTS MULTIMEDIA Y MENSAJES DE CHAT
 function loadMediaPosts() {
     let data = {
-        action: "get_media_posts",
-        event_id: 1
+        action: "get-media-posts",
+        event_id: currentGlobalEventId
     };
 
-    $.ajax({
-        url: "",
-        method: "GET",
-        success: (response) => {
-            const posts = JSON.parse(response);
+    fetch('/tfg-daw_mediupp/src/ajax/requests.php?' + new URLSearchParams(data).toString())
+        .then((response) => response.json())  // Asegúrate de que la respuesta se convierta a JSON
+        .then((posts) => {
             posts.forEach(post => {
                 printMediaPost(post);
             });
-        },
-        error: (error) => {
-
-        }
-    });
+        })
+        .catch((error) => {
+            console.log("Error al cargar las publicaciones de medios:", error);
+        });
 }
 
 function loadChatMessages() {
     let data = {
-        action: "get_chat_messages",
-        event_id: 1
+        action: "get-chat-messages",
+        event_id: currentGlobalEventId
     };
 
-    $.ajax({
-        url: "",
-        method: "GET",
-        success: (response) => {
-            const messages = JSON.parse(response);
+    fetch('/tfg-daw_mediupp/src/ajax/requests.php?' + new URLSearchParams(data).toString())
+        .then((response) => response.json())  // Asegúrate de que la respuesta se convierta a JSON
+        .then((messages) => {
             messages.forEach(message => {
                 printChatMessage(message);
             });
-        },
-        error: (error) => {
-            
-        }
-    });
+        })
+        .catch((error) => {
+            console.log("Error al cargar los mensajes del chat:", error);
+        });
 }
 
 // IMPRESIÓN DE POSTS MULTIMEDIA Y MENSAJES DE CHAT
 function printMediaPost(post) {
-    const mediaPostContainer = document.querySelector("");
+    const mediaPostContainer = document.querySelector(".dynamic-container");
 
-    const postElement = document.createElement("div");
-    postElement.classList.add("");
-    
-    // Usuario que sube el post
-    const postRow1 = document.createElement("div");
-    postRow1.classList.add("");
+    let data = {
+        action: "get-user-info",
+        user_id: post.user_id
+    };
 
-    const postUserAvatar = document.createElement("div");
-    postUserAvatar.classList.add("");
+    fetch('/tfg-daw_mediupp/src/ajax/requests.php?' + new URLSearchParams(data).toString())
+        .then((response) => response.json())  // Asegúrate de que la respuesta se convierta a JSON
+        .then((user) => {
+            let user_pfp = user.pfp_src || 'default-avatar.png';
+            let user_name = user.usern || 'Desconocido';
 
-    const postUserAvatarImg = document.createElement("img");
-    postUserAvatarImg.classList.add("");
+            const isUserMessage = post.user_id === currentUserId;
+            const postAlignmentClass = isUserPost ? 'user-post' : 'other-post';
 
-    const postUserName = document.createElement("span");
-    postUserName.classList.add("");
+            const postHTML = `
+                <div class="post-element ${postAlignmentClass}">
+                    <div class="post-row-1">
+                        <div class="post-user-avatar">
+                            <img src="${user_pfp}" alt="User Avatar">
+                        </div>
+                        <span class="post-user-name">${user_name}</span>
+                    </div>
+                    <div class="post-row-2">
+                        <div class="post-content">
+                            <img src="${post.file_src}" alt="">
+                        </div>
+                    </div>
+                    <div class="post-row-3">
+                        <span class="post-date">${post.created_at}</span>
+                    
+                </div>
+            `;
 
-    postUserAvatar.appendChild(postUserAvatarImg);
-    postRow1.appendChild(postUserAvatar);
-    postRow1.appendChild(postUserName);
-
-    // Contenido multimedia
-    const postRow2 = document.createElement("div");
-    postRow2.classList.add("");
-
-    const postContent = document.createElement("div");
-    postContent.classList.add("");
-
-    const postMedia = document.createElement("img");
-    postMedia.classList.add("");
-
-    postContent.appendChild(postMedia);
-    postRow2.appendChild(postContent);
-
-    postElement.appendChild(postRow1);
-    postElement.appendChild(postRow2);
-
-    mediaPostContainer.appendChild(postElement);
+    mediaPostContainer.innerHTML += postHTML;
+        })
+        .catch((error) => {
+            console.log("Error al cargar la info del user:", error);
+        }); 
 }
+
 
 function printChatMessage(message) {
-    const chatContainer = document.querySelector("");
+    const chatContainer = document.querySelector(".dynamic-container");
+    let data = {
+        action: "get-user-info",
+        user_id: message.user_id
+    };
 
-    const messageElement = document.createElement("div");
-    messageElement.classList.add("");
+    fetch('/tfg-daw_mediupp/src/ajax/requests.php?' + new URLSearchParams(data).toString())
+        .then((response) => response.json())  // Asegúrate de que la respuesta se convierta a JSON
+        .then((user) => {
+            let user_pfp = user.pfp_src || 'default-avatar.png';
+            let user_name = user.usern || 'Desconocido';
 
-    // Usuario que manda el mensaje
-    const messageRow1 = document.createElement("div");
-    messageRow1.classList.add("");
+            const isUserMessage = message.user_id === currentUserId;
+            const messageAlignmentClass = isUserMessage ? 'user-message' : 'other-message';
+
+            const messageHTML = `
+                <div class="message-element ${messageAlignmentClass}">
+                    <div class="message-row-1">
+                        <div class="message-user-avatar">
+                            <img src="${user_pfp}" alt="User Avatar">
+                        </div>
+                        <span class="message-user-name">@${user_name}</span>
+                    </div>
+                    <div class="message-row-2">
+                        <span class="message-content">${message.message}</span>
+                    </div>
+                    <div class="message-row-3">
+                        <span class="message-date">${message.created_at}</span>
+                    </div>
+                </div>
+            `;
+
+            chatContainer.innerHTML += messageHTML;
+        })
+        .catch((error) => {
+            console.log("Error al cargar la info del user:", error);
+        });
+
     
-    const messageUserAvatar = document.createElement("div");
-    messageUserAvatar.classList.add("");
-
-    const messageUserAvatarImg = document.createElement("img");
-    messageUserAvatarImg.classList.add("");
-
-    const messageUserName = document.createElement("span");
-    messageUserName.classList.add("");
-
-    messageUserAvatar.appendChild(messageUserAvatarImg);
-    messageRow1.appendChild(messageUserAvatar);
-    messageRow1.appendChild(messageUserName);
-    
-    // Mensaje
-    const messageRow2 = document.createElement("div");
-    messageRow2.classList.add("");
-
-    const messageContent = document.createElement("span");
-    messageContent.classList.add("");
-
-    messageRow2.appendChild(messageContent);
-
-    // Fecha y hora
-    const messageRow3 = document.createElement("div");
-    messageRow3.classList.add("");
-
-    const messageDate = document.createElement("span");
-    messageDate.classList.add("");
-
-    messageRow3.appendChild(messageDate);
-
-    messageElement.appendChild(messageRow1);
-    messageElement.appendChild(messageRow2);
-    messageElement.appendChild(messageRow3);
-
-    chatContainer.appendChild(messageElement);
 }
+
+const openPostModalBtn = document.querySelector(".open-post-modal-btn");
+const filesModal = document.querySelector(".files-modal-container");
+
+    // Mostrar el modal
+    openPostModalBtn.addEventListener("click", () => {
+        filesModal.classList.toggle("open"); // Mostrar el modal
+    });
+});

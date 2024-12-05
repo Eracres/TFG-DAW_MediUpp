@@ -15,22 +15,22 @@
     function sendEmail($email, $subject, $body) {
         // $mail = new PHPMailer(true);
 
-        // try {
-        //     //$mail->SMTPDebug = SMTP::DEBUG_SERVER;
-        //     $mail->isSMTP();
-        //     $mail->Host = '';
-        //     $mail->SMTPAuth = false;
-        //     $mail->Username = '';
-        //     $mail->Password = '';
-        //     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        //     $mail->Port = 587;
+        try {
+            //$mail->SMTPDebug = SMTP::DEBUG_SERVER;
+            $mail->isSMTP();
+            $mail->Host = 'smtp.educa.madrid.org';
+            $mail->SMTPAuth = false;
+            $mail->Username = 'malmoroxcabrera@educa.madrid.org';
+            $mail->Password = 'Almoroxii1133';
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+            $mail->Port = 587;
 
-        //     $mail->CharSet = 'UTF-8';
-        //     $mail->setFrom('', '');
-        //     $mail->addAddress($email, '');
-        //     $mail->Subject = $subject;
-        //     $mail->isHTML(true);
-        //     $mail->Body = $body;
+            $mail->CharSet = 'UTF-8';
+            $mail->setFrom('malmoroxcabrera@educa.madrid.org', 'MediUpp TFG');
+            $mail->addAddress($email);
+            $mail->Subject = $subject;
+            $mail->isHTML(true);
+            $mail->Body = $body;
 
         //     $mail->send();
         //     return true;

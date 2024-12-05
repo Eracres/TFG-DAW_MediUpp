@@ -29,17 +29,14 @@ function toggleDarkMode() {
 }
 
 function loadUserNotifications() {
-    $.ajax({
-        url: "/config/ajax_requests.php",
-        method: "GET",
-        success: (response) => {
-            const notifications = JSON.parse(response);
+    axios.get('http://localhost/tfg-daw_mediupp/src/ajax/requests.php', { action: 'get-notifications' })
+        .then((response) => {
+            const notifications = response.data;
             renderNotificationsList(notifications);
-        },
-        error: (error) => {
+        })
+        .catch((error) => {
             console.log(error);
-        }
-    });
+        });
 }
 
 function renderNotificationsList(notifications) {
@@ -111,22 +108,18 @@ function renderNotificationsList(notifications) {
 function handleInvitation(action, invitationId) {
     let dataAction = action + "-invitation";
     
-    const data = {
+    let data = {
         action: dataAction,
         invitation_id: invitationId
     };
 
-    $.ajax({
-        url: "/config/ajax_requests.php",
-        method: "POST",
-        data: data,
-        success: () => {
+    axios.post('http://localhost/tfg-daw_mediupp/src/ajax/requests.php', data)
+        .then(() => {
             updateSingleNotificationContent(invitationId, action);
-        },
-        error: (error) => {
+        })
+        .catch((error) => {
             console.log("Error al actualizar la invitación:", error);
-        }
-    });
+        });
 }
 
 function setupInvitationButtons() {

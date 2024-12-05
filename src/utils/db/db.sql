@@ -22,7 +22,7 @@ CREATE TABLE users (
 );
 
 INSERT INTO users (usern, alias, bio, passw, email, pfp_src) 
-VALUES ('malmorox', 'MarcosAlmorox', 'Ejemplo de biografia 1', '$2y$10$t1A.8rwWep3rPp5zvCQ1DOyyw7ZALnglQYSl6/qHvU8Blt.hXflSy', 'malmorox@mediupp.es', '');
+VALUES ('malmorox', 'MarcosAlmorox', 'Ejemplo de biografia 1', '$2y$10$t1A.8rwWep3rPp5zvCQ1DOyyw7ZALnglQYSl6/qHvU8Blt.hXflSy', 'malmoroxcabrera@educa.madrid.org', '');
 INSERT INTO users (usern, alias, bio, passw, email, pfp_src) 
 VALUES ('smacias', 'SamuelMacias', 'Ejemplo de biografia 2', '$2y$10$yUBkHQfKhJlMDek0wxOm.uII0CIGr1Uzf/WO6ymtqBew8liGhJCn6', 'smacias@mediupp.es', '');
 INSERT INTO users (usern, alias, bio, passw, email, pfp_src) 

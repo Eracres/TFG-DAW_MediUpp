@@ -2,6 +2,7 @@
 
     require_once $_SERVER['DOCUMENT_ROOT'] . '/TFG-DAW_MediUpp/src/utils/init.php';
 
+    checkRememberMeCookie();
     redirectIfLoggedIn();
 
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['send'])) {
@@ -58,19 +59,25 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script defer src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
-<body>
-    <h2> Recupera tu contraseña </h2>
-    <form action="" method="post">
-        <label for="recovery_email"> Correo electrónico asociado a la cuenta: </label>
-        <input type="email" 
-            class="recover-input<?= isset($error) ? ' form-input-error' : ''; ?>"
-            name="recovery_email"
-            value="<?= isset($recovery_email) ? htmlspecialchars($recovery_email) : '' ?>">
-        <?php if (isset($error)) : ?>
-            <span class="form-error-text"> <?= $error; ?> </span>
-        <?php endif; ?>
+<body class="recover-body">
+    <div class="recover-container">
+        <img src="../../resources/logo/logo.png" alt="Logo" class="recover-logo">
+        <div class="login-title-container">
+            <h2 class="login-title">Recupera tu contraseña</h2>
+        </div>
+        <form action="" method="post" class="recover-form">
+            <label for="recovery_email" class="recover-label"> Correo electrónico asociado a la cuenta: </label>
+            <input type="email" 
+                class="recover-input<?= isset($error) ? ' form-input-error' : ''; ?>"
+                name="recovery_email"
+                placeholder="Tu correo electrónico"
+                value="<?= isset($recovery_email) ? htmlspecialchars($recovery_email) : '' ?>">
+            <?php if (isset($error)) : ?>
+                <span class="form-error-text"> <?= $error; ?> </span>
+            <?php endif; ?>
 
-        <button type="submit" name="send" id=""> Enviar </button>
-    </form>
+            <button type="submit" name="send" class="recover-button"> Enviar </button>
+        </form>
+    </div>
 </body>
 </html>

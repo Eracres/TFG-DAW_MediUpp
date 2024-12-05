@@ -2,6 +2,7 @@
 
     require_once $_SERVER['DOCUMENT_ROOT'] . '/TFG-DAW_MediUpp/src/utils/init.php';
 
+    checkRememberMeCookie();
     redirectIfLoggedIn();
 
     if (!isset($_GET['token']) || !validateToken($_GET['token'])) {
